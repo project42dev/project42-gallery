@@ -1,0 +1,30 @@
+{
+  "id": "06-galactic-guide",
+  "name": "The Galactic Guide (Don't Panic)",
+  "tagline": "The Answer to AI, Agents, and Everything.",
+  "description": "A friendly, provider-neutral survival guide from your very first prompt to production multi-agent swarms. 13 paths, 92 modules, and always knowing where your context is.",
+  "author": "Project 42 Core Team",
+  "version": "1.0.0",
+  "font": "Bricolage Grotesque, sans-serif",
+  "tokens": {
+    "--p42-bg": "#090d16",
+    "--p42-surface": "#0c1220",
+    "--p42-surface-card": "rgba(13, 20, 36, 0.94)",
+    "--p42-card-border": "rgba(245, 158, 11, 0.45)",
+    "--p42-primary": "#f59e0b",
+    "--p42-primary-fg": "#090d16",
+    "--p42-accent": "#10b981",
+    "--p42-accent-fg": "#ffffff",
+    "--p42-secondary-btn-bg": "#f59e0b",
+    "--p42-secondary-btn-fg": "#090d16",
+    "--p42-secondary-btn-border": "transparent",
+    "--p42-text-title": "#fef3c7",
+    "--p42-text-body": "#e2e8f0",
+    "--p42-text-muted": "#94a3b8",
+    "--p42-eyebrow": "#f59e0b"
+  },
+  "subbrands": {
+    "learn": "Project 42 Guide",
+    "guide": "42 Don't Panic Manual"
+  }
+}

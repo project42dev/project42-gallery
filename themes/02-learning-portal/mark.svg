@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Project 42 Learning Portal concept mark</title>
+  <rect width="128" height="128" rx="28" fill="#fff5df"/>
+  <path d="M30 96V54c0-25 14-39 34-39s34 14 34 39v42" fill="none" stroke="#07345f" stroke-width="12"/>
+  <path d="M27 99h74M37 87h58M47 75h46" fill="none" stroke="#ff5630" stroke-width="7" stroke-linecap="round"/>
+  <text x="64" y="68" text-anchor="middle" fill="#087d79" font-family="Arial, Helvetica, sans-serif" font-size="37" font-weight="900" letter-spacing="-4">42</text>
+</svg>

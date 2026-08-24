@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <circle cx="80" cy="80" r="70" fill="#17213b" stroke="#f1258e" stroke-width="3.5"/>
+  <circle cx="80" cy="80" r="42" fill="none" stroke="#2054f6" stroke-width="3" stroke-dasharray="8 4"/>
+  <circle cx="80" cy="38" r="8" fill="#65c943"/>
+  <circle cx="122" cy="80" r="8" fill="#f1258e"/>
+  <circle cx="80" cy="122" r="8" fill="#2054f6"/>
+  <circle cx="38" cy="80" r="8" fill="#65c943"/>
+  <text x="80" y="86" fill="#ffffff" font-family="Outfit, sans-serif" font-size="14" font-weight="900" text-anchor="middle">SYNC</text>
+</svg>

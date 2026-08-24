@@ -1,0 +1,30 @@
+{
+  "id": "01-cosmic-answer",
+  "name": "Cosmic Answer",
+  "tagline": "Learn to ask better questions of an expanding universe.",
+  "description": "A memorable expression of 42: open inquiry, many possible paths, and evidence guiding learners toward useful answers.",
+  "author": "Project 42 Core Team",
+  "version": "1.0.0",
+  "font": "Outfit, sans-serif",
+  "tokens": {
+    "--p42-bg": "#080d2a",
+    "--p42-surface": "#0c112d",
+    "--p42-surface-card": "rgba(12, 17, 45, 0.95)",
+    "--p42-card-border": "rgba(57, 216, 255, 0.35)",
+    "--p42-primary": "#39d8ff",
+    "--p42-primary-fg": "#080d2a",
+    "--p42-accent": "#ffca68",
+    "--p42-accent-fg": "#080d2a",
+    "--p42-secondary-btn-bg": "#18204d",
+    "--p42-secondary-btn-fg": "#ffffff",
+    "--p42-secondary-btn-border": "rgba(57, 216, 255, 0.3)",
+    "--p42-text-title": "#ffffff",
+    "--p42-text-body": "#cbd5e1",
+    "--p42-text-muted": "#94a3b8",
+    "--p42-eyebrow": "#39d8ff"
+  },
+  "subbrands": {
+    "learn": "Project 42 / Learn",
+    "guide": "Project 42 / Field Guide"
+  }
+}

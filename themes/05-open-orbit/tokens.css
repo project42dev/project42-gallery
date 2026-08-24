@@ -1,0 +1,19 @@
+/* Project 42 Design System Tokens — Open Orbit */
+:root[data-theme="05-open-orbit"], .theme-open-orbit-card {
+  --p42-bg: #f4f7fb;
+  --p42-surface: #e9eff8;
+  --p42-surface-card: rgba(255, 255, 255, 0.96);
+  --p42-card-border: rgba(32, 84, 246, 0.25);
+  --p42-primary: #2054f6;
+  --p42-primary-fg: #ffffff;
+  --p42-accent: #65c943;
+  --p42-accent-fg: #ffffff;
+  --p42-secondary-btn-bg: #2054f6;
+  --p42-secondary-btn-fg: #ffffff;
+  --p42-secondary-btn-border: transparent;
+  --p42-text-title: #17213b;
+  --p42-text-body: #475569;
+  --p42-text-muted: #64748b;
+  --p42-eyebrow: #2054f6;
+  --p42-font-heading: 'Outfit, sans-serif';
+}

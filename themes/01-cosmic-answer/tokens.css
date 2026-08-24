@@ -1,0 +1,19 @@
+/* Project 42 Design System Tokens — Cosmic Answer */
+:root[data-theme="01-cosmic-answer"], .theme-cosmic-answer-card {
+  --p42-bg: #080d2a;
+  --p42-surface: #0c112d;
+  --p42-surface-card: rgba(12, 17, 45, 0.95);
+  --p42-card-border: rgba(57, 216, 255, 0.35);
+  --p42-primary: #39d8ff;
+  --p42-primary-fg: #080d2a;
+  --p42-accent: #ffca68;
+  --p42-accent-fg: #080d2a;
+  --p42-secondary-btn-bg: #18204d;
+  --p42-secondary-btn-fg: #ffffff;
+  --p42-secondary-btn-border: rgba(57, 216, 255, 0.3);
+  --p42-text-title: #ffffff;
+  --p42-text-body: #cbd5e1;
+  --p42-text-muted: #94a3b8;
+  --p42-eyebrow: #39d8ff;
+  --p42-font-heading: 'Outfit, sans-serif';
+}

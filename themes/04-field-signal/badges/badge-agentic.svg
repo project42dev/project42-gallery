@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <circle cx="80" cy="80" r="70" fill="#071f1a" stroke="#4bd9d0" stroke-width="3"/>
+  <path d="M 35 120 Q 80 40 125 120" fill="none" stroke="#ff9b19" stroke-width="3" stroke-dasharray="6 3"/>
+  <circle cx="50" cy="98" r="7" fill="#ff9b19"/>
+  <circle cx="80" cy="65" r="9" fill="#f6edd9" stroke="#071f1a" stroke-width="2"/>
+  <circle cx="110" cy="98" r="7" fill="#ff9b19"/>
+  <text x="80" y="140" fill="#4bd9d0" font-family="Space Grotesk, sans-serif" font-size="12" font-weight="800" text-anchor="middle">PATROL</text>
+</svg>

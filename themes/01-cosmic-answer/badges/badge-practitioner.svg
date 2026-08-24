@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <radialGradient id="c01-2" cx="50%" cy="50%" r="50%"><stop offset="0%" stop-color="#241b5e"/><stop offset="100%" stop-color="#080d2a"/></radialGradient>
+  </defs>
+  <polygon points="80,10 145,45 145,115 80,150 15,115 15,45" fill="url(#c01-2)" stroke="#754cff" stroke-width="3"/>
+  <circle cx="80" cy="80" r="44" fill="none" stroke="#39d8ff" stroke-width="2" stroke-dasharray="6 3"/>
+  <circle cx="80" cy="80" r="24" fill="#080d2a" stroke="#ffca68" stroke-width="2.5"/>
+  <text x="80" y="87" fill="#ffca68" font-family="Outfit, sans-serif" font-size="18" font-weight="900" text-anchor="middle">PRO</text>
+</svg>

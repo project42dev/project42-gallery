@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <polygon points="80,14 148,80 80,146 12,80" fill="#17243c" stroke="#f59e0b" stroke-width="4"/>
+  <rect x="42" y="58" width="76" height="44" rx="8" fill="#f59e0b"/>
+  <text x="80" y="77" fill="#090d16" font-family="Bricolage Grotesque, sans-serif" font-size="11" font-weight="900" text-anchor="middle">DON'T</text>
+  <text x="80" y="93" fill="#090d16" font-family="Bricolage Grotesque, sans-serif" font-size="13" font-weight="900" text-anchor="middle">PANIC</text>
+</svg>

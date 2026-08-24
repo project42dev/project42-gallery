@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128" role="img" aria-labelledby="title">
+  <title id="title">Project 42 Field Signal concept mark</title>
+  <rect width="128" height="128" rx="24" fill="#071f1a"/>
+  <circle cx="64" cy="64" r="42" fill="#f6edd9" stroke="#ff9b19" stroke-width="5"/>
+  <path d="M64 15v17M64 96v17M15 64h17M96 64h17" stroke="#4bd9d0" stroke-width="4" stroke-linecap="round"/>
+  <path d="m64 26 8 21 21 8-21 8-8 21-8-21-21-8 21-8Z" fill="none" stroke="#173d33" stroke-width="4"/>
+  <text x="64" y="77" text-anchor="middle" fill="#071f1a" font-family="Arial, Helvetica, sans-serif" font-size="43" font-weight="900" letter-spacing="-5">42</text>
+</svg>

@@ -1,0 +1,30 @@
+{
+  "id": "03-model-constellation",
+  "name": "Model Constellation",
+  "tagline": "Understand the whole AI landscape—not one vendor.",
+  "description": "A provider-neutral network where models, tools, agents, sources, and fact checks connect into durable learner evidence.",
+  "author": "Project 42 Core Team",
+  "version": "1.0.0",
+  "font": "Space Grotesk, sans-serif",
+  "tokens": {
+    "--p42-bg": "#080c14",
+    "--p42-surface": "#0d1320",
+    "--p42-surface-card": "rgba(12, 17, 28, 0.94)",
+    "--p42-card-border": "rgba(88, 228, 194, 0.35)",
+    "--p42-primary": "#58e4c2",
+    "--p42-primary-fg": "#080c14",
+    "--p42-accent": "#8d64ff",
+    "--p42-accent-fg": "#ffffff",
+    "--p42-secondary-btn-bg": "#58e4c2",
+    "--p42-secondary-btn-fg": "#080c14",
+    "--p42-secondary-btn-border": "transparent",
+    "--p42-text-title": "#ffffff",
+    "--p42-text-body": "#cbd5e1",
+    "--p42-text-muted": "#94a3b8",
+    "--p42-eyebrow": "#58e4c2"
+  },
+  "subbrands": {
+    "learn": "42 Learn · path node",
+    "guide": "42 Guide · signal node"
+  }
+}

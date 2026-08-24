@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <circle cx="80" cy="80" r="70" fill="#092f54" stroke="#ea580c" stroke-width="4"/>
+  <path d="M 45 125 L 45 65 A 35 35 0 0 1 115 65 L 115 125 Z" fill="none" stroke="#fbf7ef" stroke-width="4"/>
+  <line x1="80" y1="40" x2="80" y2="125" stroke="#0d9488" stroke-width="3"/>
+  <circle cx="80" cy="80" r="16" fill="#ea580c"/>
+  <text x="80" y="86" fill="#ffffff" font-family="Inter, sans-serif" font-size="14" font-weight="800" text-anchor="middle">AI</text>
+</svg>

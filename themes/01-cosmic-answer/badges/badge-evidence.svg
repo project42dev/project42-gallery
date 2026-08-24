@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <defs>
+    <linearGradient id="gold-star" x1="0%" y1="0%" x2="100%" y2="100%"><stop offset="0%" stop-color="#ffe299"/><stop offset="100%" stop-color="#d97706"/></linearGradient>
+  </defs>
+  <circle cx="80" cy="80" r="70" fill="#080d2a" stroke="url(#gold-star)" stroke-width="4"/>
+  <polygon points="80,24 94,62 136,62 102,88 115,128 80,104 45,128 58,88 24,62 66,62" fill="url(#gold-star)"/>
+  <circle cx="80" cy="80" r="18" fill="#080d2a"/>
+  <text x="80" y="86" fill="#39d8ff" font-family="Outfit, sans-serif" font-size="14" font-weight="900" text-anchor="middle">NIST</text>
+</svg>

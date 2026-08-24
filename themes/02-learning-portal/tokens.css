@@ -1,0 +1,19 @@
+/* Project 42 Design System Tokens — Learning Portal */
+:root[data-theme="02-learning-portal"], .theme-learning-portal-card {
+  --p42-bg: #fbf7ef;
+  --p42-surface: #f5eedf;
+  --p42-surface-card: rgba(255, 246, 229, 0.96);
+  --p42-card-border: rgba(234, 88, 12, 0.25);
+  --p42-primary: #ea580c;
+  --p42-primary-fg: #ffffff;
+  --p42-accent: #0d9488;
+  --p42-accent-fg: #ffffff;
+  --p42-secondary-btn-bg: #ea580c;
+  --p42-secondary-btn-fg: #ffffff;
+  --p42-secondary-btn-border: transparent;
+  --p42-text-title: #092f54;
+  --p42-text-body: #475569;
+  --p42-text-muted: #64748b;
+  --p42-eyebrow: #ea580c;
+  --p42-font-heading: 'Inter, sans-serif';
+}

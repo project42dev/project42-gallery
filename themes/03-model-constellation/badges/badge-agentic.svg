@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" width="160" height="160">
+  <circle cx="80" cy="80" r="70" fill="#080c14" stroke="#8d64ff" stroke-width="3.5"/>
+  <circle cx="80" cy="80" r="48" fill="none" stroke="#58e4c2" stroke-width="1.5" stroke-dasharray="4 4"/>
+  <circle cx="80" cy="32" r="8" fill="#58e4c2"/>
+  <circle cx="122" cy="56" r="8" fill="#8d64ff"/>
+  <circle cx="122" cy="104" r="8" fill="#4a6fff"/>
+  <circle cx="80" cy="128" r="8" fill="#58e4c2"/>
+  <circle cx="38" cy="104" r="8" fill="#8d64ff"/>
+  <circle cx="38" cy="56" r="8" fill="#4a6fff"/>
+  <circle cx="80" cy="80" r="20" fill="#162238" stroke="#ffffff" stroke-width="2"/>
+  <text x="80" y="86" fill="#58e4c2" font-family="Space Grotesk, sans-serif" font-size="14" font-weight="900" text-anchor="middle">MCP</text>
+</svg>

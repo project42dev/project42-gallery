@@ -1,0 +1,30 @@
+{
+  "id": "04-field-signal",
+  "name": "Field Signal",
+  "tagline": "Practical bearings for a fast-changing field.",
+  "description": "A durable operational identity combining a field manual, a navigational beacon, and evidence-marked routes.",
+  "author": "Project 42 Core Team",
+  "version": "1.0.0",
+  "font": "Space Grotesk, sans-serif",
+  "tokens": {
+    "--p42-bg": "#071c17",
+    "--p42-surface": "#061814",
+    "--p42-surface-card": "rgba(7, 31, 26, 0.96)",
+    "--p42-card-border": "rgba(5, 150, 105, 0.35)",
+    "--p42-primary": "#ff9b19",
+    "--p42-primary-fg": "#071f1a",
+    "--p42-accent": "#4bd9d0",
+    "--p42-accent-fg": "#071f1a",
+    "--p42-secondary-btn-bg": "#ff9b19",
+    "--p42-secondary-btn-fg": "#071f1a",
+    "--p42-secondary-btn-border": "transparent",
+    "--p42-text-title": "#ffffff",
+    "--p42-text-body": "#cbd5e1",
+    "--p42-text-muted": "#94a3b8",
+    "--p42-eyebrow": "#ff9b19"
+  },
+  "subbrands": {
+    "learn": "Project 42 · Learn Routes",
+    "guide": "Project 42 · Field Guide"
+  }
+}
