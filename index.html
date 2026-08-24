@@ -318,6 +318,13 @@
       width: 68px;
       height: 68px;
       filter: drop-shadow(0 4px 10px rgba(0,0,0,0.3));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .badge-card-img svg {
+      width: 100%;
+      height: 100%;
     }
 
     .badge-card-level {
@@ -347,7 +354,7 @@
       background: #080d2a;
     }
     .theme-cosmic-card .poster-hero-section {
-      background-image: url('themes/01-cosmic-answer/hero.png');
+      background-image: url('concepts/01-cosmic-answer/hero.png');
     }
     .theme-cosmic-card .poster-floating-card {
       background: rgba(12, 17, 45, 0.94);
@@ -371,7 +378,7 @@
       color: #092f54;
     }
     .theme-portal-card .poster-hero-section {
-      background-image: url('themes/02-learning-portal/hero.png');
+      background-image: url('concepts/02-learning-portal/hero.png');
     }
     .theme-portal-card .poster-floating-card {
       background: rgba(255, 246, 229, 0.96);
@@ -396,7 +403,7 @@
       background: #080c14;
     }
     .theme-constellation-card .poster-hero-section {
-      background-image: url('themes/03-model-constellation/hero.png');
+      background-image: url('concepts/03-model-constellation/hero.png');
     }
     .theme-constellation-card .poster-floating-card {
       background: rgba(12, 17, 28, 0.94);
@@ -419,7 +426,7 @@
       background: #071c17;
     }
     .theme-field-card .poster-hero-section {
-      background-image: url('themes/04-field-signal/hero.png');
+      background-image: url('concepts/04-field-signal/hero.png');
     }
     .theme-field-card .poster-floating-card {
       background: rgba(7, 31, 26, 0.96);
@@ -443,7 +450,7 @@
       color: #17213b;
     }
     .theme-orbit-card .poster-hero-section {
-      background-image: url('themes/05-open-orbit/hero.png');
+      background-image: url('concepts/05-open-orbit/hero.png');
     }
     .theme-orbit-card .poster-floating-card {
       background: rgba(255, 255, 255, 0.96);
@@ -469,7 +476,7 @@
       color: #fef3c7;
     }
     .theme-galactic-card .poster-hero-section {
-      background-image: url('themes/06-galactic-guide/hero.png');
+      background-image: url('concepts/06-galactic-guide/hero.png');
     }
     .theme-galactic-card .poster-floating-card {
       background: rgba(13, 20, 36, 0.94);
@@ -871,7 +878,7 @@
         <div class="poster-hero-section">
           <div class="poster-floating-card">
             <div class="brand-header-row">
-              <img src="themes/01-cosmic-answer/mark.svg" alt="Brand Mark" class="brand-header-logo" id="posterLogo">
+              <img src="concepts/01-cosmic-answer/mark.svg" alt="Brand Mark" class="brand-header-logo" id="posterLogo">
               <span class="brand-header-title" id="posterTitle">Project 42</span>
             </div>
             <div class="poster-eyebrow" id="posterEyebrow">01 · COSMIC ANSWER</div>
@@ -934,7 +941,7 @@
         <div class="poster-hero-section">
           <div class="poster-floating-card">
             <div class="brand-header-row">
-              <img src="themes/01-cosmic-answer/mark.svg" alt="Brand Mark" class="brand-header-logo" id="webHeroLogo">
+              <img src="concepts/01-cosmic-answer/mark.svg" alt="Brand Mark" class="brand-header-logo" id="webHeroLogo">
               <span class="brand-header-title" id="webHeroTitle">Project 42</span>
             </div>
             <div class="poster-eyebrow" id="webHeroEyebrow">01 · COSMIC ANSWER</div>
@@ -1047,7 +1054,7 @@
     <!-- ----------------------------------------------------------- -->
     <div class="layout-view" id="gateway-layout-centered">
       <section class="hero-centered-container">
-        <img src="themes/01-cosmic-answer/mark.svg" alt="Centered Logo" class="hero-centered-logo" id="centeredHeroMark">
+        <img src="concepts/01-cosmic-answer/mark.svg" alt="Centered Logo" class="hero-centered-logo" id="centeredHeroMark">
         <div class="poster-eyebrow" id="centeredEyebrow">01 · COSMIC ANSWER</div>
         <h1 style="font-size: clamp(34px, 4.5vw, 56px); font-weight: 900; letter-spacing: -0.05em; margin-bottom: 18px; max-width: 820px;" id="centeredHeadline">
           Learn to ask better questions of an expanding universe.
@@ -1115,7 +1122,7 @@ const WeatherToolSchema = z.object({ location: z.string().min(2), units: z.enum(
       <!-- Portal Top Bar -->
       <div class="prod-portal-nav">
         <div class="prod-portal-breadcrumbs">
-          <img src="themes/01-cosmic-answer/mark.svg" class="brand-header-logo" id="learnNavMark" style="width: 28px; height: 28px;">
+          <img src="concepts/01-cosmic-answer/mark.svg" class="brand-header-logo" id="learnNavMark" style="width: 28px; height: 28px;">
           <span>Project 42</span>
           <span>/</span>
           <span id="learnSubbrandTag" style="color: #ffffff; font-weight: 700;">Project 42 / Learn</span>
@@ -1275,7 +1282,7 @@ const result = await sandbox.execute({
       <!-- Portal Top Bar -->
       <div class="prod-portal-nav">
         <div class="prod-portal-breadcrumbs">
-          <img src="themes/01-cosmic-answer/mark.svg" class="brand-header-logo" id="guideNavMark" style="width: 28px; height: 28px;">
+          <img src="concepts/01-cosmic-answer/mark.svg" class="brand-header-logo" id="guideNavMark" style="width: 28px; height: 28px;">
           <span>Project 42</span>
           <span>/</span>
           <span id="guideSubbrandTag" style="color: #ffffff; font-weight: 700;">Project 42 / Field Guide</span>
@@ -1393,121 +1400,265 @@ const result = await sandbox.execute({
 
   <script>
     const themeMetadata = {
-      cosmic: {
-        cardClass: "theme-cosmic-card",
-        brandTitle: "Project 42",
-        eyebrow: "01 · COSMIC ANSWER",
-        headline: "Learn to ask better questions of an expanding universe.",
-        lede: "A memorable expression of “42”: open inquiry, many possible paths, and evidence guiding learners toward useful answers.",
-        btn1: "Start learning",
-        btn2: "Open Field Guide",
-        mark: "themes/01-cosmic-answer/mark.svg",
-        identityDesc: "An orbital answer aperture becomes the large hero motif; the compact 42 sits inside a simple orbit that survives at favicon scale.",
-        subbrands: ["Project 42 / Learn", "Project 42 / Field Guide"],
-        swatches: ["#080d2a", "#754cff", "#39d8ff", "#ffca68"],
-        badges: [
-          { file: "themes/01-cosmic-answer/badge-foundations.svg", title: "Cosmic Foundations", level: "Level 01" },
-          { file: "themes/01-cosmic-answer/badge-practitioner.svg", title: "Orbital Practitioner", level: "Level 02" },
-          { file: "themes/01-cosmic-answer/badge-agentic.svg", title: "Constellation Architect", level: "Level 03" },
-          { file: "themes/01-cosmic-answer/badge-evidence.svg", title: "Evidence Master", level: "Mastery" }
-        ]
+  "cosmic": {
+    "cardClass": "theme-cosmic-card",
+    "brandTitle": "Project 42",
+    "eyebrow": "01 · COSMIC ANSWER",
+    "headline": "Learn to ask better questions of an expanding universe.",
+    "lede": "A memorable expression of “42”: open inquiry, many possible paths, and evidence guiding learners toward useful answers.",
+    "btn1": "Start learning",
+    "btn2": "Open Field Guide",
+    "mark": "concepts/01-cosmic-answer/mark.svg",
+    "identityDesc": "An orbital answer aperture becomes the large hero motif; the compact 42 sits inside a simple orbit that survives at favicon scale.",
+    "subbrands": [
+      "Project 42 / Learn",
+      "Project 42 / Field Guide"
+    ],
+    "swatches": [
+      "#080d2a",
+      "#754cff",
+      "#39d8ff",
+      "#ffca68"
+    ],
+    "badges": [
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <defs>\n    <radialGradient id=\"c01-1\" cx=\"50%\" cy=\"50%\" r=\"50%\"><stop offset=\"0%\" stop-color=\"#18204d\"/><stop offset=\"100%\" stop-color=\"#080d2a\"/></radialGradient>\n    <linearGradient id=\"g01-1\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"#ffca68\"/><stop offset=\"100%\" stop-color=\"#f59e0b\"/></linearGradient>\n  </defs>\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"url(#c01-1)\" stroke=\"#39d8ff\" stroke-width=\"2.5\" stroke-dasharray=\"4 3\"/>\n  <ellipse cx=\"80\" cy=\"80\" rx=\"54\" ry=\"22\" fill=\"none\" stroke=\"url(#g01-1)\" stroke-width=\"3\" transform=\"rotate(-25 80 80)\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"22\" fill=\"#0c112d\" stroke=\"#754cff\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"87\" fill=\"#ffffff\" font-family=\"Outfit, sans-serif\" font-size=\"20\" font-weight=\"900\" text-anchor=\"middle\">42</text>\n  <circle cx=\"124\" cy=\"58\" r=\"4.5\" fill=\"#39d8ff\"/>\n</svg>",
+        "title": "Cosmic Foundations",
+        "level": "Level 01"
       },
-      portal: {
-        cardClass: "theme-portal-card",
-        brandTitle: "Project 42",
-        eyebrow: "02 · LEARNING PORTAL",
-        headline: "From curious beginner to capable AI practitioner.",
-        lede: "A warm, human education brand built around an open doorway, visible steps, and progress that never feels mysterious.",
-        btn1: "Choose a path",
-        btn2: "Find an answer",
-        mark: "themes/02-learning-portal/mark.svg",
-        identityDesc: "The arch is both a portal and a protected learning space. Steps distinguish structured Learn from the quick-entry Field Guide.",
-        subbrands: ["Project 42 Learn", "Project 42 Field Guide"],
-        swatches: ["#fbf7ef", "#ea580c", "#ff5630", "#0d9488"],
-        badges: [
-          { file: "themes/02-learning-portal/badge-foundations.svg", title: "Portal Novice", level: "Level 01" },
-          { file: "themes/02-learning-portal/badge-practitioner.svg", title: "Ascending Steps", level: "Level 02" },
-          { file: "themes/02-learning-portal/badge-agentic.svg", title: "Portal Architect", level: "Level 03" },
-          { file: "themes/02-learning-portal/badge-evidence.svg", title: "Portal Keyholder", level: "Mastery" }
-        ]
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <defs>\n    <radialGradient id=\"c01-2\" cx=\"50%\" cy=\"50%\" r=\"50%\"><stop offset=\"0%\" stop-color=\"#241b5e\"/><stop offset=\"100%\" stop-color=\"#080d2a\"/></radialGradient>\n  </defs>\n  <polygon points=\"80,10 145,45 145,115 80,150 15,115 15,45\" fill=\"url(#c01-2)\" stroke=\"#754cff\" stroke-width=\"3\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"44\" fill=\"none\" stroke=\"#39d8ff\" stroke-width=\"2\" stroke-dasharray=\"6 3\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"24\" fill=\"#080d2a\" stroke=\"#ffca68\" stroke-width=\"2.5\"/>\n  <text x=\"80\" y=\"87\" fill=\"#ffca68\" font-family=\"Outfit, sans-serif\" font-size=\"18\" font-weight=\"900\" text-anchor=\"middle\">PRO</text>\n</svg>",
+        "title": "Orbital Practitioner",
+        "level": "Level 02"
       },
-      constellation: {
-        cardClass: "theme-constellation-card",
-        brandTitle: "Project 42",
-        eyebrow: "03 · MODEL CONSTELLATION",
-        headline: "Understand the whole AI landscape—not one vendor.",
-        lede: "A provider-neutral network where models, tools, agents, sources, and fact checks connect into durable learner evidence.",
-        btn1: "Explore models",
-        btn2: "Build your path",
-        mark: "themes/03-model-constellation/mark.svg",
-        identityDesc: "No node dominates. The open center represents a platform that can connect new providers and methods as the field changes.",
-        subbrands: ["42 Learn · path node", "42 Guide · signal node"],
-        swatches: ["#080c14", "#58e4c2", "#8d64ff", "#4a6fff"],
-        badges: [
-          { file: "themes/03-model-constellation/badge-foundations.svg", title: "Node Spark", level: "Level 01" },
-          { file: "themes/03-model-constellation/badge-practitioner.svg", title: "Provider Crosslink", level: "Level 02" },
-          { file: "themes/03-model-constellation/badge-agentic.svg", title: "Neural Swarm Lead", level: "Level 03" },
-          { file: "themes/03-model-constellation/badge-evidence.svg", title: "Omni-Cluster Master", level: "Mastery" }
-        ]
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <defs>\n    <radialGradient id=\"c01-3\" cx=\"50%\" cy=\"50%\" r=\"50%\"><stop offset=\"0%\" stop-color=\"#14345c\"/><stop offset=\"100%\" stop-color=\"#080d2a\"/></radialGradient>\n  </defs>\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"url(#c01-3)\" stroke=\"#ffca68\" stroke-width=\"3\"/>\n  <line x1=\"80\" y1=\"25\" x2=\"80\" y2=\"135\" stroke=\"#39d8ff\" stroke-width=\"1.5\" stroke-dasharray=\"4 2\"/>\n  <line x1=\"25\" y1=\"80\" x2=\"135\" y2=\"80\" stroke=\"#39d8ff\" stroke-width=\"1.5\" stroke-dasharray=\"4 2\"/>\n  <circle cx=\"80\" cy=\"35\" r=\"7\" fill=\"#39d8ff\"/>\n  <circle cx=\"125\" cy=\"80\" r=\"7\" fill=\"#754cff\"/>\n  <circle cx=\"80\" cy=\"125\" r=\"7\" fill=\"#ffca68\"/>\n  <circle cx=\"35\" cy=\"80\" r=\"7\" fill=\"#39d8ff\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"22\" fill=\"#080d2a\" stroke=\"#ffffff\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"86\" fill=\"#ffffff\" font-family=\"Outfit, sans-serif\" font-size=\"14\" font-weight=\"900\" text-anchor=\"middle\">SWARM</text>\n</svg>",
+        "title": "Constellation Architect",
+        "level": "Level 03"
       },
-      field: {
-        cardClass: "theme-field-card",
-        brandTitle: "Project 42",
-        eyebrow: "04 · FIELD SIGNAL",
-        headline: "Practical bearings for a fast-changing field.",
-        lede: "A durable operational identity combining a field manual, a navigational beacon, and evidence-marked routes.",
-        btn1: "Open Field Guide",
-        btn2: "Follow a learning route",
-        mark: "themes/04-field-signal/mark.svg",
-        identityDesc: "The compass-and-signal mark promises orientation rather than omniscience—useful for learning, deployment, and incident response.",
-        subbrands: ["Project 42 · Learn Routes", "Project 42 · Field Guide"],
-        swatches: ["#071f1a", "#f6edd9", "#ff9b19", "#4bd9d0"],
-        badges: [
-          { file: "themes/04-field-signal/badge-foundations.svg", title: "Compass Bearing", level: "Level 01" },
-          { file: "themes/04-field-signal/badge-practitioner.svg", title: "Signal Lantern", level: "Level 02" },
-          { file: "themes/04-field-signal/badge-agentic.svg", title: "Waypoint Sentinel", level: "Level 03" },
-          { file: "themes/04-field-signal/badge-evidence.svg", title: "Master Navigator", level: "Mastery" }
-        ]
-      },
-      orbit: {
-        cardClass: "theme-orbit-card",
-        brandTitle: "Project 42",
-        eyebrow: "05 · OPEN ORBIT",
-        headline: "Learning that stays open, current, and in motion.",
-        lede: "A visibly open review loop connecting research, teaching, practice, fact-checking, and community contribution.",
-        btn1: "Start a learning loop",
-        btn2: "See how content stays current",
-        mark: "themes/05-open-orbit/mark.svg",
-        identityDesc: "The broken orbit avoids a closed system: learners and contributors can enter, branch, review, and improve the shared body of knowledge.",
-        subbrands: ["Project 42 Learn", "Project 42 Field Guide"],
-        swatches: ["#f4f7ff", "#2054f6", "#65c943", "#f1258e"],
-        badges: [
-          { file: "themes/05-open-orbit/badge-foundations.svg", title: "Velocity Loop", level: "Level 01" },
-          { file: "themes/05-open-orbit/badge-practitioner.svg", title: "Modular Cube", level: "Level 02" },
-          { file: "themes/05-open-orbit/badge-agentic.svg", title: "Continuous Review", level: "Level 03" },
-          { file: "themes/05-open-orbit/badge-evidence.svg", title: "Consensus Master", level: "Mastery" }
-        ]
-      },
-      galactic: {
-        cardClass: "theme-galactic-card",
-        brandTitle: "Project 42 / Guide",
-        eyebrow: "06 · THE GALACTIC GUIDE (DON'T PANIC)",
-        headline: "The Answer to AI, Agents, and Everything.",
-        lede: "A friendly, provider-neutral survival guide from your very first prompt to production multi-agent swarms. 13 paths, 92 modules, and always knowing where your context is.",
-        btn1: "Consult The Guide (Path 01)",
-        btn2: "Don't Panic (Field Guide)",
-        mark: "themes/06-galactic-guide/mark.svg",
-        identityDesc: "A retro-futuristic pocket datapad that dispels intimidation with reassuring golden bezels, hitchhiker references, and pragmatic engineering.",
-        subbrands: ["Project 42 Guide", "42 Don't Panic Manual"],
-        swatches: ["#090d16", "#f59e0b", "#10b981", "#fef3c7"],
-        badges: [
-          { file: "themes/06-galactic-guide/badge-foundations.svg", title: "Hitchhiker Novice", level: "Level 01" },
-          { file: "themes/06-galactic-guide/badge-practitioner.svg", title: "Sub-Etha Scout", level: "Level 02" },
-          { file: "themes/06-galactic-guide/badge-agentic.svg", title: "Swarm Architect", level: "Level 03" },
-          { file: "themes/06-galactic-guide/badge-evidence.svg", title: "Don't Panic Medal", level: "Mastery" }
-        ]
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <defs>\n    <linearGradient id=\"gold-star\" x1=\"0%\" y1=\"0%\" x2=\"100%\" y2=\"100%\"><stop offset=\"0%\" stop-color=\"#ffe299\"/><stop offset=\"100%\" stop-color=\"#d97706\"/></linearGradient>\n  </defs>\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#080d2a\" stroke=\"url(#gold-star)\" stroke-width=\"4\"/>\n  <polygon points=\"80,24 94,62 136,62 102,88 115,128 80,104 45,128 58,88 24,62 66,62\" fill=\"url(#gold-star)\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"18\" fill=\"#080d2a\"/>\n  <text x=\"80\" y=\"86\" fill=\"#39d8ff\" font-family=\"Outfit, sans-serif\" font-size=\"14\" font-weight=\"900\" text-anchor=\"middle\">NIST</text>\n</svg>",
+        "title": "Evidence Master",
+        "level": "Mastery"
       }
-    };
+    ]
+  },
+  "portal": {
+    "cardClass": "theme-portal-card",
+    "brandTitle": "Project 42",
+    "eyebrow": "02 · LEARNING PORTAL",
+    "headline": "From curious beginner to capable AI practitioner.",
+    "lede": "A warm, human education brand built around an open doorway, visible steps, and progress that never feels mysterious.",
+    "btn1": "Choose a path",
+    "btn2": "Find an answer",
+    "mark": "concepts/02-learning-portal/mark.svg",
+    "identityDesc": "The arch is both a portal and a protected learning space. Steps distinguish structured Learn from the quick-entry Field Guide.",
+    "subbrands": [
+      "Project 42 Learn",
+      "Project 42 Field Guide"
+    ],
+    "swatches": [
+      "#fbf7ef",
+      "#ea580c",
+      "#ff5630",
+      "#0d9488"
+    ],
+    "badges": [
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#fbf7ef\" stroke=\"#ea580c\" stroke-width=\"4\"/>\n  <path d=\"M 50 120 L 50 70 A 30 30 0 0 1 110 70 L 110 120 Z\" fill=\"#fff9f0\" stroke=\"#ea580c\" stroke-width=\"3\"/>\n  <rect x=\"58\" y=\"105\" width=\"44\" height=\"15\" fill=\"#0d9488\" rx=\"3\"/>\n  <text x=\"80\" y=\"78\" fill=\"#092f54\" font-family=\"Inter, sans-serif\" font-size=\"18\" font-weight=\"900\" text-anchor=\"middle\">42</text>\n</svg>",
+        "title": "Portal Novice",
+        "level": "Level 01"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <rect x=\"15\" y=\"15\" width=\"130\" height=\"130\" rx=\"28\" fill=\"#f5eedf\" stroke=\"#0d9488\" stroke-width=\"4\"/>\n  <rect x=\"40\" y=\"100\" width=\"80\" height=\"14\" fill=\"#ea580c\" rx=\"4\"/>\n  <rect x=\"52\" y=\"80\" width=\"56\" height=\"14\" fill=\"#ff5630\" rx=\"4\"/>\n  <rect x=\"64\" y=\"60\" width=\"32\" height=\"14\" fill=\"#0d9488\" rx=\"4\"/>\n  <path d=\"M 64 60 A 16 16 0 0 1 96 60 Z\" fill=\"#092f54\"/>\n</svg>",
+        "title": "Ascending Steps",
+        "level": "Level 02"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#092f54\" stroke=\"#ea580c\" stroke-width=\"4\"/>\n  <path d=\"M 45 125 L 45 65 A 35 35 0 0 1 115 65 L 115 125 Z\" fill=\"none\" stroke=\"#fbf7ef\" stroke-width=\"4\"/>\n  <line x1=\"80\" y1=\"40\" x2=\"80\" y2=\"125\" stroke=\"#0d9488\" stroke-width=\"3\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"16\" fill=\"#ea580c\"/>\n  <text x=\"80\" y=\"86\" fill=\"#ffffff\" font-family=\"Inter, sans-serif\" font-size=\"14\" font-weight=\"800\" text-anchor=\"middle\">AI</text>\n</svg>",
+        "title": "Portal Architect",
+        "level": "Level 03"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,15 145,80 80,145 15,80\" fill=\"#fff9f0\" stroke=\"#ea580c\" stroke-width=\"4\"/>\n  <circle cx=\"80\" cy=\"65\" r=\"14\" fill=\"#0d9488\"/>\n  <rect x=\"74\" y=\"75\" width=\"12\" height=\"35\" fill=\"#092f54\" rx=\"3\"/>\n  <rect x=\"82\" y=\"95\" width=\"10\" height=\"6\" fill=\"#092f54\" rx=\"1\"/>\n</svg>",
+        "title": "Portal Keyholder",
+        "level": "Mastery"
+      }
+    ]
+  },
+  "constellation": {
+    "cardClass": "theme-constellation-card",
+    "brandTitle": "Project 42",
+    "eyebrow": "03 · MODEL CONSTELLATION",
+    "headline": "Understand the whole AI landscape—not one vendor.",
+    "lede": "A provider-neutral network where models, tools, agents, sources, and fact checks connect into durable learner evidence.",
+    "btn1": "Explore models",
+    "btn2": "Build your path",
+    "mark": "concepts/03-model-constellation/mark.svg",
+    "identityDesc": "No node dominates. The open center represents a platform that can connect new providers and methods as the field changes.",
+    "subbrands": [
+      "42 Learn · path node",
+      "42 Guide · signal node"
+    ],
+    "swatches": [
+      "#080c14",
+      "#58e4c2",
+      "#8d64ff",
+      "#4a6fff"
+    ],
+    "badges": [
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <rect x=\"15\" y=\"15\" width=\"130\" height=\"130\" rx=\"30\" fill=\"#080c14\" stroke=\"#58e4c2\" stroke-width=\"3\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"32\" fill=\"#0f1726\" stroke=\"#8d64ff\" stroke-width=\"2.5\"/>\n  <line x1=\"80\" y1=\"25\" x2=\"80\" y2=\"48\" stroke=\"#58e4c2\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"112\" x2=\"80\" y2=\"135\" stroke=\"#58e4c2\" stroke-width=\"2\"/>\n  <line x1=\"25\" y1=\"80\" x2=\"48\" y2=\"80\" stroke=\"#58e4c2\" stroke-width=\"2\"/>\n  <line x1=\"112\" y1=\"80\" x2=\"135\" y2=\"80\" stroke=\"#58e4c2\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"87\" fill=\"#58e4c2\" font-family=\"Space Grotesk, sans-serif\" font-size=\"20\" font-weight=\"800\" text-anchor=\"middle\">42</text>\n</svg>",
+        "title": "Node Spark",
+        "level": "Level 01"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,12 148,51 148,129 80,168 12,129 12,51\" fill=\"#0d1320\" stroke=\"#4a6fff\" stroke-width=\"3\"/>\n  <circle cx=\"45\" cy=\"60\" r=\"10\" fill=\"#58e4c2\"/>\n  <circle cx=\"115\" cy=\"60\" r=\"10\" fill=\"#8d64ff\"/>\n  <circle cx=\"80\" cy=\"120\" r=\"10\" fill=\"#4a6fff\"/>\n  <line x1=\"45\" y1=\"60\" x2=\"115\" y2=\"60\" stroke=\"#ffffff\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n  <line x1=\"115\" y1=\"60\" x2=\"80\" y2=\"120\" stroke=\"#ffffff\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n  <line x1=\"80\" y1=\"120\" x2=\"45\" y2=\"60\" stroke=\"#ffffff\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"16\" fill=\"#080c14\" stroke=\"#58e4c2\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"85\" fill=\"#ffffff\" font-family=\"Space Grotesk, sans-serif\" font-size=\"11\" font-weight=\"800\" text-anchor=\"middle\">LINK</text>\n</svg>",
+        "title": "Provider Crosslink",
+        "level": "Level 02"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#080c14\" stroke=\"#8d64ff\" stroke-width=\"3.5\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"48\" fill=\"none\" stroke=\"#58e4c2\" stroke-width=\"1.5\" stroke-dasharray=\"4 4\"/>\n  <circle cx=\"80\" cy=\"32\" r=\"8\" fill=\"#58e4c2\"/>\n  <circle cx=\"122\" cy=\"56\" r=\"8\" fill=\"#8d64ff\"/>\n  <circle cx=\"122\" cy=\"104\" r=\"8\" fill=\"#4a6fff\"/>\n  <circle cx=\"80\" cy=\"128\" r=\"8\" fill=\"#58e4c2\"/>\n  <circle cx=\"38\" cy=\"104\" r=\"8\" fill=\"#8d64ff\"/>\n  <circle cx=\"38\" cy=\"56\" r=\"8\" fill=\"#4a6fff\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"20\" fill=\"#162238\" stroke=\"#ffffff\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"86\" fill=\"#58e4c2\" font-family=\"Space Grotesk, sans-serif\" font-size=\"14\" font-weight=\"900\" text-anchor=\"middle\">MCP</text>\n</svg>",
+        "title": "Neural Swarm Lead",
+        "level": "Level 03"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,15 145,80 80,145 15,80\" fill=\"#080c14\" stroke=\"#58e4c2\" stroke-width=\"4\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"36\" fill=\"#162238\" stroke=\"#8d64ff\" stroke-width=\"2\"/>\n  <polygon points=\"80,56 88,74 108,74 92,86 98,104 80,92 62,104 68,86 52,74 72,74\" fill=\"#58e4c2\"/>\n</svg>",
+        "title": "Omni-Cluster Master",
+        "level": "Mastery"
+      }
+    ]
+  },
+  "field": {
+    "cardClass": "theme-field-card",
+    "brandTitle": "Project 42",
+    "eyebrow": "04 · FIELD SIGNAL",
+    "headline": "Practical bearings for a fast-changing field.",
+    "lede": "A durable operational identity combining a field manual, a navigational beacon, and evidence-marked routes.",
+    "btn1": "Open Field Guide",
+    "btn2": "Follow a learning route",
+    "mark": "concepts/04-field-signal/mark.svg",
+    "identityDesc": "The compass-and-signal mark promises orientation rather than omniscience—useful for learning, deployment, and incident response.",
+    "subbrands": [
+      "Project 42 · Learn Routes",
+      "Project 42 · Field Guide"
+    ],
+    "swatches": [
+      "#071f1a",
+      "#f6edd9",
+      "#ff9b19",
+      "#4bd9d0"
+    ],
+    "badges": [
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#071f1a\" stroke=\"#ff9b19\" stroke-width=\"3.5\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"54\" fill=\"none\" stroke=\"#4bd9d0\" stroke-width=\"1.5\" stroke-dasharray=\"4 3\"/>\n  <polygon points=\"80,36 92,80 80,72 68,80\" fill=\"#ff9b19\"/>\n  <polygon points=\"80,124 92,80 80,88 68,80\" fill=\"#f6edd9\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"6\" fill=\"#071f1a\" stroke=\"#ff9b19\" stroke-width=\"2\"/>\n</svg>",
+        "title": "Compass Bearing",
+        "level": "Level 01"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,12 145,48 145,112 80,148 15,112 15,48\" fill=\"#0b2e27\" stroke=\"#4bd9d0\" stroke-width=\"3\"/>\n  <rect x=\"66\" y=\"55\" width=\"28\" height=\"48\" rx=\"4\" fill=\"#ff9b19\" stroke=\"#f6edd9\" stroke-width=\"2\"/>\n  <line x1=\"80\" y1=\"40\" x2=\"80\" y2=\"55\" stroke=\"#f6edd9\" stroke-width=\"3\"/>\n  <line x1=\"60\" y1=\"103\" x2=\"100\" y2=\"103\" stroke=\"#f6edd9\" stroke-width=\"4\"/>\n  <circle cx=\"80\" cy=\"79\" r=\"6\" fill=\"#ffffff\"/>\n</svg>",
+        "title": "Signal Lantern",
+        "level": "Level 02"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#071f1a\" stroke=\"#4bd9d0\" stroke-width=\"3\"/>\n  <path d=\"M 35 120 Q 80 40 125 120\" fill=\"none\" stroke=\"#ff9b19\" stroke-width=\"3\" stroke-dasharray=\"6 3\"/>\n  <circle cx=\"50\" cy=\"98\" r=\"7\" fill=\"#ff9b19\"/>\n  <circle cx=\"80\" cy=\"65\" r=\"9\" fill=\"#f6edd9\" stroke=\"#071f1a\" stroke-width=\"2\"/>\n  <circle cx=\"110\" cy=\"98\" r=\"7\" fill=\"#ff9b19\"/>\n  <text x=\"80\" y=\"140\" fill=\"#4bd9d0\" font-family=\"Space Grotesk, sans-serif\" font-size=\"12\" font-weight=\"800\" text-anchor=\"middle\">PATROL</text>\n</svg>",
+        "title": "Waypoint Sentinel",
+        "level": "Level 03"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,15 145,80 80,145 15,80\" fill=\"#0b2e27\" stroke=\"#ff9b19\" stroke-width=\"4\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"32\" fill=\"#071f1a\" stroke=\"#4bd9d0\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"87\" fill=\"#ff9b19\" font-family=\"Space Grotesk, sans-serif\" font-size=\"20\" font-weight=\"900\" text-anchor=\"middle\">42</text>\n</svg>",
+        "title": "Master Navigator",
+        "level": "Mastery"
+      }
+    ]
+  },
+  "orbit": {
+    "cardClass": "theme-orbit-card",
+    "brandTitle": "Project 42",
+    "eyebrow": "05 · OPEN ORBIT",
+    "headline": "Learning that stays open, current, and in motion.",
+    "lede": "A visibly open review loop connecting research, teaching, practice, fact-checking, and community contribution.",
+    "btn1": "Start a learning loop",
+    "btn2": "See how content stays current",
+    "mark": "concepts/05-open-orbit/mark.svg",
+    "identityDesc": "The broken orbit avoids a closed system: learners and contributors can enter, branch, review, and improve the shared body of knowledge.",
+    "subbrands": [
+      "Project 42 Learn",
+      "Project 42 Field Guide"
+    ],
+    "swatches": [
+      "#f4f7ff",
+      "#2054f6",
+      "#65c943",
+      "#f1258e"
+    ],
+    "badges": [
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#f4f7fb\" stroke=\"#2054f6\" stroke-width=\"4\"/>\n  <path d=\"M 40 80 A 40 40 0 1 1 120 80\" fill=\"none\" stroke=\"#2054f6\" stroke-width=\"6\" stroke-linecap=\"round\"/>\n  <path d=\"M 120 80 A 40 40 0 0 1 70 120\" fill=\"none\" stroke=\"#65c943\" stroke-width=\"6\" stroke-linecap=\"round\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"16\" fill=\"#ffffff\" stroke=\"#f1258e\" stroke-width=\"3\"/>\n  <text x=\"80\" y=\"86\" fill=\"#17213b\" font-family=\"Outfit, sans-serif\" font-size=\"14\" font-weight=\"900\" text-anchor=\"middle\">42</text>\n</svg>",
+        "title": "Velocity Loop",
+        "level": "Level 01"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <rect x=\"15\" y=\"15\" width=\"130\" height=\"130\" rx=\"28\" fill=\"#ffffff\" stroke=\"#65c943\" stroke-width=\"4\"/>\n  <polygon points=\"80,40 120,62 80,84 40,62\" fill=\"#2054f6\"/>\n  <polygon points=\"40,62 80,84 80,126 40,104\" fill=\"#17213b\"/>\n  <polygon points=\"80,84 120,62 120,104 80,126\" fill=\"#65c943\"/>\n</svg>",
+        "title": "Modular Cube",
+        "level": "Level 02"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#17213b\" stroke=\"#f1258e\" stroke-width=\"3.5\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"42\" fill=\"none\" stroke=\"#2054f6\" stroke-width=\"3\" stroke-dasharray=\"8 4\"/>\n  <circle cx=\"80\" cy=\"38\" r=\"8\" fill=\"#65c943\"/>\n  <circle cx=\"122\" cy=\"80\" r=\"8\" fill=\"#f1258e\"/>\n  <circle cx=\"80\" cy=\"122\" r=\"8\" fill=\"#2054f6\"/>\n  <circle cx=\"38\" cy=\"80\" r=\"8\" fill=\"#65c943\"/>\n  <text x=\"80\" y=\"86\" fill=\"#ffffff\" font-family=\"Outfit, sans-serif\" font-size=\"14\" font-weight=\"900\" text-anchor=\"middle\">SYNC</text>\n</svg>",
+        "title": "Continuous Review",
+        "level": "Level 03"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,15 145,80 80,145 15,80\" fill=\"#ffffff\" stroke=\"#2054f6\" stroke-width=\"4\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"30\" fill=\"#65c943\"/>\n  <path d=\"M 68 80 L 76 88 L 94 70\" fill=\"none\" stroke=\"#ffffff\" stroke-width=\"5\" stroke-linecap=\"round\" stroke-linejoin=\"round\"/>\n</svg>",
+        "title": "Consensus Master",
+        "level": "Mastery"
+      }
+    ]
+  },
+  "galactic": {
+    "cardClass": "theme-galactic-card",
+    "brandTitle": "Project 42 / Guide",
+    "eyebrow": "06 · THE GALACTIC GUIDE (DON'T PANIC)",
+    "headline": "The Answer to AI, Agents, and Everything.",
+    "lede": "A friendly, provider-neutral survival guide from your very first prompt to production multi-agent swarms. 13 paths, 92 modules, and always knowing where your context is.",
+    "btn1": "Consult The Guide (Path 01)",
+    "btn2": "Don't Panic (Field Guide)",
+    "mark": "concepts/06-galactic-guide/mark.svg",
+    "identityDesc": "A retro-futuristic pocket datapad that dispels intimidation with reassuring golden bezels, hitchhiker references, and pragmatic engineering.",
+    "subbrands": [
+      "Project 42 Guide",
+      "42 Don't Panic Manual"
+    ],
+    "swatches": [
+      "#090d16",
+      "#f59e0b",
+      "#10b981",
+      "#fef3c7"
+    ],
+    "badges": [
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#090d16\" stroke=\"#f59e0b\" stroke-width=\"4\"/>\n  <rect x=\"45\" y=\"45\" width=\"70\" height=\"70\" rx=\"14\" fill=\"#17243c\" stroke=\"#10b981\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"89\" fill=\"#fef3c7\" font-family=\"Bricolage Grotesque, sans-serif\" font-size=\"28\" font-weight=\"900\" text-anchor=\"middle\">42</text>\n</svg>",
+        "title": "Hitchhiker Novice",
+        "level": "Level 01"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,12 145,48 145,112 80,148 15,112 15,48\" fill=\"#17243c\" stroke=\"#f59e0b\" stroke-width=\"3.5\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"32\" fill=\"#090d16\" stroke=\"#10b981\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"85\" fill=\"#f59e0b\" font-family=\"Bricolage Grotesque, sans-serif\" font-size=\"12\" font-weight=\"900\" text-anchor=\"middle\">SECTOR</text>\n  <text x=\"80\" y=\"99\" fill=\"#fef3c7\" font-family=\"JetBrains Mono, monospace\" font-size=\"11\" font-weight=\"700\" text-anchor=\"middle\">ZZ9-Z</text>\n</svg>",
+        "title": "Sub-Etha Scout",
+        "level": "Level 02"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <circle cx=\"80\" cy=\"80\" r=\"70\" fill=\"#090d16\" stroke=\"#10b981\" stroke-width=\"3\"/>\n  <line x1=\"80\" y1=\"20\" x2=\"80\" y2=\"140\" stroke=\"#f59e0b\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n  <line x1=\"20\" y1=\"80\" x2=\"140\" y2=\"80\" stroke=\"#f59e0b\" stroke-width=\"1.5\" stroke-dasharray=\"3 2\"/>\n  <circle cx=\"80\" cy=\"40\" r=\"7\" fill=\"#06b6d4\"/>\n  <circle cx=\"120\" cy=\"80\" r=\"7\" fill=\"#f59e0b\"/>\n  <circle cx=\"80\" cy=\"120\" r=\"7\" fill=\"#10b981\"/>\n  <circle cx=\"40\" cy=\"80\" r=\"7\" fill=\"#f59e0b\"/>\n  <circle cx=\"80\" cy=\"80\" r=\"22\" fill=\"#17243c\" stroke=\"#fef3c7\" stroke-width=\"2\"/>\n  <text x=\"80\" y=\"86\" fill=\"#fef3c7\" font-family=\"Bricolage Grotesque, sans-serif\" font-size=\"13\" font-weight=\"900\" text-anchor=\"middle\">AGENT</text>\n</svg>",
+        "title": "Swarm Architect",
+        "level": "Level 03"
+      },
+      {
+        "svg": "<svg xmlns=\"http://www.w3.org/2000/svg\" viewBox=\"0 0 160 160\" width=\"160\" height=\"160\">\n  <polygon points=\"80,14 148,80 80,146 12,80\" fill=\"#17243c\" stroke=\"#f59e0b\" stroke-width=\"4\"/>\n  <rect x=\"42\" y=\"58\" width=\"76\" height=\"44\" rx=\"8\" fill=\"#f59e0b\"/>\n  <text x=\"80\" y=\"77\" fill=\"#090d16\" font-family=\"Bricolage Grotesque, sans-serif\" font-size=\"11\" font-weight=\"900\" text-anchor=\"middle\">DON'T</text>\n  <text x=\"80\" y=\"93\" fill=\"#090d16\" font-family=\"Bricolage Grotesque, sans-serif\" font-size=\"13\" font-weight=\"900\" text-anchor=\"middle\">PANIC</text>\n</svg>",
+        "title": "Don't Panic Medal",
+        "level": "Mastery"
+      }
+    ]
+  }
+};
 
     let activeSurface = 'gateway';
     let activeLayout = 'poster';
