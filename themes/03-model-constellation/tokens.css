@@ -15,5 +15,11 @@
   --p42-text-body: #cbd5e1;
   --p42-text-muted: #94a3b8;
   --p42-eyebrow: #58e4c2;
-  --p42-font-heading: 'Space Grotesk, sans-serif';
+  --p42-font-heading: "Space Grotesk", sans-serif;
+  --p42-surface-elevated: var(--p42-surface-card);
+  --p42-surface-code: var(--p42-bg);
+  --p42-border-soft: var(--p42-card-border);
+  --p42-primary-hover: var(--p42-primary);
+  --p42-interactive-muted: color-mix(in srgb, var(--p42-primary) 10%, transparent);
+  --p42-hero-image: url("./hero.png");
 }

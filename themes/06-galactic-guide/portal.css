@@ -1,0 +1,567 @@
+/* Project 42 public-portal treatments — The Galactic Guide.
+   This file belongs to the Gallery theme bundle, never to portal core. */
+
+/* Galactic Guide contrast adaptations for the restored portal presentation. */
+html[data-theme="06-galactic-guide"] .map-mark {
+  color: var(--p42-text-title);
+}
+
+html[data-theme="06-galactic-guide"] .pillar-reference > .card-index {
+  color: #102a3a;
+  opacity: 1;
+}
+
+html[data-theme="06-galactic-guide"] .cta,
+html[data-theme="06-galactic-guide"] .cta h2,
+html[data-theme="06-galactic-guide"] .cta > .eyebrow,
+html[data-theme="06-galactic-guide"] .cta > p:not(.eyebrow) {
+  color: var(--p42-primary-fg);
+}
+
+html[data-theme="06-galactic-guide"] .provider-pill-anthropic,
+html[data-theme="06-galactic-guide"] .provider-pill-openai,
+html[data-theme="06-galactic-guide"] .provider-pill-google {
+  color: #1e293b;
+}
+
+html[data-theme="06-galactic-guide"] .comparison-table tbody th span {
+  color: #455066;
+}
+
+html[data-theme="06-galactic-guide"] .module-index,
+html[data-theme="06-galactic-guide"] .module-copy small {
+  color: var(--p42-text-muted);
+}
+
+html[data-theme="06-galactic-guide"] .capstone-exemplars .eyebrow,
+html[data-theme="06-galactic-guide"] .criterion-evidence-map label {
+  color: #1e293b;
+}
+
+html[data-theme="06-galactic-guide"] .capstone-exemplar summary small {
+  color: #475569;
+}
+
+html[data-theme="06-galactic-guide"] .capstone-artifacts input,
+html[data-theme="06-galactic-guide"] .capstone-reflection textarea,
+html[data-theme="06-galactic-guide"] .rubric-row input {
+  color: #1e293b;
+}
+
+html[data-theme="06-galactic-guide"] .capstone-artifacts input::placeholder,
+html[data-theme="06-galactic-guide"] .capstone-reflection textarea::placeholder {
+  color: #64748b;
+  opacity: 1;
+}
+
+html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) {
+  background: #090d16;
+  color: #e2e8f0;
+}
+
+html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h1,
+html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h2,
+html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h3,
+html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h4,
+html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) .brand-name {
+  color: #fef3c7;
+  font-family: "Bricolage Grotesque", Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+html[data-theme="06-galactic-guide"] .site-header {
+  background: rgba(9, 13, 22, 0.96);
+  border-bottom-color: rgba(245, 158, 11, 0.25);
+  color: #fef3c7;
+}
+
+html[data-theme="06-galactic-guide"] .site-header nav > a,
+html[data-theme="06-galactic-guide"] .site-header nav > .header-menu > .header-menu-trigger {
+  color: #cbd5e1;
+}
+
+html[data-theme="06-galactic-guide"] .site-header nav > a:hover,
+html[data-theme="06-galactic-guide"] .site-header nav > .header-menu > .header-menu-trigger:hover {
+  color: #f59e0b;
+}
+
+html[data-theme="06-galactic-guide"] .header-menu-panel {
+  background: var(--p42-surface-card);
+  border-color: var(--p42-card-border);
+  color: var(--p42-text-title);
+}
+
+html[data-theme="06-galactic-guide"] .header-menu-list a,
+html[data-theme="06-galactic-guide"] .header-menu-list button,
+html[data-theme="06-galactic-guide"] .header-menu-footer button {
+  color: var(--p42-text-body);
+  justify-content: flex-start;
+}
+
+html[data-theme="06-galactic-guide"] .header-menu-list a:hover,
+html[data-theme="06-galactic-guide"] .header-menu-list button:hover,
+html[data-theme="06-galactic-guide"] .header-menu-footer button:hover {
+  background: var(--p42-interactive-muted);
+  color: var(--p42-text-title);
+}
+
+html[data-theme="06-galactic-guide"] .header-action {
+  background: #f59e0b;
+  color: #090d16;
+}
+
+html[data-theme="06-galactic-guide"] .brand-mark-background {
+  fill: #090d16;
+  stroke: #f59e0b;
+  stroke-width: 3px;
+}
+
+html[data-theme="06-galactic-guide"] .brand-mark-four,
+html[data-theme="06-galactic-guide"] .brand-mark-two {
+  fill: #fef3c7;
+}
+
+.portal-showcase {
+  padding-block: 2rem 2.5rem;
+}
+
+.portal-poster-card {
+  background: #090d16;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 24px;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
+  color: #fef3c7;
+  overflow: hidden;
+}
+
+.portal-poster-hero {
+  align-items: center;
+  background-image: url("/themes/06-galactic-guide/hero.png");
+  background-position: center right;
+  background-size: cover;
+  display: grid;
+  min-height: 590px;
+  padding: 44px;
+}
+
+.portal-floating-card {
+  background: rgba(13, 20, 36, 0.94);
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 20px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  max-width: 500px;
+  padding: 36px 38px;
+}
+
+.portal-brand-row {
+  align-items: center;
+  color: #fef3c7;
+  display: flex;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: 1.5rem;
+  font-weight: 800;
+  gap: 12px;
+  letter-spacing: -0.03em;
+  margin-bottom: 22px;
+}
+
+.portal-brand-mark {
+  border-radius: 10px;
+  flex: 0 0 auto;
+}
+
+.portal-eyebrow {
+  color: #f59e0b;
+  font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 0.72rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.portal-eyebrow {
+  margin: 0 0 12px;
+}
+
+.portal-floating-card h1 {
+  color: #fef3c7;
+  font-family: "Bricolage Grotesque", sans-serif;
+  font-size: clamp(2.65rem, 4.2vw, 4rem);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1.05;
+  margin: 0 0 16px;
+}
+
+.portal-floating-card h1 span {
+  color: #f59e0b;
+  display: block;
+}
+
+.portal-lede {
+  color: #e2e8f0;
+  font-size: 0.96rem;
+  line-height: 1.65;
+  margin: 0 0 24px;
+}
+
+.portal-actions {
+  align-items: flex-start;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.portal-actions a {
+  align-items: center;
+  background: #f59e0b;
+  border-radius: 9999px;
+  color: #090d16;
+  display: inline-flex;
+  font-size: 0.86rem;
+  font-weight: 800;
+  justify-content: center;
+  min-height: 44px;
+  padding: 10px 20px;
+  text-decoration: none;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.portal-actions a:hover {
+  background: #fbbf24;
+  transform: translateY(-2px);
+}
+
+html[data-theme="06-galactic-guide"] .progress-strip,
+html[data-theme="06-galactic-guide"] .pillar-card,
+html[data-theme="06-galactic-guide"] .path-card,
+html[data-theme="06-galactic-guide"] .provider-section,
+html[data-theme="06-galactic-guide"] .self-host-section,
+html[data-theme="06-galactic-guide"] .page-hero,
+html[data-theme="06-galactic-guide"] .path-hero,
+html[data-theme="06-galactic-guide"] .lesson-shell,
+html[data-theme="06-galactic-guide"] .lesson-main,
+html[data-theme="06-galactic-guide"] .resource-card,
+html[data-theme="06-galactic-guide"] .diagram-card,
+html[data-theme="06-galactic-guide"] .guide-card,
+html[data-theme="06-galactic-guide"] .catalog-card {
+  background: #151a23;
+  border-color: rgba(245, 158, 11, 0.24);
+  color: #e2e8f0;
+}
+
+html[data-theme="06-galactic-guide"] .pillar-card,
+html[data-theme="06-galactic-guide"] .path-card {
+  border: 1px solid rgba(245, 158, 11, 0.28);
+}
+
+html[data-theme="06-galactic-guide"] .pillar-card a,
+html[data-theme="06-galactic-guide"] .path-card a,
+html[data-theme="06-galactic-guide"] .provider-section a,
+html[data-theme="06-galactic-guide"] .text-link {
+  color: #f59e0b;
+}
+
+html[data-theme="06-galactic-guide"] .path-card::after {
+  content: none;
+}
+
+/* The Learn shell predates declarative themes. Replace its default orbit art
+   with the selected Galactic bundle artwork without changing page content. */
+html[data-theme="06-galactic-guide"] .hero-map {
+  aspect-ratio: 16 / 9;
+  background: url("/themes/06-galactic-guide/hero.png") center / cover no-repeat;
+  border: 1px solid rgba(245, 158, 11, 0.45);
+  border-radius: 18px;
+  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.38);
+  max-width: 640px;
+}
+
+html[data-theme="06-galactic-guide"] .hero-map::before,
+html[data-theme="06-galactic-guide"] .hero-map > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-theme="06-galactic-guide"] .card-index,
+html[data-theme="06-galactic-guide"] .eyebrow {
+  color: #f59e0b;
+  opacity: 1;
+}
+
+html[data-theme="06-galactic-guide"] .pillar-reference > .card-index {
+  color: #f59e0b;
+}
+
+html[data-theme="06-galactic-guide"] .breadcrumbs,
+html[data-theme="06-galactic-guide"] .breadcrumbs a,
+html[data-theme="06-galactic-guide"] .breadcrumbs span,
+html[data-theme="06-galactic-guide"] .breadcrumbs span[aria-current="page"] {
+  color: #94a3b8;
+}
+
+html[data-theme="06-galactic-guide"] .module-state,
+html[data-theme="06-galactic-guide"] .module-copy small,
+html[data-theme="06-galactic-guide"] .learning-path-row small,
+html[data-theme="06-galactic-guide"] .lesson-kicker,
+html[data-theme="06-galactic-guide"] .lesson-block-index,
+html[data-theme="06-galactic-guide"] .lesson-rail small,
+html[data-theme="06-galactic-guide"] .lesson-rail a span,
+html[data-theme="06-galactic-guide"] .sources li span,
+html[data-theme="06-galactic-guide"] .site-footer .footer-bottom,
+html[data-theme="06-galactic-guide"] .site-footer > .shell:last-child {
+  color: #94a3b8 !important;
+}
+
+html[data-theme="06-galactic-guide"] .prerequisite-note {
+  background: #151a23;
+  border-color: rgba(245, 158, 11, 0.35);
+  color: #e2e8f0;
+}
+
+html[data-theme="06-galactic-guide"] .prerequisite-note h2 {
+  color: #fef3c7;
+}
+
+html[data-theme="06-galactic-guide"] .prerequisite-note .eyebrow,
+html[data-theme="06-galactic-guide"] .prerequisite-note a {
+  color: #f59e0b;
+}
+
+html[data-theme="06-galactic-guide"] .lesson-block p,
+html[data-theme="06-galactic-guide"] .learning-activity ol,
+html[data-theme="06-galactic-guide"] .learning-activity ul,
+html[data-theme="06-galactic-guide"] .activity-reflection p {
+  color: #cbd5e1;
+}
+
+html[data-theme="06-galactic-guide"] .capstone-exemplars > h3 {
+  color: #1e293b !important;
+}
+
+html[data-theme="06-galactic-guide"] .comparison-table td,
+html[data-theme="06-galactic-guide"] .comparison-table tbody th {
+  background: #151a23;
+  color: #e2e8f0;
+}
+
+html[data-theme="06-galactic-guide"] .comparison-table td p,
+html[data-theme="06-galactic-guide"] .comparison-table tbody th span {
+  color: #cbd5e1;
+}
+
+html[data-theme="06-galactic-guide"] .cta {
+  background: #10b981;
+  color: #090d16;
+}
+
+html[data-theme="06-galactic-guide"] .cta h2,
+html[data-theme="06-galactic-guide"] .cta > .eyebrow,
+html[data-theme="06-galactic-guide"] .cta > p:not(.eyebrow) {
+  color: #090d16 !important;
+}
+
+html[data-theme="06-galactic-guide"] .open-source-banner,
+html[data-theme="06-galactic-guide"] .open-source-banner h2,
+html[data-theme="06-galactic-guide"] .open-source-banner .eyebrow,
+html[data-theme="06-galactic-guide"] .open-source-banner > div > p {
+  color: var(--p42-primary-fg) !important;
+}
+
+html[data-theme="06-galactic-guide"] .open-source-banner .button-secondary {
+  border-color: var(--p42-primary-fg);
+  color: var(--p42-primary-fg);
+}
+
+html[data-theme="06-galactic-guide"] .open-source-banner .button-secondary:hover {
+  background: var(--p42-primary-fg);
+  border-color: var(--p42-primary-fg);
+  color: var(--p42-text-title);
+}
+
+/* Components inherited from the multi-theme portal used literal light-theme
+   status and activity surfaces. Keep their semantics, but render every public
+   interaction state inside the authoritative Galactic palette. */
+html[data-theme="06-galactic-guide"] .learning-activity,
+html[data-theme="06-galactic-guide"] .capstone-submission,
+html[data-theme="06-galactic-guide"] .capstone-exemplars,
+html[data-theme="06-galactic-guide"] .capstone-exemplar,
+html[data-theme="06-galactic-guide"] .exemplar-artifacts article,
+html[data-theme="06-galactic-guide"] .criterion-evidence-map label {
+  background: var(--p42-surface-card);
+  border-color: var(--p42-card-border);
+  color: var(--p42-text-body);
+}
+
+html[data-theme="06-galactic-guide"] .learning-activity {
+  background: linear-gradient(
+    145deg,
+    rgba(245, 158, 11, 0.1),
+    var(--p42-surface-elevated)
+  );
+}
+
+html[data-theme="06-galactic-guide"] .learning-activity h2,
+html[data-theme="06-galactic-guide"] .activity-evidence h3,
+html[data-theme="06-galactic-guide"] .activity-reflection h3,
+html[data-theme="06-galactic-guide"] .capstone-exemplars > h3,
+html[data-theme="06-galactic-guide"] .capstone-exemplar strong,
+html[data-theme="06-galactic-guide"] .exemplar-artifacts h4,
+html[data-theme="06-galactic-guide"] .capstone-artifacts legend,
+html[data-theme="06-galactic-guide"] .capstone-rubric legend {
+  color: var(--p42-text-title) !important;
+}
+
+html[data-theme="06-galactic-guide"] .learning-activity ol,
+html[data-theme="06-galactic-guide"] .learning-activity ul,
+html[data-theme="06-galactic-guide"] .activity-reflection p,
+html[data-theme="06-galactic-guide"] .capstone-review-note p,
+html[data-theme="06-galactic-guide"] .capstone-exemplars > p:not(.eyebrow),
+html[data-theme="06-galactic-guide"] .capstone-exemplar > p,
+html[data-theme="06-galactic-guide"] .exemplar-artifacts p,
+html[data-theme="06-galactic-guide"] .exemplar-score-list span,
+html[data-theme="06-galactic-guide"] .capstone-exemplar summary small {
+  color: var(--p42-text-muted);
+}
+
+html[data-theme="06-galactic-guide"] .capstone-exemplars .eyebrow {
+  color: var(--p42-primary);
+}
+
+html[data-theme="06-galactic-guide"] .capstone-exemplar summary span {
+  color: var(--p42-text-body);
+}
+
+html[data-theme="06-galactic-guide"] .lesson-callout {
+  background: rgba(16, 185, 129, 0.1);
+  border-left-color: var(--p42-accent);
+  color: var(--p42-text-body);
+  font-family: Inter, ui-sans-serif, system-ui, sans-serif;
+}
+
+html[data-theme="06-galactic-guide"] .capstone-review-note,
+html[data-theme="06-galactic-guide"] .status-changing,
+html[data-theme="06-galactic-guide"] .freshness-review-due,
+html[data-theme="06-galactic-guide"] .storage-warning,
+html[data-theme="06-galactic-guide"] .attempt-not-passed,
+html[data-theme="06-galactic-guide"] .legal-caution,
+html[data-theme="06-galactic-guide"] .migration-disposition.conflict,
+html[data-theme="06-galactic-guide"] .account-state-pending {
+  background: rgba(245, 158, 11, 0.1);
+  border-color: var(--p42-card-border);
+  color: var(--p42-text-body);
+}
+
+html[data-theme="06-galactic-guide"] .capstone-result-pass,
+html[data-theme="06-galactic-guide"] .import-status-success,
+html[data-theme="06-galactic-guide"] .attempt-passed,
+html[data-theme="06-galactic-guide"] .migration-disposition.will-add,
+html[data-theme="06-galactic-guide"] .migration-disposition.will-merge,
+html[data-theme="06-galactic-guide"] .account-state-approved {
+  background: rgba(16, 185, 129, 0.1);
+  border-color: rgba(16, 185, 129, 0.45);
+  color: var(--p42-text-body);
+}
+
+html[data-theme="06-galactic-guide"] .button-danger,
+html[data-theme="06-galactic-guide"] .capstone-form-error,
+html[data-theme="06-galactic-guide"] .import-status-error,
+html[data-theme="06-galactic-guide"] .account-state-rejected,
+html[data-theme="06-galactic-guide"] .account-state-suspended,
+html[data-theme="06-galactic-guide"] .account-state-revoked {
+  background: rgba(239, 68, 68, 0.1);
+  border-color: rgba(239, 68, 68, 0.45);
+  color: #fecaca;
+}
+
+html[data-theme="06-galactic-guide"] .provider-pill-anthropic,
+html[data-theme="06-galactic-guide"] .provider-pill-openai,
+html[data-theme="06-galactic-guide"] .provider-pill-google,
+html[data-theme="06-galactic-guide"] .comparison-table caption,
+html[data-theme="06-galactic-guide"] .account-state {
+  background: var(--p42-surface-elevated);
+  border-color: var(--p42-card-border);
+  color: var(--p42-text-body);
+}
+
+html[data-theme="06-galactic-guide"] .capstone-artifacts input,
+html[data-theme="06-galactic-guide"] .capstone-reflection textarea,
+html[data-theme="06-galactic-guide"] .rubric-row input {
+  background: var(--p42-bg);
+  border-color: var(--p42-card-border);
+  color: var(--p42-text-body);
+}
+
+html[data-theme="06-galactic-guide"] .capstone-artifacts input::placeholder,
+html[data-theme="06-galactic-guide"] .capstone-reflection textarea::placeholder {
+  color: var(--p42-text-muted);
+}
+
+html[data-theme="06-galactic-guide"] .map-node,
+html[data-theme="06-galactic-guide"] .progress-strip .button-secondary:hover,
+html[data-theme="06-galactic-guide"] .check-result .button-secondary,
+html[data-theme="06-galactic-guide"] .diagram-viewer-controls button,
+html[data-theme="06-galactic-guide"] .diagram-viewer-controls output {
+  background: var(--p42-text-title);
+  border-color: var(--p42-text-title);
+  color: var(--p42-bg);
+}
+
+html[data-theme="06-galactic-guide"] .site-footer {
+  background: #080c14 !important;
+  border-top-color: rgba(245, 158, 11, 0.2) !important;
+}
+
+html[data-theme="06-galactic-guide"] .footer-grid > div:not(:first-child) {
+  gap: 0.2rem;
+}
+
+html[data-theme="06-galactic-guide"] .footer-grid a {
+  line-height: 1.35;
+  min-height: 0;
+  padding-block: 0.2rem;
+}
+
+@media (max-width: 840px) {
+  .portal-poster-hero {
+    align-items: end;
+    background-position: 65% center;
+    min-height: 680px;
+    padding: 24px;
+  }
+
+  .portal-floating-card {
+    max-width: 540px;
+  }
+
+}
+
+@media (max-width: 560px) {
+  .portal-showcase {
+    padding-block: 1rem 2rem;
+  }
+
+  .portal-poster-card {
+    border-radius: 16px;
+  }
+
+  .portal-poster-hero {
+    background-position: 68% center;
+    min-height: 720px;
+    padding: 16px;
+  }
+
+  .portal-floating-card {
+    padding: 26px 22px;
+  }
+
+  .portal-floating-card h1 {
+    font-size: clamp(2.25rem, 12vw, 3rem);
+  }
+
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .portal-actions a {
+    transition: none;
+  }
+}

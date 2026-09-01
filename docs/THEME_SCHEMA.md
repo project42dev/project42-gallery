@@ -1,33 +1,34 @@
-# Project 42 Theme JSON Schema
+# Project 42 Theme Bundle Contract
 
-Every theme must define a `theme.json` matching this schema:
+Every Gallery theme is a complete, deployable presentation bundle. `theme.json` identifies its assets; all paths are relative to the bundle directory and may not escape it.
 
 ```json
 {
-  "$schema": "http://json-schema.org/draft-07/schema#",
-  "title": "Project42Theme",
-  "type": "object",
-  "required": ["id", "name", "tagline", "version", "tokens"],
-  "properties": {
-    "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
-    "name": { "type": "string" },
-    "tagline": { "type": "string" },
-    "description": { "type": "string" },
-    "author": { "type": "string" },
-    "version": { "type": "string" },
-    "font": { "type": "string" },
-    "tokens": {
-      "type": "object",
-      "required": ["--p42-bg", "--p42-primary", "--p42-surface-card", "--p42-text-title"],
-      "additionalProperties": { "type": "string" }
-    },
-    "subbrands": {
-      "type": "object",
-      "properties": {
-        "learn": { "type": "string" },
-        "guide": { "type": "string" }
-      }
+  "id": "my-theme",
+  "name": "My Theme",
+  "tagline": "A short description",
+  "version": "1.0.0",
+  "assets": {
+    "tokens": "tokens.css",
+    "components": "portal.css",
+    "mark": "mark.svg",
+    "hero": "hero.png",
+    "badges": {
+      "foundations": "badges/badge-foundations.svg",
+      "practitioner": "badges/badge-practitioner.svg",
+      "agentic": "badges/badge-agentic.svg",
+      "evidence": "badges/badge-evidence.svg"
     }
+  },
+  "tokens": {
+    "--p42-bg": "#000000",
+    "--p42-primary": "#ffffff",
+    "--p42-surface-card": "#111111",
+    "--p42-text-title": "#ffffff"
   }
 }
 ```
+
+The bundle must include `theme.json`, `tokens.css`, `portal.css`, `mark.svg`, `hero.png`, and all four badge files. Its ID must match `^[a-z0-9]+(?:-[a-z0-9]+)*$` and the directory name. Run `npm test` to validate every bundle and asset reference.
+
+The portal loads `tokens.css` and `portal.css` for the configured theme. It derives the favicon, brand mark, hero, and badges from the same bundle. Theme code may style stable component classes, but it may not replace content, behavior, routing, authentication, or data contracts.
