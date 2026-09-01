@@ -135,7 +135,7 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 
 .portal-poster-hero {
   align-items: center;
-  background-image: url("/themes/06-galactic-guide/hero.png");
+  background-image: var(--p42-hero-image);
   background-position: center right;
   background-size: cover;
   display: grid;
@@ -269,7 +269,7 @@ html[data-theme="06-galactic-guide"] .path-card::after {
    with the selected Galactic bundle artwork without changing page content. */
 html[data-theme="06-galactic-guide"] .hero-map {
   aspect-ratio: 16 / 9;
-  background: url("/themes/06-galactic-guide/hero.png") center / cover no-repeat;
+  background: var(--p42-hero-image) center / cover no-repeat;
   border: 1px solid rgba(245, 158, 11, 0.45);
   border-radius: 18px;
   box-shadow: 0 24px 56px rgba(0, 0, 0, 0.38);
