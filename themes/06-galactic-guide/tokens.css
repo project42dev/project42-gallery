@@ -15,5 +15,11 @@
   --p42-text-body: #e2e8f0;
   --p42-text-muted: #94a3b8;
   --p42-eyebrow: #f59e0b;
-  --p42-font-heading: 'Bricolage Grotesque, sans-serif';
+  --p42-font-heading: "Bricolage Grotesque", sans-serif;
+  --p42-surface-elevated: #151a23;
+  --p42-surface-code: #050811;
+  --p42-border-soft: rgba(245, 158, 11, 0.24);
+  --p42-primary-hover: #fbbf24;
+  --p42-interactive-muted: rgba(245, 158, 11, 0.1);
+  --p42-hero-image: url("./hero.png");
 }

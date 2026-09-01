@@ -2,6 +2,8 @@
 
 Official community theme gallery, theme repository, and theme authoring kit for **Project 42**.
 
+Each folder under `themes/` is a complete, deployable presentation bundle. The Gallery owns theme-specific tokens, component treatments, artwork, marks, and badges; the portal core owns behavior and stable component contracts. Run `npm test` before publishing a bundle.
+
 🌐 **Live Gallery:** [https://gallery.project-42.dev](https://gallery.project-42.dev)
 
 ---

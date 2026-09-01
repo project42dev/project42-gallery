@@ -6,6 +6,18 @@
   "author": "Project 42 Core Team",
   "version": "1.0.0",
   "font": "Inter, sans-serif",
+  "assets": {
+    "tokens": "tokens.css",
+    "components": "portal.css",
+    "mark": "mark.svg",
+    "hero": "hero.png",
+    "badges": {
+      "foundations": "badges/badge-foundations.svg",
+      "practitioner": "badges/badge-practitioner.svg",
+      "agentic": "badges/badge-agentic.svg",
+      "evidence": "badges/badge-evidence.svg"
+    }
+  },
   "tokens": {
     "--p42-bg": "#fbf7ef",
     "--p42-surface": "#f5eedf",

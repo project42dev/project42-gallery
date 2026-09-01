@@ -1,0 +1,7 @@
+{
+  "name": "project42-gallery",
+  "private": true,
+  "scripts": {
+    "test": "node scripts/validate-theme-bundles.mjs"
+  }
+}
