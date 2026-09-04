@@ -33,7 +33,16 @@
     "--p42-text-title": "#ffffff",
     "--p42-text-body": "#cbd5e1",
     "--p42-text-muted": "#94a3b8",
-    "--p42-eyebrow": "#ff9b19"
+    "--p42-eyebrow": "#ff9b19",
+    "--p42-success-bg": "#0f2a1a",
+    "--p42-success-border": "#2f6b45",
+    "--p42-success-fg": "#86efac",
+    "--p42-warning-bg": "#2c2008",
+    "--p42-warning-border": "#7c5a17",
+    "--p42-warning-fg": "#fcd34d",
+    "--p42-danger-bg": "#2d1315",
+    "--p42-danger-border": "#7f2c31",
+    "--p42-danger-fg": "#fca5a5"
   },
   "subbrands": {
     "learn": "Project 42 · Learn Routes",

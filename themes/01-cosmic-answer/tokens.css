@@ -22,4 +22,15 @@
   --p42-primary-hover: var(--p42-primary);
   --p42-interactive-muted: color-mix(in srgb, var(--p42-primary) 10%, transparent);
   --p42-hero-image: url("./hero.png");
+
+  /* Status family: success, warning, danger. */
+  --p42-success-bg: #0f2a1a;
+  --p42-success-border: #2f6b45;
+  --p42-success-fg: #86efac;
+  --p42-warning-bg: #2c2008;
+  --p42-warning-border: #7c5a17;
+  --p42-warning-fg: #fcd34d;
+  --p42-danger-bg: #2d1315;
+  --p42-danger-border: #7f2c31;
+  --p42-danger-fg: #fca5a5;
 }

@@ -33,7 +33,16 @@
     "--p42-text-title": "#fef3c7",
     "--p42-text-body": "#e2e8f0",
     "--p42-text-muted": "#94a3b8",
-    "--p42-eyebrow": "#f59e0b"
+    "--p42-eyebrow": "#f59e0b",
+    "--p42-success-bg": "#0f2a1a",
+    "--p42-success-border": "#2f6b45",
+    "--p42-success-fg": "#86efac",
+    "--p42-warning-bg": "#2c2008",
+    "--p42-warning-border": "#7c5a17",
+    "--p42-warning-fg": "#fcd34d",
+    "--p42-danger-bg": "#2d1315",
+    "--p42-danger-border": "#7f2c31",
+    "--p42-danger-fg": "#fca5a5"
   },
   "subbrands": {
     "learn": "Project 42 Guide",
