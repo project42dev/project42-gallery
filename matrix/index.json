@@ -1,0 +1,85 @@
+{
+  "schemaVersion": 1,
+  "themes": [
+    {
+      "id": "01-cosmic-answer",
+      "name": "Cosmic Answer",
+      "tagline": "Learn to ask better questions of an expanding universe.",
+      "description": "A memorable expression of 42: open inquiry, many possible paths, and evidence guiding learners toward useful answers.",
+      "font": "Outfit, sans-serif",
+      "tokens": "themes/01-cosmic-answer/tokens.css",
+      "components": "themes/01-cosmic-answer/portal.css",
+      "mark": "themes/01-cosmic-answer/mark.svg"
+    },
+    {
+      "id": "02-learning-portal",
+      "name": "Learning Portal",
+      "tagline": "From curious beginner to capable AI practitioner.",
+      "description": "A warm, human education brand built around an open doorway, visible steps, and progress that never feels mysterious.",
+      "font": "Inter, sans-serif",
+      "tokens": "themes/02-learning-portal/tokens.css",
+      "components": "themes/02-learning-portal/portal.css",
+      "mark": "themes/02-learning-portal/mark.svg"
+    },
+    {
+      "id": "03-model-constellation",
+      "name": "Model Constellation",
+      "tagline": "Understand the whole AI landscape—not one vendor.",
+      "description": "A provider-neutral network where models, tools, agents, sources, and fact checks connect into durable learner evidence.",
+      "font": "Space Grotesk, sans-serif",
+      "tokens": "themes/03-model-constellation/tokens.css",
+      "components": "themes/03-model-constellation/portal.css",
+      "mark": "themes/03-model-constellation/mark.svg"
+    },
+    {
+      "id": "04-field-signal",
+      "name": "Field Signal",
+      "tagline": "Practical bearings for a fast-changing field.",
+      "description": "A durable operational identity combining a field manual, a navigational beacon, and evidence-marked routes.",
+      "font": "Space Grotesk, sans-serif",
+      "tokens": "themes/04-field-signal/tokens.css",
+      "components": "themes/04-field-signal/portal.css",
+      "mark": "themes/04-field-signal/mark.svg"
+    },
+    {
+      "id": "05-open-orbit",
+      "name": "Open Orbit",
+      "tagline": "Learning that stays open, current, and in motion.",
+      "description": "A visibly open review loop connecting research, teaching, practice, fact-checking, and community contribution.",
+      "font": "Outfit, sans-serif",
+      "tokens": "themes/05-open-orbit/tokens.css",
+      "components": "themes/05-open-orbit/portal.css",
+      "mark": "themes/05-open-orbit/mark.svg"
+    },
+    {
+      "id": "06-galactic-guide",
+      "name": "The Galactic Guide (Don't Panic)",
+      "tagline": "The Answer to AI, Agents, and Everything.",
+      "description": "A friendly, provider-neutral survival guide from your very first prompt to production multi-agent swarms. 13 paths, 92 modules, and always knowing where your context is.",
+      "font": "Bricolage Grotesque, sans-serif",
+      "tokens": "themes/06-galactic-guide/tokens.css",
+      "components": "themes/06-galactic-guide/portal.css",
+      "mark": "themes/06-galactic-guide/mark.svg"
+    }
+  ],
+  "layouts": [
+    {
+      "id": "compact",
+      "name": "Compact",
+      "description": "A denser composition: narrower measure, tighter spacing rhythm, smaller controls and radii, and a shorter type ramp. Fits more on screen and suits reference-heavy reading.",
+      "styles": "layouts/compact/layout.css"
+    },
+    {
+      "id": "standard",
+      "name": "Standard",
+      "description": "The default composition: balanced content width, comfortable spacing rhythm, and a moderate type ramp. Suits a reading-led site with cards and long-form modules.",
+      "styles": "layouts/standard/layout.css"
+    },
+    {
+      "id": "wide",
+      "name": "Wide",
+      "description": "An expansive composition: wide measure, generous spacing rhythm, larger controls and radii, and a taller type ramp. Suits large displays and presentation use.",
+      "styles": "layouts/wide/layout.css"
+    }
+  ]
+}

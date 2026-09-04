@@ -2,7 +2,8 @@
   "name": "project42-gallery",
   "private": true,
   "scripts": {
-    "test": "node scripts/validate-theme-bundles.mjs && node scripts/validate-layout-bundles.mjs",
-    "build:layouts": "node scripts/build-layouts.mjs"
+    "test": "node scripts/validate-theme-bundles.mjs && node scripts/validate-layout-bundles.mjs && node scripts/validate-matrix.mjs",
+    "build:layouts": "node scripts/build-layouts.mjs",
+    "build:matrix": "node scripts/build-matrix-index.mjs"
   }
 }

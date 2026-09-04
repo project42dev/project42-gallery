@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 42 — Bundle specimen</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <!-- Every typeface any published theme names in theme.json. The theme bundle
+       chooses which one is used, via --p42-font-heading. -->
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,800&family=Inter:wght@400;500;600;700;800;900&family=Outfit:wght@600;700;800;900&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="matrix/specimen.css">
+  <script>
+    /* One document = one combination.
+     *
+     * Theme tokens are scoped :root[data-theme="..."] and layout tokens
+     * :root[data-layout="..."], so a single document can only ever express one
+     * theme and one layout. That is why the matrix renders each combination in
+     * its own iframe pointed at this page -- it is the same mechanism the
+     * portal uses, not a re-scoped imitation of it, so what you see here is
+     * what the portal will render.
+     *
+     * The three stylesheets below are the REAL published bundles, loaded from
+     * their real paths. Nothing is copied, so a bundle that is broken on disk
+     * is broken here too -- which is the point.
+     */
+    (function () {
+      var params = new URLSearchParams(location.search);
+      var safe = /^[a-z0-9]+(?:-[a-z0-9]+)*$/;
+      var theme = params.get("theme") || "";
+      var layout = params.get("layout") || "";
+      if (!safe.test(theme)) theme = "06-galactic-guide";
+      if (!safe.test(layout)) layout = "standard";
+
+      var root = document.documentElement;
+      root.setAttribute("data-theme", theme);
+      root.setAttribute("data-layout", layout);
+
+      [
+        "themes/" + theme + "/tokens.css",
+        "themes/" + theme + "/portal.css",
+        "layouts/" + layout + "/layout.css",
+      ].forEach(function (href) {
+        var link = document.createElement("link");
+        link.rel = "stylesheet";
+        link.href = href;
+        document.head.appendChild(link);
+      });
+
+      window.__p42Specimen = { theme: theme, layout: layout };
+    })();
+  </script>
+</head>
+<body>
+  <main class="specimen-shell">
+    <section class="specimen-hero">
+      <div class="specimen-hero-card specimen-stack">
+        <img class="specimen-mark" alt="" id="specimenMark">
+        <p class="specimen-eyebrow">Free and open</p>
+        <h1>Start curious. Become capable.</h1>
+        <p>Provider-neutral learning paths that take you from your first prompt to reliable, evaluated agents in production.</p>
+        <div class="specimen-controls">
+          <a class="specimen-btn specimen-btn-primary" href="#">Start learning</a>
+          <a class="specimen-btn specimen-btn-quiet" href="#">Browse the paths</a>
+        </div>
+      </div>
+    </section>
+
+    <section class="specimen-section">
+      <div class="specimen-block">
+        <p class="specimen-eyebrow">Learning paths</p>
+        <h2>Two ways to grow</h2>
+        <p class="specimen-lede">Learn deeply at your own pace, or find answers quickly when you are mid-task.</p>
+        <div class="specimen-grid">
+          <article class="specimen-card">
+            <div class="specimen-stack">
+              <span class="specimen-badge">Foundations</span>
+              <h3>Self-paced course</h3>
+              <p>Thirteen paths and ninety-two modules, each ending in a knowledge check you can actually fail.</p>
+              <a class="specimen-btn specimen-btn-secondary" href="#">Open the course</a>
+            </div>
+          </article>
+          <article class="specimen-card">
+            <div class="specimen-stack">
+              <span class="specimen-badge">Practitioner</span>
+              <h3>Instructor-led</h3>
+              <p>The same material, delivered live, with the cohort working the exercises together.</p>
+              <a class="specimen-btn specimen-btn-accent" href="#">See the schedule</a>
+            </div>
+          </article>
+          <article class="specimen-card specimen-card-raised">
+            <div class="specimen-stack">
+              <span class="specimen-badge">Evidence</span>
+              <h3>Practical activities</h3>
+              <p>Build something, evaluate it, and keep the record of what you demonstrated.</p>
+              <a class="specimen-btn specimen-btn-quiet" href="#">View activities</a>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="specimen-section">
+      <div class="specimen-block">
+        <h2>Status and callouts</h2>
+        <div class="specimen-callouts">
+          <p class="specimen-callout specimen-callout-info">Informational — this module has been refreshed for the current model generation.</p>
+          <p class="specimen-callout specimen-callout-success">Passed — your knowledge check was recorded against your learner profile.</p>
+          <p class="specimen-callout specimen-callout-warning">Heads up — this provider changed its rate limits since the module was written.</p>
+          <p class="specimen-callout specimen-callout-danger">Blocked — sign in before your progress can be saved.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="specimen-section">
+      <div class="specimen-block">
+        <h2>Panels, code and overlay</h2>
+        <div class="specimen-panel specimen-block">
+          <h3>Configure the portal</h3>
+          <p class="specimen-lede">This is the entire interface for changing how the site looks.</p>
+          <pre class="specimen-code" id="configSnippet"></pre>
+        </div>
+        <div class="specimen-overlay specimen-stack">
+          <p class="specimen-eyebrow">Fullscreen overlay</p>
+          <p>Diagram and media overlays use their own scrim, surface and border tokens so they stay legible on every theme.</p>
+          <p><span class="specimen-overlay-chip">Press Esc to close</span></p>
+        </div>
+      </div>
+    </section>
+
+    <section class="specimen-section">
+      <div class="specimen-block">
+        <h2>Type ramp</h2>
+        <p class="specimen-lede">Owned by the layout bundle. Switch layouts and every step below moves together.</p>
+        <div class="specimen-ramp">
+          <span class="ramp-5">Step 5</span>
+          <span class="ramp-4">Step 4</span>
+          <span class="ramp-3">Step 3</span>
+          <span class="ramp-2">Step 2</span>
+          <span class="ramp-1">Step 1</span>
+          <span class="ramp-0">Step 0 — body copy</span>
+          <span class="ramp--1">Step -1 — fine print</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="specimen-section">
+      <div class="specimen-block">
+        <h2>Spacing rhythm</h2>
+        <p class="specimen-lede">The eight-step scale, drawn at its real size.</p>
+        <div class="specimen-rhythm">
+          <i class="bar-2xs"></i><i class="bar-xs"></i><i class="bar-sm"></i><i class="bar-md"></i>
+          <i class="bar-lg"></i><i class="bar-xl"></i><i class="bar-2xl"></i><i class="bar-3xl"></i>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    (function () {
+      var combination = window.__p42Specimen;
+      document.getElementById("specimenMark").src =
+        "themes/" + combination.theme + "/mark.svg";
+      document.getElementById("configSnippet").textContent =
+        '{\n  "theme": "' + combination.theme + '",\n  "layout": {\n    "defaultPreset": "' +
+        combination.layout + '"\n  }\n}';
+      document.title =
+        "Project 42 — " + combination.theme + " / " + combination.layout;
+    })();
+  </script>
+</body>
+</html>

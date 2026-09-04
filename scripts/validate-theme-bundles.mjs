@@ -39,6 +39,28 @@ for (const entry of entries) {
   for (const token of requiredTokens) {
     if (!tokens.includes(`${token}:`)) throw new Error(`${entry.name}: missing ${token}`);
   }
+
+  // Asset URLs inside a custom property must be site-absolute.
+  //
+  // A relative url() in a custom property is NOT resolved where it is
+  // declared. The raw string is inherited and only resolved where the var()
+  // is finally used, so url("./hero.png") declared here resolves against
+  // whichever stylesheet consumes it. In the portal that is the compiled app
+  // stylesheet under /_next/static/css/, so the theme hero silently 404'd for
+  // every theme whose own portal.css did not happen to re-declare the same
+  // rule. Only 06-galactic-guide did, which is exactly why the breakage
+  // stayed hidden until the preview matrix rendered the other five.
+  //
+  // Both surfaces publish theme bundles at /themes/<id>/, so a site-absolute
+  // path is correct in the portal, in the Gallery, and in the matrix alike.
+  for (const [, value] of tokens.matchAll(/--p42-[a-z0-9-]+\s*:\s*([^;]*url\([^)]*\)[^;]*);/g)) {
+    const target = value.match(/url\(\s*["']?([^"')]+)/)?.[1] ?? "";
+    if (!target.startsWith("/") && !/^https?:/.test(target)) {
+      throw new Error(
+        `${entry.name}: custom-property asset URL must be site-absolute (/themes/${entry.name}/...), got "${target}"`,
+      );
+    }
+  }
 }
 
 console.log(`Validated ${entries.length} complete theme bundles.`);

@@ -1,0 +1,255 @@
+/* Project 42 specimen stylesheet.
+ *
+ * This is the Gallery's own demo surface -- the equivalent of a Hugo theme's
+ * exampleSite. It is deliberately NOT a copy of the portal's globals.css.
+ *
+ * Its one job: exercise the ENTIRE published token vocabulary, so that every
+ * value a theme bundle or a layout bundle supplies is visible somewhere on the
+ * page. It declares no colour, no size and no typeface of its own -- every
+ * value below is a var(). Change the theme and the colours move; change the
+ * layout and the measure, rhythm, density, radii and type ramp move. That is
+ * the whole contract, made visible.
+ *
+ * validate-matrix.mjs fails the build if a token exists in a bundle but is
+ * never read here, so a new token cannot silently vanish from the preview.
+ */
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--p42-bg);
+  color: var(--p42-text-body);
+  font-family: system-ui, sans-serif;
+  font-size: var(--p42-step-0);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  padding-bottom: var(--p42-space-3xl);
+}
+
+h1, h2, h3, .specimen-eyebrow, .specimen-btn {
+  font-family: var(--p42-font-heading);
+}
+
+.specimen-shell {
+  width: var(--p42-shell);
+  margin-inline: auto;
+  padding-inline: var(--p42-gutter);
+}
+
+.specimen-section + .specimen-section { margin-top: var(--p42-section-gap); }
+.specimen-stack > * + * { margin-top: var(--p42-stack-gap); }
+.specimen-block > * + * { margin-top: var(--p42-block-gap); }
+
+/* ---- Hero: the theme's own hero image, loaded from the real bundle ---- */
+
+.specimen-hero {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--p42-border-soft);
+  border-radius: var(--p42-radius-large);
+  background-color: var(--p42-surface);
+  background-image: var(--p42-hero-image);
+  background-size: cover;
+  background-position: center;
+  padding: var(--p42-space-3xl) var(--p42-space-xl);
+  box-shadow: var(--p42-shadow-raised);
+  margin-top: var(--p42-space-2xl);
+}
+
+/* The portal floats a card over the poster hero rather than tinting the whole
+   image, so the theme's own surface/text pairing guarantees contrast on light
+   themes as well as dark. The specimen does the same. */
+.specimen-hero > * { position: relative; }
+
+.specimen-hero-card {
+  background: var(--p42-surface-card);
+  border: 1px solid var(--p42-card-border);
+  border-radius: var(--p42-radius);
+  padding: var(--p42-card-padding);
+  box-shadow: var(--p42-shadow-card);
+  max-width: 62ch;
+}
+
+.specimen-eyebrow {
+  color: var(--p42-eyebrow);
+  font-size: var(--p42-step--1);
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.specimen-hero h1 {
+  color: var(--p42-text-title);
+  font-size: var(--p42-step-5);
+  font-weight: 840;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+}
+
+.specimen-hero p {
+  color: var(--p42-text-muted);
+  font-size: var(--p42-step-1);
+  max-width: 46ch;
+}
+
+.specimen-mark { width: 44px; height: 44px; }
+
+/* ---- Headings ---- */
+
+.specimen-section h2 {
+  color: var(--p42-text-title);
+  font-size: var(--p42-step-4);
+  font-weight: 840;
+  letter-spacing: -0.02em;
+  line-height: 1.05;
+}
+
+.specimen-section h3 {
+  color: var(--p42-text-title);
+  font-size: var(--p42-step-2);
+  font-weight: 700;
+}
+
+.specimen-lede { color: var(--p42-text-muted); font-size: var(--p42-step-1); }
+
+/* ---- Controls ---- */
+
+.specimen-controls { display: flex; flex-wrap: wrap; gap: var(--p42-space-sm); }
+
+.specimen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--p42-control-height);
+  padding: var(--p42-control-padding);
+  border-radius: var(--p42-radius-pill);
+  border: 1px solid transparent;
+  font-size: var(--p42-step-0);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.specimen-btn-primary { background: var(--p42-primary); color: var(--p42-primary-fg); }
+.specimen-btn-primary:hover { background: var(--p42-primary-hover); }
+
+.specimen-btn-secondary {
+  background: var(--p42-secondary-btn-bg);
+  color: var(--p42-secondary-btn-fg);
+  border-color: var(--p42-secondary-btn-border);
+}
+
+.specimen-btn-accent { background: var(--p42-accent); color: var(--p42-accent-fg); }
+
+.specimen-btn-quiet {
+  background: var(--p42-interactive-muted);
+  color: var(--p42-text-body);
+  border-color: var(--p42-border-soft);
+}
+
+/* ---- Cards ---- */
+
+.specimen-grid {
+  display: grid;
+  grid-template-columns: var(--p42-grid-cards);
+  gap: var(--p42-space-lg);
+}
+
+.specimen-card {
+  background: var(--p42-surface-card);
+  border: 1px solid var(--p42-card-border);
+  border-radius: var(--p42-radius);
+  padding: var(--p42-card-padding);
+  box-shadow: var(--p42-shadow-card);
+}
+
+.specimen-card-raised { background: var(--p42-surface-elevated); }
+
+.specimen-badge {
+  display: inline-block;
+  padding: var(--p42-space-2xs) var(--p42-space-sm);
+  border-radius: var(--p42-radius-small);
+  background: var(--p42-interactive-muted);
+  color: var(--p42-eyebrow);
+  font-size: var(--p42-step--1);
+  font-weight: 700;
+}
+
+.specimen-panel {
+  background: var(--p42-surface);
+  border: 1px solid var(--p42-border-soft);
+  border-radius: var(--p42-radius-large);
+  padding: var(--p42-space-xl);
+}
+
+/* ---- Code ---- */
+
+.specimen-code {
+  background: var(--p42-surface-code);
+  color: var(--p42-text-body);
+  border-radius: var(--p42-radius-small);
+  padding: var(--p42-space-md);
+  font-family: ui-monospace, monospace;
+  font-size: var(--p42-step--1);
+  overflow-x: auto;
+}
+
+/* ---- Status family ---- */
+
+.specimen-callouts { display: grid; gap: var(--p42-space-md); }
+
+.specimen-callout {
+  border-radius: var(--p42-radius-small);
+  padding: var(--p42-space-md) var(--p42-space-lg);
+  border: 1px solid;
+  font-size: var(--p42-step-0);
+}
+
+.specimen-callout-success { background: var(--p42-success-bg); border-color: var(--p42-success-border); color: var(--p42-success-fg); }
+.specimen-callout-warning { background: var(--p42-warning-bg); border-color: var(--p42-warning-border); color: var(--p42-warning-fg); }
+.specimen-callout-danger  { background: var(--p42-danger-bg);  border-color: var(--p42-danger-border);  color: var(--p42-danger-fg); }
+.specimen-callout-info    { background: var(--p42-info-bg);    border-color: var(--p42-info-border);    color: var(--p42-info-fg); }
+
+/* ---- Overlay ---- */
+
+.specimen-overlay {
+  border-radius: var(--p42-radius);
+  padding: var(--p42-space-xl);
+  background: var(--p42-overlay-scrim);
+  color: var(--p42-overlay-fg);
+}
+
+.specimen-overlay-chip {
+  display: inline-block;
+  padding: var(--p42-space-xs) var(--p42-space-md);
+  border-radius: var(--p42-radius-pill);
+  background: var(--p42-overlay-surface);
+  border: 1px solid var(--p42-overlay-border);
+  color: var(--p42-overlay-fg);
+  font-size: var(--p42-step--1);
+}
+
+/* ---- Type ramp, shown as itself ---- */
+
+.specimen-ramp { display: grid; gap: var(--p42-space-xs); }
+.specimen-ramp span { color: var(--p42-text-title); line-height: 1.15; }
+.specimen-ramp .ramp--1 { font-size: var(--p42-step--1); }
+.specimen-ramp .ramp-0  { font-size: var(--p42-step-0); }
+.specimen-ramp .ramp-1  { font-size: var(--p42-step-1); }
+.specimen-ramp .ramp-2  { font-size: var(--p42-step-2); }
+.specimen-ramp .ramp-3  { font-size: var(--p42-step-3); }
+.specimen-ramp .ramp-4  { font-size: var(--p42-step-4); }
+.specimen-ramp .ramp-5  { font-size: var(--p42-step-5); }
+
+/* ---- Spacing rhythm, shown as itself ---- */
+
+.specimen-rhythm { display: flex; align-items: flex-end; gap: var(--p42-space-xs); }
+.specimen-rhythm i { display: block; width: var(--p42-space-lg); background: var(--p42-primary); border-radius: var(--p42-radius-small); }
+.specimen-rhythm .bar-2xs { height: var(--p42-space-2xs); }
+.specimen-rhythm .bar-xs  { height: var(--p42-space-xs); }
+.specimen-rhythm .bar-sm  { height: var(--p42-space-sm); }
+.specimen-rhythm .bar-md  { height: var(--p42-space-md); }
+.specimen-rhythm .bar-lg  { height: var(--p42-space-lg); }
+.specimen-rhythm .bar-xl  { height: var(--p42-space-xl); }
+.specimen-rhythm .bar-2xl { height: var(--p42-space-2xl); }
+.specimen-rhythm .bar-3xl { height: var(--p42-space-3xl); }

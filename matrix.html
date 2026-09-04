@@ -1,0 +1,397 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Project 42 — Theme × Layout Matrix</title>
+  <meta name="description" content="Every published Project 42 theme rendered against every published layout, so you can see a combination before selecting it.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    /* The matrix chrome is Gallery-owned design and is deliberately NOT themed:
+       it has to stay a neutral, constant frame, or you cannot judge what is
+       inside the frames. Every themed pixel on this page is inside an iframe. */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: #080c14;
+      color: #e2e8f0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a { color: #38bdf8; }
+
+    .bar {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(8, 12, 20, 0.96);
+      backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      padding: 12px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .badge {
+      font-size: 10.5px;
+      font-weight: 800;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 3px 8px;
+      border-radius: 6px;
+      background: rgba(56, 189, 248, 0.15);
+      color: #38bdf8;
+      border: 1px solid rgba(56, 189, 248, 0.3);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .controls { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+
+    .field { display: flex; align-items: center; gap: 6px; font-size: 12.5px; color: #94a3b8; }
+
+    select, .ghost {
+      background: rgba(255, 255, 255, 0.05);
+      color: #e2e8f0;
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      border-radius: 8px;
+      padding: 6px 10px;
+      font: inherit;
+      font-size: 12.5px;
+      cursor: pointer;
+    }
+
+    .ghost:hover, select:hover { border-color: rgba(56, 189, 248, 0.5); }
+
+    main { padding: 24px; }
+
+    .intro {
+      max-width: 78ch;
+      margin-bottom: 24px;
+      color: #94a3b8;
+      font-size: 13.5px;
+    }
+
+    .intro h1 { color: #ffffff; font-size: 26px; line-height: 1.2; margin-bottom: 8px; }
+    .intro strong { color: #e2e8f0; }
+
+    /* ---- Contact sheet ---- */
+
+    .sheet {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 20px;
+    }
+
+    .cell {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      overflow: hidden;
+      background: #0b1020;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .cell:focus-within, .cell:hover { border-color: rgba(56, 189, 248, 0.55); }
+
+    .cell-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 8px;
+      padding: 10px 12px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .cell-title { font-size: 13px; font-weight: 700; color: #ffffff; }
+    .cell-sub { font-size: 11px; color: #64748b; font-family: 'JetBrains Mono', monospace; }
+
+    /* A full-width desktop render, scaled down to fit the cell. Scaling rather
+       than narrowing the frame is deliberate: a narrow iframe would trip the
+       layout's own responsive behaviour and show you a phone, not the desktop
+       composition you are choosing between. */
+    .viewport { position: relative; width: 100%; padding-top: 72%; overflow: hidden; }
+
+    .viewport iframe {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 1440px;
+      height: 1600px;
+      border: 0;
+      transform-origin: top left;
+      background: #0b1020;
+    }
+
+    .cell-foot { display: flex; gap: 8px; padding: 10px 12px; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+
+    .cell-foot .ghost { font-size: 11.5px; padding: 5px 9px; }
+
+    /* ---- Focus view ---- */
+
+    .focus { display: none; }
+    body[data-view="focus"] .sheet { display: none; }
+    body[data-view="focus"] .focus { display: block; }
+
+    .focus-head {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 16px;
+    }
+
+    .focus-head h2 { color: #ffffff; font-size: 22px; line-height: 1.25; }
+    .focus-head p { color: #94a3b8; font-size: 13px; max-width: 62ch; }
+
+    .focus-frame {
+      width: 100%;
+      height: min(78vh, 1000px);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+      border-radius: 14px;
+      background: #0b1020;
+    }
+
+    .snippet {
+      margin-top: 16px;
+      background: #050811;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 14px 16px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12.5px;
+      color: #cbd5e1;
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .snippet-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 20px;
+      font-size: 13px;
+      color: #94a3b8;
+    }
+
+    footer { padding: 32px 24px; color: #64748b; font-size: 12.5px; border-top: 1px solid rgba(255, 255, 255, 0.08); margin-top: 40px; }
+
+    @media (max-width: 640px) {
+      .bar { padding: 10px 14px; }
+      main { padding: 16px 14px; }
+    }
+  </style>
+</head>
+<body data-view="sheet">
+  <div class="bar">
+    <a class="brand" href="index.html">
+      Project 42 Gallery <span class="badge">Matrix</span>
+    </a>
+    <div class="controls">
+      <label class="field">Theme
+        <select id="themeFilter"><option value="">All themes</option></select>
+      </label>
+      <label class="field">Layout
+        <select id="layoutFilter"><option value="">All layouts</option></select>
+      </label>
+      <button class="ghost" id="backToSheet" hidden>← Back to matrix</button>
+      <a class="ghost" href="index.html">Gallery home</a>
+    </div>
+  </div>
+
+  <main>
+    <div class="intro">
+      <h1>Every theme, against every layout</h1>
+      <p>
+        <strong>Themes own colour, typeface and imagery. Layouts own measure, spacing rhythm, density, radii and the type ramp.</strong>
+        They are independent, so the two together are what you actually ship — this page renders all
+        <span id="comboCount">—</span> combinations from the real published bundles, no copies.
+        Pick one, then paste the snippet it gives you into <code>project42.config.json</code>. That is the whole change.
+      </p>
+      <p style="margin-top:10px">
+        This is the Gallery&rsquo;s own specimen surface, in the way a Hugo theme ships an example site: it exercises the
+        complete token vocabulary so nothing a bundle defines is invisible here. It is a faithful preview of the design
+        system, not a pixel copy of every portal page.
+      </p>
+    </div>
+
+    <div class="sheet" id="sheet"></div>
+
+    <section class="focus" id="focus">
+      <div class="focus-head">
+        <div>
+          <h2 id="focusTitle">—</h2>
+          <p id="focusDescription">—</p>
+        </div>
+        <a class="ghost" id="focusOpen" href="#" target="_blank" rel="noopener">Open full screen ↗</a>
+      </div>
+      <iframe class="focus-frame" id="focusFrame" title="Theme and layout specimen" loading="lazy"></iframe>
+      <div class="snippet-head">
+        <span>Paste into <code>project42.config.json</code> in the portal repository:</span>
+        <button class="ghost" id="copySnippet">Copy</button>
+      </div>
+      <pre class="snippet" id="focusSnippet">—</pre>
+    </section>
+  </main>
+
+  <footer>
+    Project 42 Theme Gallery · Licensed under Apache-2.0 ·
+    <a href="https://github.com/project42dev/project42-gallery">GitHub repository</a>
+  </footer>
+
+  <script>
+    (function () {
+      var sheet = document.getElementById("sheet");
+      var themeFilter = document.getElementById("themeFilter");
+      var layoutFilter = document.getElementById("layoutFilter");
+      var backToSheet = document.getElementById("backToSheet");
+      var index = null;
+
+      function specimenUrl(theme, layout) {
+        return "specimen.html?theme=" + encodeURIComponent(theme) +
+          "&layout=" + encodeURIComponent(layout);
+      }
+
+      function configSnippet(theme, layout) {
+        return '{\n  "theme": "' + theme + '",\n  "layout": {\n    "defaultPreset": "' +
+          layout + '"\n  }\n}';
+      }
+
+      function scaleFrames() {
+        document.querySelectorAll(".viewport").forEach(function (viewport) {
+          var frame = viewport.querySelector("iframe");
+          if (!frame) return;
+          var scale = viewport.clientWidth / 1440;
+          frame.style.transform = "scale(" + scale + ")";
+          viewport.style.paddingTop = (1600 * scale) + "px";
+        });
+      }
+
+      function showFocus(theme, layout) {
+        var themeEntry = index.themes.find(function (t) { return t.id === theme; });
+        var layoutEntry = index.layouts.find(function (l) { return l.id === layout; });
+        if (!themeEntry || !layoutEntry) return;
+
+        document.getElementById("focusTitle").textContent =
+          themeEntry.name + " · " + layoutEntry.name + " layout";
+        document.getElementById("focusDescription").textContent =
+          themeEntry.tagline + " " + layoutEntry.description;
+        document.getElementById("focusFrame").src = specimenUrl(theme, layout);
+        document.getElementById("focusOpen").href = specimenUrl(theme, layout);
+        document.getElementById("focusSnippet").textContent = configSnippet(theme, layout);
+
+        document.body.dataset.view = "focus";
+        backToSheet.hidden = false;
+        location.hash = "#" + theme + "+" + layout;
+        window.scrollTo(0, 0);
+      }
+
+      function showSheet() {
+        document.body.dataset.view = "sheet";
+        backToSheet.hidden = true;
+        document.getElementById("focusFrame").removeAttribute("src");
+        if (location.hash) history.replaceState(null, "", location.pathname + location.search);
+      }
+
+      function render() {
+        var wantTheme = themeFilter.value;
+        var wantLayout = layoutFilter.value;
+        sheet.replaceChildren();
+
+        index.themes
+          .filter(function (t) { return !wantTheme || t.id === wantTheme; })
+          .forEach(function (theme) {
+            index.layouts
+              .filter(function (l) { return !wantLayout || l.id === wantLayout; })
+              .forEach(function (layout) {
+                var cell = document.createElement("article");
+                cell.className = "cell";
+                cell.innerHTML =
+                  '<div class="cell-head">' +
+                    '<span class="cell-title"></span>' +
+                    '<span class="cell-sub"></span>' +
+                  '</div>' +
+                  '<div class="viewport"><iframe loading="lazy" title="" scrolling="no"></iframe></div>' +
+                  '<div class="cell-foot">' +
+                    '<button class="ghost" data-act="focus">Inspect</button>' +
+                    '<a class="ghost" data-act="open" target="_blank" rel="noopener">Full screen ↗</a>' +
+                  '</div>';
+
+                var label = theme.name + " · " + layout.name;
+                cell.querySelector(".cell-title").textContent = label;
+                cell.querySelector(".cell-sub").textContent = theme.id + " / " + layout.id;
+                var frame = cell.querySelector("iframe");
+                frame.title = label;
+                frame.src = specimenUrl(theme.id, layout.id);
+                cell.querySelector('[data-act="open"]').href = specimenUrl(theme.id, layout.id);
+                cell.querySelector('[data-act="focus"]').addEventListener("click", function () {
+                  showFocus(theme.id, layout.id);
+                });
+                sheet.appendChild(cell);
+              });
+          });
+
+        scaleFrames();
+      }
+
+      function option(value, label) {
+        var element = document.createElement("option");
+        element.value = value;
+        element.textContent = label;
+        return element;
+      }
+
+      fetch("matrix/index.json")
+        .then(function (response) { return response.json(); })
+        .then(function (data) {
+          index = data;
+          document.getElementById("comboCount").textContent =
+            index.themes.length + " × " + index.layouts.length + " = " +
+            (index.themes.length * index.layouts.length);
+          index.themes.forEach(function (t) { themeFilter.appendChild(option(t.id, t.name)); });
+          index.layouts.forEach(function (l) { layoutFilter.appendChild(option(l.id, l.name)); });
+
+          var requested = decodeURIComponent(location.hash.replace(/^#/, "")).split("+");
+          render();
+          if (requested.length === 2) showFocus(requested[0], requested[1]);
+        })
+        .catch(function () {
+          sheet.textContent =
+            "Could not load matrix/index.json. Run: npm run build:matrix";
+        });
+
+      themeFilter.addEventListener("change", render);
+      layoutFilter.addEventListener("change", render);
+      backToSheet.addEventListener("click", showSheet);
+      window.addEventListener("resize", scaleFrames);
+
+      document.getElementById("copySnippet").addEventListener("click", function () {
+        var button = this;
+        var text = document.getElementById("focusSnippet").textContent;
+        navigator.clipboard.writeText(text).then(function () {
+          button.textContent = "Copied";
+          setTimeout(function () { button.textContent = "Copy"; }, 1600);
+        });
+      });
+    })();
+  </script>
+</body>
+</html>

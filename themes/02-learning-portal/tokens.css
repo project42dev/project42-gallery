@@ -21,7 +21,7 @@
   --p42-border-soft: var(--p42-card-border);
   --p42-primary-hover: var(--p42-primary);
   --p42-interactive-muted: color-mix(in srgb, var(--p42-primary) 10%, transparent);
-  --p42-hero-image: url("./hero.png");
+  --p42-hero-image: url("/themes/02-learning-portal/hero.png");
 
   /* Status family: success, warning, danger. */
   --p42-success-bg: #e9f7ed;

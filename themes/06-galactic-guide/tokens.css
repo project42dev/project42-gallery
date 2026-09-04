@@ -21,7 +21,7 @@
   --p42-border-soft: rgba(245, 158, 11, 0.24);
   --p42-primary-hover: #fbbf24;
   --p42-interactive-muted: rgba(245, 158, 11, 0.1);
-  --p42-hero-image: url("./hero.png");
+  --p42-hero-image: url("/themes/06-galactic-guide/hero.png");
 
   /* Status family: success, warning, danger. */
   --p42-success-bg: #0f2a1a;
