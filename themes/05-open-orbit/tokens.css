@@ -33,4 +33,15 @@
   --p42-danger-bg: #fff0ed;
   --p42-danger-border: #e5a9a0;
   --p42-danger-fg: #7f1d1d;
+
+  /* Info callouts, fullscreen overlay, elevation. */
+  --p42-info-bg: #e7f7f8;
+  --p42-info-border: #8ecbd1;
+  --p42-info-fg: #1e5055;
+  --p42-overlay-scrim: rgba(6, 10, 22, 0.96);
+  --p42-overlay-fg: #ffffff;
+  --p42-overlay-surface: rgba(255, 255, 255, 0.1);
+  --p42-overlay-border: rgba(255, 255, 255, 0.2);
+  --p42-shadow-card: 0 8px 24px rgba(11, 18, 37, 0.12);
+  --p42-shadow-raised: 0 12px 30px rgba(11, 18, 37, 0.18);
 }

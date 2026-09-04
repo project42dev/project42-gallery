@@ -42,7 +42,16 @@
     "--p42-warning-fg": "#fcd34d",
     "--p42-danger-bg": "#2d1315",
     "--p42-danger-border": "#7f2c31",
-    "--p42-danger-fg": "#fca5a5"
+    "--p42-danger-fg": "#fca5a5",
+    "--p42-info-bg": "#0d2a2e",
+    "--p42-info-border": "#2f6a72",
+    "--p42-info-fg": "#7dd3dc",
+    "--p42-overlay-scrim": "rgba(6, 10, 22, 0.96)",
+    "--p42-overlay-fg": "#ffffff",
+    "--p42-overlay-surface": "rgba(255, 255, 255, 0.1)",
+    "--p42-overlay-border": "rgba(255, 255, 255, 0.2)",
+    "--p42-shadow-card": "0 8px 24px rgba(0, 0, 0, 0.45)",
+    "--p42-shadow-raised": "0 12px 30px rgba(0, 0, 0, 0.55)"
   },
   "subbrands": {
     "learn": "Project 42 Guide",
