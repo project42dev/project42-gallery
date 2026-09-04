@@ -1,0 +1,40 @@
+{
+  "id": "standard",
+  "name": "Standard",
+  "description": "The default composition: balanced content width, comfortable spacing rhythm, and a moderate type ramp. Suits a reading-led site with cards and long-form modules.",
+  "author": "Project 42 Core Team",
+  "version": "1.0.0",
+  "assets": {
+    "styles": "layout.css"
+  },
+  "tokens": {
+    "--p42-shell": "min(1180px, calc(100vw - 40px))",
+    "--p42-gutter": "20px",
+    "--p42-space-2xs": "0.25rem",
+    "--p42-space-xs": "0.5rem",
+    "--p42-space-sm": "0.75rem",
+    "--p42-space-md": "1rem",
+    "--p42-space-lg": "1.5rem",
+    "--p42-space-xl": "2rem",
+    "--p42-space-2xl": "3rem",
+    "--p42-space-3xl": "4rem",
+    "--p42-section-gap": "clamp(3rem, 6vw, 5rem)",
+    "--p42-block-gap": "1.5rem",
+    "--p42-stack-gap": "1rem",
+    "--p42-card-padding": "clamp(1.5rem, 3vw, 2rem)",
+    "--p42-control-height": "2.75rem",
+    "--p42-control-padding": "0.65rem 1.1rem",
+    "--p42-radius": "24px",
+    "--p42-radius-small": "14px",
+    "--p42-radius-large": "32px",
+    "--p42-radius-pill": "999px",
+    "--p42-step--1": "0.82rem",
+    "--p42-step-0": "1rem",
+    "--p42-step-1": "1.2rem",
+    "--p42-step-2": "1.5rem",
+    "--p42-step-3": "clamp(1.8rem, 3vw, 2.3rem)",
+    "--p42-step-4": "clamp(2.3rem, 5vw, 4.5rem)",
+    "--p42-step-5": "clamp(3.4rem, 7vw, 7.3rem)",
+    "--p42-grid-cards": "repeat(auto-fit, minmax(280px, 1fr))"
+  }
+}
