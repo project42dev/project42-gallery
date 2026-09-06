@@ -259,3 +259,77 @@ html[data-theme="01-cosmic-answer"] .resource-foot a {
   text-decoration: underline;
   text-underline-offset: 0.25em;
 }
+
+/* ---------------------------------------------------------------------------
+ * The portal shell (rule T9).
+ *
+ * Everything above styles components the portal and the Gallery specimen
+ * share. This block covers the four places where the portal's CORE sheet
+ * already paints something a bundle has to take over, and where a bundle that
+ * stays silent ships a site that looks half-themed:
+ *
+ *   .hero-map         core fills it with the page colour and its own orbit
+ *                     ornaments, so this theme's hero artwork never appears
+ *   .path-card::after core draws an accent-coloured blob over every card
+ *   .footer-grid a    core carries a 44px tap target, which turns the footer
+ *                     into a column of buttons
+ *   .portal-actions a core gives the primary call to action NO background at
+ *                     all -- border and text colour only
+ *
+ * These are portal-only classes: the Gallery specimen has no hero-map, path
+ * card or site footer to name alongside them, so they follow
+ * 06-galactic-guide's precedent and name the portal class alone. The primary
+ * action does have a specimen equivalent, and names it.
+ * ------------------------------------------------------------------------ */
+
+/* An observatory frames its plate in a soft ring and lets the light lift it. */
+html[data-theme="01-cosmic-answer"] .hero-map {
+  aspect-ratio: 16 / 9;
+  background: var(--p42-hero-image) center / cover no-repeat;
+  border: 1px solid var(--p42-card-border);
+  border-radius: calc(var(--p42-radius) * 1.6);
+  box-shadow: var(--p42-shadow-raised);
+  max-width: 640px;
+}
+
+html[data-theme="01-cosmic-answer"] .hero-map::before,
+html[data-theme="01-cosmic-answer"] .hero-map > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-theme="01-cosmic-answer"] .path-card::after {
+  content: none;
+}
+
+html[data-theme="01-cosmic-answer"] .footer-grid a {
+  line-height: 1.35;
+  min-height: 0;
+  padding-block: var(--p42-space-2xs);
+}
+
+/* The one control that has to read as a control. The halo this theme already
+   puts on .portal-actions a is left alone -- fill it, do not re-shadow it. */
+html[data-theme="01-cosmic-answer"] .portal-actions a,
+html[data-theme="01-cosmic-answer"] .header-action,
+html[data-theme="01-cosmic-answer"] .specimen-btn-primary {
+  background: var(--p42-primary);
+  color: var(--p42-primary-fg);
+  transition: background 0.15s ease;
+}
+
+html[data-theme="01-cosmic-answer"] .portal-actions a:hover,
+html[data-theme="01-cosmic-answer"] .header-action:hover,
+html[data-theme="01-cosmic-answer"] .specimen-btn-primary:hover {
+  background: var(--p42-primary-hover);
+}
+
+/* The transition above is this bundle's, so this bundle is the only thing
+   that can switch it off for a visitor who asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="01-cosmic-answer"] .portal-actions a,
+  html[data-theme="01-cosmic-answer"] .header-action,
+  html[data-theme="01-cosmic-answer"] .specimen-btn-primary {
+    transition: none;
+  }
+}

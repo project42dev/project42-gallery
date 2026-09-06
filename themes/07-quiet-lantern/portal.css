@@ -185,3 +185,76 @@ html[data-theme="07-quiet-lantern"] .resource-foot a {
   text-decoration: underline;
   text-underline-offset: 0.25em;
 }
+
+/* ---------------------------------------------------------------------------
+ * The portal shell (rule T9).
+ *
+ * Everything above styles components the portal and the Gallery specimen
+ * share. This block covers four places where the portal's CORE sheet already
+ * paints something a bundle has to take over, and where a bundle that stays
+ * silent ships a site that looks half-themed:
+ *
+ *   .hero-map        core fills it with the page colour and its own orbit
+ *                    ornaments, so the theme's hero artwork never appears
+ *   .path-card::after core draws an accent-coloured blob on every card
+ *   .footer-grid a   core carries a 44px tap target, which reads as a list of
+ *                    buttons rather than a footer
+ *   .portal-actions a core gives the primary call to action NO background at
+ *                    all -- border and text colour only
+ *
+ * The first generated bundle shipped without these and was rejected by the
+ * consuming portal's conformance suite while passing every gate in this
+ * repository, which is what rule T9 now exists to prevent.
+ * ------------------------------------------------------------------------ */
+
+html[data-theme="07-quiet-lantern"] .hero-map {
+  aspect-ratio: 16 / 9;
+  background: var(--p42-hero-image) center / cover no-repeat;
+  border: 2px solid var(--p42-card-border);
+  border-radius: 0;
+  box-shadow: none;
+  max-width: 640px;
+}
+
+html[data-theme="07-quiet-lantern"] .hero-map::before,
+html[data-theme="07-quiet-lantern"] .hero-map > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-theme="07-quiet-lantern"] .path-card::after {
+  content: none;
+}
+
+html[data-theme="07-quiet-lantern"] .footer-grid a {
+  line-height: 1.35;
+  min-height: 0;
+  padding-block: var(--p42-space-2xs);
+}
+
+/* The primary call to action. The specimen's equivalent is named in the same
+   rule so the preview matrix shows the fill, not just the shape. */
+html[data-theme="07-quiet-lantern"] .portal-actions a,
+html[data-theme="07-quiet-lantern"] .header-action,
+html[data-theme="07-quiet-lantern"] .specimen-btn-primary {
+  background: var(--p42-primary);
+  color: var(--p42-primary-fg);
+  min-height: var(--p42-control-height);
+  transition: background 0.15s ease;
+}
+
+html[data-theme="07-quiet-lantern"] .portal-actions a:hover,
+html[data-theme="07-quiet-lantern"] .header-action:hover,
+html[data-theme="07-quiet-lantern"] .specimen-btn-primary:hover {
+  background: var(--p42-primary-hover);
+}
+
+/* The transition above is the bundle's, so the bundle is the only thing that
+   can switch it off for a visitor who asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="07-quiet-lantern"] .portal-actions a,
+  html[data-theme="07-quiet-lantern"] .header-action,
+  html[data-theme="07-quiet-lantern"] .specimen-btn-primary {
+    transition: none;
+  }
+}

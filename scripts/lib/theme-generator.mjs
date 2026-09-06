@@ -174,12 +174,28 @@ function buildTokens(spec) {
 
   // Every text colour is derived against every surface it can land on, so no
   // pairing in CONTRAST_PAIRS can be the one that was not considered.
-  const textBackdrops = [page, surface, surfaceCard];
+  //
+  // "Every surface" means SURFACE_TOKENS, not a shorter list. This recipe
+  // previously derived the muted ink against [page, surfaceCard] and the
+  // eyebrow against [page] alone, mirroring the pairs the gate happened to
+  // measure at the time. Both lists were short by the same two surfaces --
+  // surfaceElevated and surfaceCode -- so 07-quiet-lantern generated clean and
+  // then failed nine pairs the moment the gate enumerated the product. A
+  // recipe that derives against a subset of the surfaces its output can land
+  // on is a recipe that produces bundles a consumer will reject.
+  const textBackdrops = [page, surface, surfaceCard, surfaceElevated, surfaceCode];
   const title = deriveForeground(mix(page, away, 0.9), textBackdrops, 7);
   const body = deriveForeground(mix(page, away, 0.7), textBackdrops);
-  const muted = deriveForeground(mix(page, away, 0.55), [page, surfaceCard]);
-  const eyebrow = deriveForeground(primary, [page]);
-  const primaryFg = deriveForeground(deep, [primary]);
+  const muted = deriveForeground(mix(page, away, 0.55), textBackdrops);
+  // --p42-primary is a text colour as well as a fill: core paints
+  // .footer-grid strong and .text-link with it. The seed the caller gives is
+  // therefore walked onto the surfaces like any other ink, and the derived
+  // value -- not the seed -- is what the bundle publishes, so every place the
+  // palette builds from primary builds from the readable one.
+  const primaryInk = deriveForeground(primary, textBackdrops);
+  const primaryReadable = requireColor(primaryInk.hex, "primary");
+  const eyebrow = deriveForeground(primaryReadable, textBackdrops);
+  const primaryFg = deriveForeground(deep, [primaryReadable]);
   const accentFg = deriveForeground(deep, [accent]);
   const secondaryFg = deriveForeground(mix(page, away, 0.8), [secondaryBg]);
 
@@ -187,7 +203,8 @@ function buildTokens(spec) {
     ["--p42-text-title", title, toHex(mix(page, away, 0.9))],
     ["--p42-text-body", body, toHex(mix(page, away, 0.7))],
     ["--p42-text-muted", muted, toHex(mix(page, away, 0.55))],
-    ["--p42-eyebrow", eyebrow, toHex(primary)],
+    ["--p42-primary", primaryInk, toHex(primary)],
+    ["--p42-eyebrow", eyebrow, toHex(primaryReadable)],
     ["--p42-primary-fg", primaryFg, toHex(deep)],
     ["--p42-accent-fg", accentFg, toHex(deep)],
     ["--p42-secondary-btn-fg", secondaryFg, toHex(mix(page, away, 0.8))],
@@ -222,14 +239,14 @@ function buildTokens(spec) {
     "--p42-bg": toHex(page),
     "--p42-surface": toHex(surface),
     "--p42-surface-card": `rgba(${surfaceCard.slice(0, 3).map((c) => Math.round(c)).join(", ")}, 0.95)`,
-    "--p42-card-border": toHex(mix(page, primary, 0.4)),
-    "--p42-primary": toHex(primary),
+    "--p42-card-border": toHex(mix(page, primaryReadable, 0.4)),
+    "--p42-primary": toHex(primaryReadable),
     "--p42-primary-fg": primaryFg.hex,
     "--p42-accent": toHex(accent),
     "--p42-accent-fg": accentFg.hex,
     "--p42-secondary-btn-bg": toHex(secondaryBg),
     "--p42-secondary-btn-fg": secondaryFg.hex,
-    "--p42-secondary-btn-border": toHex(mix(page, primary, 0.3)),
+    "--p42-secondary-btn-border": toHex(mix(page, primaryReadable, 0.3)),
     "--p42-text-title": title.hex,
     "--p42-text-body": body.hex,
     "--p42-text-muted": muted.hex,
@@ -237,8 +254,8 @@ function buildTokens(spec) {
     "--p42-font-heading": `"${spec.font}", sans-serif`,
     "--p42-surface-elevated": toHex(surfaceElevated),
     "--p42-surface-code": toHex(surfaceCode),
-    "--p42-border-soft": toHex(mix(page, primary, 0.24)),
-    "--p42-primary-hover": toHex(mix(primary, away, 0.18)),
+    "--p42-border-soft": toHex(mix(page, primaryReadable, 0.24)),
+    "--p42-primary-hover": toHex(mix(primaryReadable, away, 0.18)),
     "--p42-interactive-muted": "color-mix(in srgb, var(--p42-primary) 10%, transparent)",
     "--p42-hero-image": `url("/themes/${spec.id}/hero.png")`,
     "--p42-success-bg": success.bg,
@@ -262,7 +279,7 @@ function buildTokens(spec) {
     "--p42-shadow-raised": `0 12px 30px rgba(${shadowRgb}, 0.55)`,
   };
 
-  return { values, polarity, corrections, page, primary, accent };
+  return { values, polarity, corrections, page, primary: primaryReadable, accent };
 }
 
 // ---- The component sheet ----------------------------------------------------
@@ -464,6 +481,79 @@ ${s} .resource-foot a {
 ${s} .resource-foot a {
   text-decoration: underline;
   text-underline-offset: 0.25em;
+}
+
+/* ---------------------------------------------------------------------------
+ * The portal shell (rule T9).
+ *
+ * Everything above styles components the portal and the Gallery specimen
+ * share. This block covers four places where the portal's CORE sheet already
+ * paints something a bundle has to take over, and where a bundle that stays
+ * silent ships a site that looks half-themed:
+ *
+ *   .hero-map        core fills it with the page colour and its own orbit
+ *                    ornaments, so the theme's hero artwork never appears
+ *   .path-card::after core draws an accent-coloured blob on every card
+ *   .footer-grid a   core carries a 44px tap target, which reads as a list of
+ *                    buttons rather than a footer
+ *   .portal-actions a core gives the primary call to action NO background at
+ *                    all -- border and text colour only
+ *
+ * The first generated bundle shipped without these and was rejected by the
+ * consuming portal's conformance suite while passing every gate in this
+ * repository, which is what rule T9 now exists to prevent.
+ * ------------------------------------------------------------------------ */
+
+${s} .hero-map {
+  aspect-ratio: 16 / 9;
+  background: var(--p42-hero-image) center / cover no-repeat;
+  border: ${character.borderWidth} solid var(--p42-card-border);
+  border-radius: ${r(1)};
+  box-shadow: ${character.flat ? "none" : "var(--p42-shadow-raised)"};
+  max-width: 640px;
+}
+
+${s} .hero-map::before,
+${s} .hero-map > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+${s} .path-card::after {
+  content: none;
+}
+
+${s} .footer-grid a {
+  line-height: 1.35;
+  min-height: 0;
+  padding-block: var(--p42-space-2xs);
+}
+
+/* The primary call to action. The specimen's equivalent is named in the same
+   rule so the preview matrix shows the fill, not just the shape. */
+${s} .portal-actions a,
+${s} .header-action,
+${s} .specimen-btn-primary {
+  background: var(--p42-primary);
+  color: var(--p42-primary-fg);
+  min-height: var(--p42-control-height);
+  transition: background 0.15s ease;
+}
+
+${s} .portal-actions a:hover,
+${s} .header-action:hover,
+${s} .specimen-btn-primary:hover {
+  background: var(--p42-primary-hover);
+}
+
+/* The transition above is the bundle's, so the bundle is the only thing that
+   can switch it off for a visitor who asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  ${s} .portal-actions a,
+  ${s} .header-action,
+  ${s} .specimen-btn-primary {
+    transition: none;
+  }
 }
 `;
 }

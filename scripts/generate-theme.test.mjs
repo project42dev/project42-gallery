@@ -139,9 +139,62 @@ test("rule T5 -- insufficient contrast is corrected by construction, not reporte
   });
   assert.deepEqual(verdictOf(bundle).failures, []);
   assert.ok(bundle.corrections.length > 0, "the corrections should be reported, not silent");
+  // The correction lands on --p42-primary itself, not only on the eyebrow
+  // derived from it. --p42-primary is a text colour in the portal's core sheet
+  // (.footer-grid strong, .text-link), so a pale seed has to be walked onto the
+  // surfaces before anything else is built from it -- correcting the eyebrow
+  // alone would leave the published primary unreadable wherever core paints
+  // text with it.
   assert.ok(
-    bundle.corrections.some((line) => line.startsWith("--p42-eyebrow")),
-    `expected the pale primary to be corrected for the eyebrow: ${bundle.corrections.join("; ")}`,
+    bundle.corrections.some((line) => line.startsWith("--p42-primary:")),
+    `expected the pale primary to be corrected: ${bundle.corrections.join("; ")}`,
+  );
+});
+
+test("rule T5 -- every text token is derived against every surface, not a subset", () => {
+  // The recipe once derived the muted ink against [page, surfaceCard] and the
+  // eyebrow against [page] alone -- the pairs the gate happened to measure at
+  // the time. 07-quiet-lantern generated clean and then failed nine pairs the
+  // moment the gate enumerated the product. checkBundle() measures the product
+  // now, so this asserts the recipe answers all of it.
+  for (const paper of ["#f6f4ef", "#0b1220", "#fefefe"]) {
+    const bundle = buildBundle({ ...base, paper, primary: "#b45309", accent: "#1d4ed8" });
+    assert.deepEqual(verdictOf(bundle).failures, [], `paper ${paper}`);
+  }
+});
+
+test("rule T9 -- a generated bundle carries the consumer's portal-shell treatments", () => {
+  // A bundle that passes T1-T5 here and is then rejected by the consuming
+  // portal is a bundle this repository mis-labelled as complete. The recipe
+  // emits the shell, so conformance cannot depend on an author remembering it.
+  const bundle = buildBundle(base);
+  assert.deepEqual(verdictOf(bundle).failures, []);
+  for (const required of [
+    /\.hero-map\s*\{[^}]*var\(--p42-hero-image\)/s,
+    /\.hero-map\s*>\s*\*[^{]*\{[^}]*opacity:\s*0/s,
+    /\.path-card::after\s*\{\s*content:\s*none;/,
+    /\.footer-grid a\s*\{[^}]*min-height:\s*0;/s,
+    /\.portal-actions a[^{]*\{[^}]*background:\s*var\(--p42-primary\)/s,
+    /\.portal-actions a:hover[^{]*\{[^}]*var\(--p42-primary-hover\)/s,
+  ]) {
+    assert.match(bundle.portalCss, required);
+  }
+});
+
+test("rule T10 -- the manifest's token block is what tokens.css declares", () => {
+  // theme.json's `tokens` object was documented as an unchecked drift vector.
+  // The consumer's browser suite reads it and asserts the computed custom
+  // properties equal it, so drift there fails on the consumer's side while
+  // every gate here stays green.
+  const bundle = buildBundle(base);
+  const declared = readTokens(bundle.tokensCss);
+  for (const name of TOKEN_CONTRACT) {
+    assert.equal(bundle.manifest.tokens[name], declared.get(name), name);
+  }
+  const drifted = verdictOf({ ...bundle, manifest: { ...bundle.manifest, tokens: {} } });
+  assert.ok(
+    drifted.failures.some((line) => line.includes("theme.json's tokens block disagrees")),
+    "an empty manifest token block must be a failure, not a skip",
   );
 });
 

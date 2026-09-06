@@ -255,3 +255,77 @@ html[data-theme="03-model-constellation"] .resource-foot a {
   text-decoration: underline;
   text-underline-offset: 0.25em;
 }
+
+/* ---------------------------------------------------------------------------
+ * The portal shell (rule T9).
+ *
+ * Everything above styles components the portal and the Gallery specimen
+ * share. This block covers the four places where the portal's CORE sheet
+ * already paints something a bundle has to take over, and where a bundle that
+ * stays silent ships a site that looks half-themed:
+ *
+ *   .hero-map         core fills it with the page colour and its own orbit
+ *                     ornaments, so this theme's hero artwork never appears
+ *   .path-card::after core draws an accent-coloured blob over every card
+ *   .footer-grid a    core carries a 44px tap target, which turns the footer
+ *                     into a column of buttons
+ *   .portal-actions a core gives the primary call to action NO background at
+ *                     all -- border and text colour only
+ *
+ * These are portal-only classes: the Gallery specimen has no hero-map, path
+ * card or site footer to name alongside them, so they follow
+ * 06-galactic-guide's precedent and name the portal class alone. The primary
+ * action does have a specimen equivalent, and names it.
+ * ------------------------------------------------------------------------ */
+
+/* A schematic plate: hairline grid rule, corners clamped to a few pixels. */
+html[data-theme="03-model-constellation"] .hero-map {
+  aspect-ratio: 16 / 9;
+  background: var(--p42-hero-image) center / cover no-repeat;
+  border: 1px solid var(--p42-border-soft);
+  border-radius: min(var(--p42-radius-small), 4px);
+  box-shadow: none;
+  max-width: 640px;
+}
+
+html[data-theme="03-model-constellation"] .hero-map::before,
+html[data-theme="03-model-constellation"] .hero-map > * {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-theme="03-model-constellation"] .path-card::after {
+  content: none;
+}
+
+html[data-theme="03-model-constellation"] .footer-grid a {
+  line-height: 1.35;
+  min-height: 0;
+  padding-block: var(--p42-space-2xs);
+}
+
+/* The one control that has to read as a control. */
+html[data-theme="03-model-constellation"] .portal-actions a,
+html[data-theme="03-model-constellation"] .header-action,
+html[data-theme="03-model-constellation"] .specimen-btn-primary {
+  background: var(--p42-primary);
+  color: var(--p42-primary-fg);
+  box-shadow: none;
+  transition: background 0.15s ease;
+}
+
+html[data-theme="03-model-constellation"] .portal-actions a:hover,
+html[data-theme="03-model-constellation"] .header-action:hover,
+html[data-theme="03-model-constellation"] .specimen-btn-primary:hover {
+  background: var(--p42-primary-hover);
+}
+
+/* The transition above is this bundle's, so this bundle is the only thing
+   that can switch it off for a visitor who asked for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html[data-theme="03-model-constellation"] .portal-actions a,
+  html[data-theme="03-model-constellation"] .header-action,
+  html[data-theme="03-model-constellation"] .specimen-btn-primary {
+    transition: none;
+  }
+}

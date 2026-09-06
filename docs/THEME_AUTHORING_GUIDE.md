@@ -96,6 +96,36 @@ the specimen classes never reaches the site.
 classes only, so it is the one theme the matrix still renders from tokens
 alone.
 
+### The portal shell — required, not optional (rule T9)
+
+Everything above is a component the portal and the specimen share. Four more
+classes are ones the portal's **core** sheet already paints, so a bundle that
+says nothing about them does not inherit a neutral default — it ships core's
+pre-theme appearance on top of your palette. The consuming portal's browser
+conformance suite checks for exactly these, and rejected two Gallery themes
+over them.
+
+| Rule you must write | Why | Specimen equivalent |
+|---|---|---|
+| `.hero-map` with a background from `var(--p42-hero-image)` | core fills it with the page colour and draws its own orbit ornaments | none — portal only |
+| `.hero-map > *` with `opacity: 0` | those ornaments sit on top of your artwork | none — portal only |
+| `.path-card::after` with `content: none` | core draws an accent-coloured blob over every path card | none — portal only |
+| `.footer-grid a` with `min-height: 0` | core's 44px tap target turns the footer into a column of buttons | none — portal only |
+| `.portal-actions a` with a background from `var(--p42-primary)` and a colour from `var(--p42-primary-fg)` | core gives the primary call to action **no background at all** | `.specimen-btn-primary` |
+| `.portal-actions a:hover` with a background from `var(--p42-primary-hover)` | a filled control with no hover state does not read as a control | `.specimen-btn-primary:hover` |
+
+If you give the primary action a `transition`, add a
+`@media (prefers-reduced-motion: reduce)` block that zeroes it. The transition
+is your bundle's, so core cannot switch it off for you.
+
+The first four have no specimen equivalent — there is no hero map, path card or
+site footer in `specimen.html` — so they name the portal class alone. That is
+the one exception to the selector convention above, and it is why they are
+listed here rather than in the mapping table.
+
+The theme generator emits this whole block, so a generated bundle already
+satisfies T9.
+
 ## Generating a theme
 
 ```

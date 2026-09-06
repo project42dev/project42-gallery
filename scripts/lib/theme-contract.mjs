@@ -51,15 +51,37 @@ export const TOKEN_CONTRACT = [
 
 export const TEXT_CONTRAST_MINIMUM = 4.5;
 
-export const CONTRAST_PAIRS = [
-  ["--p42-text-body", "--p42-bg"],
-  ["--p42-text-body", "--p42-surface"],
-  ["--p42-text-body", "--p42-surface-card"],
-  ["--p42-text-muted", "--p42-bg"],
-  ["--p42-text-muted", "--p42-surface-card"],
-  ["--p42-text-title", "--p42-bg"],
-  ["--p42-text-title", "--p42-surface-card"],
-  ["--p42-eyebrow", "--p42-bg"],
+// Text tokens are measured against EVERY surface token, as a cross product,
+// not against a hand-picked subset. The hand-picked list is how
+// 05-open-orbit's footer shipped at 4.4:1: the footer paints
+// --p42-text-muted on --p42-surface, and that one pair was simply not on the
+// list. --p42-text-muted on --p42-bg and on --p42-surface-card both were, and
+// both passed, so the gate reported 112 pairs green while the rendered footer
+// failed WCAG. Enumerating the product removes the judgement call -- any text
+// token may land on any surface token, because the portal decides that, not
+// the theme.
+
+export const TEXT_TOKENS = [
+  "--p42-text-body",
+  "--p42-text-muted",
+  "--p42-text-title",
+  "--p42-eyebrow",
+  // --p42-primary is a text colour in core, not only a button fill:
+  // .footer-grid strong and .text-link are both painted with it.
+  "--p42-primary",
+];
+
+export const SURFACE_TOKENS = [
+  "--p42-bg",
+  "--p42-surface",
+  "--p42-surface-card",
+  "--p42-surface-elevated",
+  "--p42-surface-code",
+];
+
+// Pairings a token's own NAME promises: an `-fg` token exists solely to be
+// painted on the base token it is named after.
+export const FOREGROUND_PAIRS = [
   ["--p42-primary-fg", "--p42-primary"],
   ["--p42-accent-fg", "--p42-accent"],
   ["--p42-secondary-btn-fg", "--p42-secondary-btn-bg"],
@@ -70,9 +92,121 @@ export const CONTRAST_PAIRS = [
   ["--p42-overlay-fg", "--p42-overlay-scrim"],
 ];
 
+export const CONTRAST_PAIRS = [
+  ...TEXT_TOKENS.flatMap((fg) => SURFACE_TOKENS.map((bg) => [fg, bg])),
+  ...FOREGROUND_PAIRS,
+];
+
 // Same literal shapes validate-matrix.mjs polices in the specimen. It does not
 // catch CSS named colours (`red`, `tomato`); the token-identity rule keeps the
 // declaration block honest and this keeps component rules honest.
+// ---- The consumer treatment contract (rule T9) ------------------------------
+//
+// T1-T5 ask whether a bundle is internally consistent. They do not ask whether
+// it is USABLE, and for a while nothing did: 05-open-orbit and 07-quiet-lantern
+// passed every gate here and then failed the portal's own browser conformance
+// suite, which is why the adopter scaffolder had to hard-default to
+// 06-galactic-guide. A theme the Gallery publishes as complete that a consumer
+// rejects is a theme this repository mis-labelled.
+//
+// The requirements below are the ones the consumer's suite asserts that a
+// bundle -- not the portal -- has to satisfy, each with the reason it exists:
+//
+//  * The portal's core sheet paints .hero-map with the page colour and fills
+//    it with its own orbit ornaments. A bundle that does not replace that
+//    artwork with --p42-hero-image ships the pre-theme placeholder.
+//  * .path-card::after is a core decoration drawn in the accent colour. Left
+//    on, it drops a coloured blob into every card.
+//  * .footer-grid a carries a 44px tap target in core. The consumer asserts a
+//    themed footer link renders under 32px, so the bundle restates the density.
+//  * .portal-actions a has NO background in core -- border and text colour
+//    only. A bundle that does not fill it ships an unreadable primary call to
+//    action, and a hover state is what tells a pointer user it is a control.
+//
+// Each requirement is matched against parsed rules, so an unscoped selector
+// (06-galactic-guide's landing rules) and one scoped to the bundle's own id
+// are both accepted; what is not accepted is the declaration being absent.
+
+export const CONSUMER_TREATMENTS = [
+  {
+    id: "hero-artwork",
+    selector: /(^|[\s,])\.hero-map(?![\w->])/,
+    require: [
+      {
+        pattern: /background(?:-image)?\s*:[^;]*var\(\s*--p42-hero-image\s*\)/,
+        describe: "a background drawn from var(--p42-hero-image)",
+      },
+    ],
+    why: "core paints .hero-map with the page colour, so the theme's hero artwork never reaches the site",
+  },
+  {
+    id: "hero-ornaments",
+    selector: /\.hero-map\s*>\s*\*/,
+    require: [{ pattern: /opacity\s*:\s*0(?![.\d])/, describe: "opacity: 0" }],
+    why: "core's orbit ornaments stay drawn on top of the theme's hero artwork",
+  },
+  {
+    id: "landing-ornament",
+    selector: /\.path-card::after/,
+    require: [{ pattern: /content\s*:\s*none/, describe: "content: none" }],
+    why: "core's accent-coloured blob is drawn over every path card",
+  },
+  {
+    id: "footer-density",
+    selector: /\.footer-grid a(?![\w-])/,
+    require: [{ pattern: /min-height\s*:\s*0(?![.\d])/, describe: "min-height: 0" }],
+    why: "core's 44px footer tap target leaves the link taller than the consumer accepts",
+  },
+  {
+    id: "primary-action-fill",
+    selector: /\.portal-actions a(?![\w-:])/,
+    require: [
+      {
+        pattern: /background(?:-color)?\s*:[^;]*var\(\s*--p42-primary\s*\)/,
+        describe: "a background drawn from var(--p42-primary)",
+      },
+      {
+        pattern: /(?:^|[;{\s])color\s*:[^;]*var\(\s*--p42-primary-fg\s*\)/,
+        describe: "a color drawn from var(--p42-primary-fg)",
+      },
+    ],
+    why: "core gives the primary call to action no background at all",
+  },
+  {
+    id: "primary-action-hover",
+    selector: /\.portal-actions a:hover/,
+    require: [
+      {
+        pattern: /background(?:-color)?\s*:[^;]*var\(\s*--p42-primary-hover\s*\)/,
+        describe: "a background drawn from var(--p42-primary-hover)",
+      },
+    ],
+    why: "a filled control with no hover state does not read as a control",
+  },
+];
+
+/**
+ * Split a stylesheet into { selector, body } rules, descending through at-rule
+ * nesting so a declaration inside an @media block is still seen. Comments are
+ * stripped first, so a selector quoted in prose is not mistaken for a rule.
+ */
+export function parseRules(css) {
+  const source = css.replace(/\/\*[\s\S]*?\*\//g, "");
+  const rules = [];
+  const scan = (text) => {
+    const pattern = /([^{}]+)\{([^{}]*(?:\{[^{}]*\}[^{}]*)*)\}/g;
+    for (const [, selector, body] of text.matchAll(pattern)) {
+      if (selector.trim().startsWith("@")) {
+        scan(body);
+        continue;
+      }
+      rules.push({ selector: selector.trim(), body });
+    }
+  };
+  scan(source);
+  return rules;
+}
+
 export const COLOUR_LITERAL = /(#[0-9a-f]{3,8}\b|\brgba?\s*\(|\bhsla?\s*\()/i;
 
 export const POLARITY_LUMINANCE_MIDPOINT = 0.5;
@@ -218,6 +352,79 @@ export function checkBundle({ id, manifest, tokensCss, portalCss }) {
       `${id}: ${fgToken} on ${bgToken} is ${ratio.toFixed(2)}:1, below the ${TEXT_CONTRAST_MINIMUM}:1 minimum for normal text (WCAG 2.2 SC 1.4.3 AA)`,
     );
   }
+
+  // ---- Rule T9: the bundle carries the consumer's component treatments -----
+
+  const rules = parseRules(portalCss);
+  for (const treatment of CONSUMER_TREATMENTS) {
+    const matching = rules.filter((rule) => treatment.selector.test(rule.selector));
+    if (matching.length === 0) {
+      failures.push(
+        `${id}/portal.css has no rule for the ${treatment.id} treatment; ${treatment.why}`,
+      );
+      continue;
+    }
+    for (const requirement of treatment.require) {
+      check(
+        matching.some((rule) => requirement.pattern.test(rule.body)),
+        `${id}/portal.css: the ${treatment.id} treatment names the right selector but never declares ${requirement.describe}; ${treatment.why}`,
+      );
+    }
+  }
+
+  // A treatment that animates the primary action has to answer
+  // prefers-reduced-motion itself: the transition is the bundle's, so core
+  // cannot switch it off.
+  const animatesAction = rules.some(
+    (rule) =>
+      /\.portal-actions a(?![\w-:])/.test(rule.selector) && /transition\s*:/.test(rule.body),
+  );
+  if (animatesAction) {
+    const stilled = parseRules(
+      (portalCss.match(/@media[^{]*prefers-reduced-motion[^{]*\{[\s\S]*?\n\}/g) ?? []).join("\n"),
+    );
+    check(
+      stilled.some(
+        (rule) =>
+          /\.portal-actions a(?![\w-:])/.test(rule.selector) &&
+          /transition[^;]*:\s*(?:none|0s)/.test(rule.body),
+      ),
+      `${id}/portal.css animates .portal-actions a but never zeroes that transition under prefers-reduced-motion; the transition is the bundle's, so core cannot switch it off`,
+    );
+  }
+
+  // ---- Rule T10: theme.json's token block agrees with tokens.css ----------
+  //
+  // The manifest's `tokens` object was a documented drift vector for as long
+  // as nothing read it. Something does now: the consumer's browser suite reads
+  // theme.json and asserts the computed custom properties equal it, so a
+  // manifest that disagrees with tokens.css fails on the consumer's side while
+  // every gate here stays green.
+
+  const manifestTokens = manifest.tokens ?? {};
+  const manifestDrift = [];
+  for (const name of TOKEN_CONTRACT) {
+    const declared = tokens.get(name);
+    const published = manifestTokens[name];
+    if (published === undefined) {
+      manifestDrift.push(`${name} is absent from theme.json`);
+    } else if (String(published).trim() !== String(declared ?? "").trim()) {
+      manifestDrift.push(
+        `${name} is "${published}" in theme.json but "${declared}" in tokens.css`,
+      );
+    }
+  }
+  for (const name of Object.keys(manifestTokens)) {
+    if (!TOKEN_CONTRACT.includes(name)) {
+      manifestDrift.push(`${name} is in theme.json but outside the token contract`);
+    }
+  }
+  check(
+    manifestDrift.length === 0,
+    `${id}: theme.json's tokens block disagrees with tokens.css in ${manifestDrift.length} place(s); a consumer that reads the manifest sees a different theme than the one that ships:\n      ` +
+      manifestDrift.slice(0, 6).join("\n      ") +
+      (manifestDrift.length > 6 ? `\n      ... and ${manifestDrift.length - 6} more` : ""),
+  );
 
   return { failures, measurements, tokenSet };
 }

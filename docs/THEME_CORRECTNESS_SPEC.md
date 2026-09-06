@@ -25,6 +25,8 @@ before publishing to Pages. A violation blocks the deploy.
 | **T6** | All themes declare an identical token set as each other | `scripts/validate-theme-correctness.mjs` (Rule T6) |
 | **T7** | The preview matrix renders every theme, and reads every published token | `scripts/validate-matrix.mjs` |
 | **T8** | The colour maths behind T4 and T5 is itself correct | `scripts/lib/contrast.test.mjs` (`node --test`) |
+| **T9** | The bundle carries the component treatments a consuming portal requires of a theme | `scripts/validate-theme-correctness.mjs` (Rule T9) |
+| **T10** | `theme.json`'s `tokens` block is exactly what `tokens.css` declares | `scripts/validate-theme-correctness.mjs` (Rule T10) |
 
 ---
 
@@ -46,10 +48,12 @@ The contract is deliberately closed. Growing the vocabulary is a deliberate act:
 add the token to `TOKEN_CONTRACT`, add it to every bundle, and add a `var()`
 read for it in `matrix/specimen.css` (T7 will fail until you do).
 
-> **Known gap, not enforced:** `theme.json` carries its own `tokens` object,
-> which the six hand-written bundles hold 34 of the 41 tokens in and which is not checked against
-> `tokens.css`. Nothing reads it at runtime, but it is a drift vector. Either
-> check it or delete it — until then it is not a source of truth.
+`theme.json` carries its own `tokens` object. This document used to record it
+as a known gap — "nothing reads it at runtime, but it is a drift vector; either
+check it or delete it". Something reads it now: the consuming portal's browser
+conformance suite loads `theme.json` and asserts the computed custom properties
+equal it. So it is checked, by **rule T10**, and the six hand-written bundles
+that held 34 of the 41 tokens now hold all 41.
 
 ## T2 — Colour lives only in token declarations
 
@@ -150,18 +154,40 @@ measuring its raw value instead of its painted value gives a different verdict.
 
 ### The enforced pairs
 
-Sixteen pairs, measured for every theme (112 measurements across the seven published today):
+Text tokens are measured against **every** surface token, as a cross product,
+plus the pairings a token's own name promises. Thirty-three pairs per theme —
+231 measurements across the seven published today.
+
+#### Why a product and not a list
+
+The pairs were a hand-picked list of sixteen until `05-open-orbit` shipped a
+footer at 4.4:1. The footer paints `--p42-text-muted` on `--p42-surface`, and
+that single pair was not on the list, while `--p42-text-muted` on `--p42-bg`
+and on `--p42-surface-card` both were and both passed. The gate reported all
+112 pairs green and the rendered footer failed WCAG AA — the third instance
+that week of the same class of bug, after a portal badge and an unfilled
+control.
+
+A hand-picked list encodes a judgement about which surface a text token will
+land on. The theme does not make that judgement; the **portal** does, by
+choosing which class to paint where, and it can change that at any time
+without the Gallery knowing. So the gate stops guessing and enumerates:
+
+    { text-body, text-muted, text-title, eyebrow, primary } x
+    { bg, surface, surface-card, surface-elevated, surface-code }
+
+`--p42-primary` is in the text set because core paints text with it —
+`.footer-grid strong` and `.text-link` — not only fills.
+
+#### The measured pairs
 
 | Foreground | Background | Why |
 |---|---|---|
-| `--p42-text-body` | `--p42-bg` | Body text on the page — the baseline requirement |
-| `--p42-text-body` | `--p42-surface` | Body text on a section band |
-| `--p42-text-body` | `--p42-surface-card` | Body text inside a card |
-| `--p42-text-muted` | `--p42-bg` | Muted text is still text; "de-emphasised" is not an exemption |
-| `--p42-text-muted` | `--p42-surface-card` | Same, inside a card |
-| `--p42-text-title` | `--p42-bg` | Headings |
-| `--p42-text-title` | `--p42-surface-card` | Card headings |
-| `--p42-eyebrow` | `--p42-bg` | Eyebrow labels sit directly on the page |
+| `--p42-text-body` | every surface token | Body copy, wherever the portal puts it |
+| `--p42-text-muted` | every surface token | Muted text is still text; "de-emphasised" is not an exemption |
+| `--p42-text-title` | every surface token | Headings, page-level and card-level alike |
+| `--p42-eyebrow` | every surface token | Eyebrow labels sit on the page and inside panels |
+| `--p42-primary` | every surface token | Core paints `.footer-grid strong` and `.text-link` with it |
 | `--p42-primary-fg` | `--p42-primary` | The `*-fg` suffix *is* the pairing claim: primary button labels |
 | `--p42-accent-fg` | `--p42-accent` | Accent button and chip labels |
 | `--p42-secondary-btn-fg` | `--p42-secondary-btn-bg` | Secondary button labels |
@@ -195,6 +221,58 @@ identical. T6 states it directly so that if two themes ever drift *together* —
 both gaining the same off-contract token, say — the failure message names the
 real problem instead of reporting two unrelated contract violations.
 
+## T9 — A published theme is one a consumer will accept
+
+T1–T5 ask whether a bundle is internally consistent. They did not ask whether it
+is **usable**, and nothing else did either. `05-open-orbit` and
+`07-quiet-lantern` passed every gate in this repository and were then rejected by
+the consuming portal's own browser conformance suite, which is why the adopter
+scaffolder had to hard-default to `06-galactic-guide`. A theme the Gallery
+publishes as complete that a consumer rejects is a theme this repository
+mis-labelled.
+
+The measured shortfall was 5–7 KB of component CSS against Galactic's 19 KB, and
+it was concentrated in one place: the **portal shell** — the four component
+classes the portal's own core sheet already paints, and which a bundle therefore
+has to take over rather than merely add to.
+
+| Treatment | What core does | What the bundle must declare |
+|---|---|---|
+| `.hero-map` | fills it with the page colour and draws its own orbit ornaments | a background from `var(--p42-hero-image)` |
+| `.hero-map > *` | those ornaments sit on top of any artwork | `opacity: 0` |
+| `.path-card::after` | draws an accent-coloured blob over every path card | `content: none` |
+| `.footer-grid a` | carries a 44px tap target, turning the footer into a column of buttons | `min-height: 0` |
+| `.portal-actions a` | gives the primary call to action **no background at all** — border and text colour only | a background from `var(--p42-primary)` and a colour from `var(--p42-primary-fg)` |
+| `.portal-actions a:hover` | nothing | a background from `var(--p42-primary-hover)` |
+
+A bundle that animates `.portal-actions a` must also zero that transition under
+`prefers-reduced-motion`. The transition is the bundle's, so core cannot switch
+it off for it.
+
+The requirements are matched against parsed rules, not raw text, so an unscoped
+selector and one scoped to the bundle's own id are both accepted; what is not
+accepted is the declaration being absent. `.hero-map`, `.path-card` and the site
+footer have no Gallery specimen equivalent, so those rules name the portal class
+alone, following `06-galactic-guide`'s precedent; the primary action does have
+one (`.specimen-btn-primary`) and names it, so the fill is visible in the matrix.
+
+**The generator emits the whole shell**, so a generated theme cannot be missing
+it. That is the difference between fixing an instance and fixing the recipe: the
+first generated bundle, `07-quiet-lantern`, was rejected for exactly this, and a
+hand-patch to its output would have left the next generated theme identical.
+
+## T10 — The manifest agrees with the stylesheet
+
+`theme.json`'s `tokens` object must contain exactly `TOKEN_CONTRACT`, with each
+value identical to the `tokens.css` declaration.
+
+This was T1's stated "known gap" while nothing read the manifest. The consuming
+portal's browser suite reads it now and asserts the computed custom properties
+equal it, so a manifest that disagrees with `tokens.css` passes every gate here
+and fails on the consumer's side. Changing a token value in one file and not the
+other is the whole failure mode, and it is exactly what happened to
+`05-open-orbit` and `02-learning-portal` while their contrast was being fixed.
+
 ## T7 — The preview matrix stays honest
 
 Enforced by `scripts/validate-matrix.mjs`, unchanged by this document and
@@ -223,7 +301,7 @@ above it becomes unreliable.
 
 ```
 npm test                  # every gate, in order; this is what CI runs
-npm run report:contrast   # all 112 contrast measurements, pass and fail alike
+npm run report:contrast   # all 231 contrast measurements, pass and fail alike
 ```
 
 `report:contrast` prints the full measurement table and still exits non-zero on
@@ -264,7 +342,9 @@ produce each class of violation.
 | T2 | Impossible from the recipe: the component sheet is built from a structural vocabulary with no colour input. Caller-supplied CSS is scanned with this document's own literal pattern and refused. |
 | T3 | Impossible. Asset URLs are built from the bundle id. A caller-supplied relative `url()` is refused. |
 | T4 | Impossible. Polarity is measured from the resulting background luminance and written into `theme.json`; a `polarity` field in the spec is ignored. |
-| T5 | Satisfied by construction. Every foreground is derived from the background it will be painted on -- walked along the ramp toward whichever pole gives more contrast until the **rounded hex** clears 4.6:1 -- rather than accepted and complained about. Overriding a token that other tokens derive from re-seeds the derivation instead of pasting over its result. A foreground forced back below the threshold is refused. |
+| T5 | Satisfied by construction. Every foreground is derived from **every** surface token it can be painted on — the recipe once derived against a subset that mirrored the gate's old pair list, which is how `07-quiet-lantern` generated clean and then failed nine pairs when the gate enumerated the product. The primary is derived too, because core paints text with it — each walked along the ramp toward whichever pole gives more contrast until the **rounded hex** clears 4.6:1, rather than accepted and complained about. Overriding a token that other tokens derive from re-seeds the derivation instead of pasting over its result. A foreground forced back below the threshold is refused. |
+| T9 | Impossible. The portal shell is part of the structural recipe, expressed in the character's own corner language and border weight, so every generated bundle carries it. |
+| T10 | Impossible. `theme.json`'s token block is written from the same object that emits `tokens.css`. |
 
 The distinction that matters: a generator which merely runs the validator
 afterwards and reports failure would emit nothing useful from a low-contrast
@@ -272,9 +352,34 @@ input. This one returns a working bundle and a list of the corrections it made.
 
 ## Current conformance
 
-All seven themes conform. `npm test` is green: 41 contract tokens per theme, 112
-contrast pairs all at or above 4.5:1, and no colour literal in any bundle
+All seven themes conform. `npm test` is green: 41 contract tokens per theme, 231
+contrast pairs all at or above 4.5:1, the portal shell present in every bundle,
+manifests that agree with their stylesheets, and no colour literal in any bundle
 outside a `--p42-*` declaration.
+
+### The consumer round trip, 2026-09-06
+
+Running a generated site against these bundles found two things this
+repository's gates did not.
+
+**Thirteen contrast failures in pairs nobody was measuring.** Widening T5 from a
+sixteen-pair list to the product surfaced them across three themes:
+
+| Theme | Token | Before | After | Worst pair, before → after |
+|---|---|---|---|---|
+| `05-open-orbit` | `--p42-text-muted` | `#616f85` | `#5e6c81` | on `--p42-surface` 4.41:1 → 4.61:1 |
+| `02-learning-portal` | `--p42-text-muted` | `#616f85` | `#5e6c81` | on `--p42-surface` 4.41:1 → 4.62:1 |
+| `02-learning-portal` | `--p42-primary` (and `--p42-eyebrow`, `--p42-secondary-btn-bg`) | `#c2410c` | `#be400c` | on `--p42-surface` 4.48:1 → 4.63:1 |
+| `07-quiet-lantern` | `--p42-text-muted` | `#656462` | `#5e5e5c` | on `--p42-surface-elevated` 4.19:1 → 4.87:1 |
+| `07-quiet-lantern` | `--p42-primary` | `#b45309` | `#994608` | on `--p42-surface-elevated` 3.56:1 → 4.63:1 |
+| `07-quiet-lantern` | `--p42-eyebrow` | `#b35209` | `#994608` | on `--p42-surface-elevated` 3.61:1 → 4.63:1 |
+
+`07-quiet-lantern`'s were fixed by regenerating it from the corrected recipe,
+not by editing its output.
+
+**The portal shell was missing from six of the seven bundles**, which is what T9
+now enforces. `06-galactic-guide` was the only one that had it, which is the
+whole reason the adopter scaffolder defaulted to it.
 
 The eleven violations this specification was introduced to record have been
 resolved in the **themes**, on the theme owner's instruction. No threshold was
