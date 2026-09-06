@@ -5,6 +5,7 @@
   "description": "A memorable expression of 42: open inquiry, many possible paths, and evidence guiding learners toward useful answers.",
   "author": "Project 42 Core Team",
   "version": "1.0.0",
+  "polarity": "dark",
   "font": "Outfit, sans-serif",
   "assets": {
     "tokens": "tokens.css",
@@ -50,6 +51,7 @@
     "--p42-overlay-fg": "#ffffff",
     "--p42-overlay-surface": "rgba(255, 255, 255, 0.1)",
     "--p42-overlay-border": "rgba(255, 255, 255, 0.2)",
+    "--p42-shadow-color": "#000000",
     "--p42-shadow-card": "0 8px 24px rgba(0, 0, 0, 0.45)",
     "--p42-shadow-raised": "0 12px 30px rgba(0, 0, 0, 0.55)"
   },

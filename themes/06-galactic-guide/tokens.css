@@ -7,7 +7,7 @@
   --p42-primary: #f59e0b;
   --p42-primary-fg: #090d16;
   --p42-accent: #10b981;
-  --p42-accent-fg: #ffffff;
+  --p42-accent-fg: #090d16;
   --p42-secondary-btn-bg: #f59e0b;
   --p42-secondary-btn-fg: #090d16;
   --p42-secondary-btn-border: transparent;
@@ -42,6 +42,7 @@
   --p42-overlay-fg: #ffffff;
   --p42-overlay-surface: rgba(255, 255, 255, 0.1);
   --p42-overlay-border: rgba(255, 255, 255, 0.2);
+  --p42-shadow-color: #000000;
   --p42-shadow-card: 0 8px 24px rgba(0, 0, 0, 0.45);
   --p42-shadow-raised: 0 12px 30px rgba(0, 0, 0, 0.55);
 }

@@ -5,6 +5,7 @@
   "description": "A durable operational identity combining a field manual, a navigational beacon, and evidence-marked routes.",
   "author": "Project 42 Core Team",
   "version": "1.0.0",
+  "polarity": "dark",
   "font": "Space Grotesk, sans-serif",
   "assets": {
     "tokens": "tokens.css",
@@ -50,6 +51,7 @@
     "--p42-overlay-fg": "#ffffff",
     "--p42-overlay-surface": "rgba(255, 255, 255, 0.1)",
     "--p42-overlay-border": "rgba(255, 255, 255, 0.2)",
+    "--p42-shadow-color": "#000000",
     "--p42-shadow-card": "0 8px 24px rgba(0, 0, 0, 0.45)",
     "--p42-shadow-raised": "0 12px 30px rgba(0, 0, 0, 0.55)"
   },

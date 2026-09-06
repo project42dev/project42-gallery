@@ -217,6 +217,11 @@ h1, h2, h3, .specimen-eyebrow, .specimen-btn {
   padding: var(--p42-space-xl);
   background: var(--p42-overlay-scrim);
   color: var(--p42-overlay-fg);
+  /* --p42-shadow-color is the raw colour the shadow tokens are built from.
+     Bundles need it on its own when a component composes a shadow at a
+     different depth or opacity than --p42-shadow-card / --p42-shadow-raised
+     publish, which 06-galactic-guide/portal.css does in three places. */
+  box-shadow: 0 var(--p42-space-md) var(--p42-space-2xl) color-mix(in srgb, var(--p42-shadow-color) 45%, transparent);
 }
 
 .specimen-overlay-chip {

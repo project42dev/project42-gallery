@@ -7,7 +7,7 @@ html[data-theme="06-galactic-guide"] .map-mark {
 }
 
 html[data-theme="06-galactic-guide"] .pillar-reference > .card-index {
-  color: #102a3a;
+  color: var(--p42-primary);
   opacity: 1;
 }
 
@@ -21,11 +21,11 @@ html[data-theme="06-galactic-guide"] .cta > p:not(.eyebrow) {
 html[data-theme="06-galactic-guide"] .provider-pill-anthropic,
 html[data-theme="06-galactic-guide"] .provider-pill-openai,
 html[data-theme="06-galactic-guide"] .provider-pill-google {
-  color: #1e293b;
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] .comparison-table tbody th span {
-  color: #455066;
+  color: color-mix(in srgb, var(--p42-text-body) 72%, var(--p42-text-muted));
 }
 
 html[data-theme="06-galactic-guide"] .module-index,
@@ -35,28 +35,28 @@ html[data-theme="06-galactic-guide"] .module-copy small {
 
 html[data-theme="06-galactic-guide"] .capstone-exemplars .eyebrow,
 html[data-theme="06-galactic-guide"] .criterion-evidence-map label {
-  color: #1e293b;
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] .capstone-exemplar summary small {
-  color: #475569;
+  color: var(--p42-text-muted);
 }
 
 html[data-theme="06-galactic-guide"] .capstone-artifacts input,
 html[data-theme="06-galactic-guide"] .capstone-reflection textarea,
 html[data-theme="06-galactic-guide"] .rubric-row input {
-  color: #1e293b;
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] .capstone-artifacts input::placeholder,
 html[data-theme="06-galactic-guide"] .capstone-reflection textarea::placeholder {
-  color: #64748b;
+  color: var(--p42-text-muted);
   opacity: 1;
 }
 
 html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) {
-  background: #090d16;
-  color: #e2e8f0;
+  background: var(--p42-bg);
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h1,
@@ -64,24 +64,24 @@ html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h2,
 html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h3,
 html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) h4,
 html[data-theme="06-galactic-guide"] body:not(:has(.admin-portal-root)) .brand-name {
-  color: #fef3c7;
+  color: var(--p42-text-title);
   font-family: "Bricolage Grotesque", Inter, ui-sans-serif, system-ui, sans-serif;
 }
 
 html[data-theme="06-galactic-guide"] .site-header {
-  background: rgba(9, 13, 22, 0.96);
-  border-bottom-color: rgba(245, 158, 11, 0.25);
-  color: #fef3c7;
+  background: color-mix(in srgb, var(--p42-bg) 96%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--p42-primary) 25%, transparent);
+  color: var(--p42-text-title);
 }
 
 html[data-theme="06-galactic-guide"] .site-header nav > a,
 html[data-theme="06-galactic-guide"] .site-header nav > .header-menu > .header-menu-trigger {
-  color: #cbd5e1;
+  color: color-mix(in srgb, var(--p42-text-body) 72%, var(--p42-text-muted));
 }
 
 html[data-theme="06-galactic-guide"] .site-header nav > a:hover,
 html[data-theme="06-galactic-guide"] .site-header nav > .header-menu > .header-menu-trigger:hover {
-  color: #f59e0b;
+  color: var(--p42-primary);
 }
 
 html[data-theme="06-galactic-guide"] .header-menu-panel {
@@ -105,19 +105,19 @@ html[data-theme="06-galactic-guide"] .header-menu-footer button:hover {
 }
 
 html[data-theme="06-galactic-guide"] .header-action {
-  background: #f59e0b;
-  color: #090d16;
+  background: var(--p42-primary);
+  color: var(--p42-primary-fg);
 }
 
 html[data-theme="06-galactic-guide"] .brand-mark-background {
-  fill: #090d16;
-  stroke: #f59e0b;
+  fill: var(--p42-bg);
+  stroke: var(--p42-primary);
   stroke-width: 3px;
 }
 
 html[data-theme="06-galactic-guide"] .brand-mark-four,
 html[data-theme="06-galactic-guide"] .brand-mark-two {
-  fill: #fef3c7;
+  fill: var(--p42-text-title);
 }
 
 .portal-showcase {
@@ -125,11 +125,11 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 }
 
 .portal-poster-card {
-  background: #090d16;
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  background: var(--p42-bg);
+  border: 1px solid color-mix(in srgb, var(--p42-overlay-border) 60%, transparent);
   border-radius: 24px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.35);
-  color: #fef3c7;
+  box-shadow: 0 24px 64px color-mix(in srgb, var(--p42-shadow-color) 35%, transparent);
+  color: var(--p42-text-title);
   overflow: hidden;
 }
 
@@ -144,17 +144,17 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 }
 
 .portal-floating-card {
-  background: rgba(13, 20, 36, 0.94);
-  border: 1px solid rgba(245, 158, 11, 0.45);
+  background: var(--p42-surface-card);
+  border: 1px solid var(--p42-card-border);
   border-radius: 20px;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.25);
+  box-shadow: 0 16px 40px color-mix(in srgb, var(--p42-shadow-color) 25%, transparent);
   max-width: 500px;
   padding: 36px 38px;
 }
 
 .portal-brand-row {
   align-items: center;
-  color: #fef3c7;
+  color: var(--p42-text-title);
   display: flex;
   font-family: "Bricolage Grotesque", sans-serif;
   font-size: 1.5rem;
@@ -170,7 +170,7 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 }
 
 .portal-eyebrow {
-  color: #f59e0b;
+  color: var(--p42-eyebrow);
   font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
   font-size: 0.72rem;
   font-weight: 800;
@@ -183,7 +183,7 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 }
 
 .portal-floating-card h1 {
-  color: #fef3c7;
+  color: var(--p42-text-title);
   font-family: "Bricolage Grotesque", sans-serif;
   font-size: clamp(2.65rem, 4.2vw, 4rem);
   font-weight: 800;
@@ -193,12 +193,12 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 }
 
 .portal-floating-card h1 span {
-  color: #f59e0b;
+  color: var(--p42-primary);
   display: block;
 }
 
 .portal-lede {
-  color: #e2e8f0;
+  color: var(--p42-text-body);
   font-size: 0.96rem;
   line-height: 1.65;
   margin: 0 0 24px;
@@ -213,9 +213,9 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 
 .portal-actions a {
   align-items: center;
-  background: #f59e0b;
+  background: var(--p42-primary);
   border-radius: 9999px;
-  color: #090d16;
+  color: var(--p42-primary-fg);
   display: inline-flex;
   font-size: 0.86rem;
   font-weight: 800;
@@ -227,7 +227,7 @@ html[data-theme="06-galactic-guide"] .brand-mark-two {
 }
 
 .portal-actions a:hover {
-  background: #fbbf24;
+  background: var(--p42-primary-hover);
   transform: translateY(-2px);
 }
 
@@ -244,21 +244,21 @@ html[data-theme="06-galactic-guide"] .resource-card,
 html[data-theme="06-galactic-guide"] .diagram-card,
 html[data-theme="06-galactic-guide"] .guide-card,
 html[data-theme="06-galactic-guide"] .catalog-card {
-  background: #151a23;
-  border-color: rgba(245, 158, 11, 0.24);
-  color: #e2e8f0;
+  background: var(--p42-surface-elevated);
+  border-color: var(--p42-border-soft);
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] .pillar-card,
 html[data-theme="06-galactic-guide"] .path-card {
-  border: 1px solid rgba(245, 158, 11, 0.28);
+  border: 1px solid color-mix(in srgb, var(--p42-primary) 28%, transparent);
 }
 
 html[data-theme="06-galactic-guide"] .pillar-card a,
 html[data-theme="06-galactic-guide"] .path-card a,
 html[data-theme="06-galactic-guide"] .provider-section a,
 html[data-theme="06-galactic-guide"] .text-link {
-  color: #f59e0b;
+  color: var(--p42-primary);
 }
 
 html[data-theme="06-galactic-guide"] .path-card::after {
@@ -270,9 +270,9 @@ html[data-theme="06-galactic-guide"] .path-card::after {
 html[data-theme="06-galactic-guide"] .hero-map {
   aspect-ratio: 16 / 9;
   background: var(--p42-hero-image) center / cover no-repeat;
-  border: 1px solid rgba(245, 158, 11, 0.45);
+  border: 1px solid var(--p42-card-border);
   border-radius: 18px;
-  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.38);
+  box-shadow: 0 24px 56px color-mix(in srgb, var(--p42-shadow-color) 38%, transparent);
   max-width: 640px;
 }
 
@@ -284,19 +284,19 @@ html[data-theme="06-galactic-guide"] .hero-map > * {
 
 html[data-theme="06-galactic-guide"] .card-index,
 html[data-theme="06-galactic-guide"] .eyebrow {
-  color: #f59e0b;
+  color: var(--p42-eyebrow);
   opacity: 1;
 }
 
 html[data-theme="06-galactic-guide"] .pillar-reference > .card-index {
-  color: #f59e0b;
+  color: var(--p42-primary);
 }
 
 html[data-theme="06-galactic-guide"] .breadcrumbs,
 html[data-theme="06-galactic-guide"] .breadcrumbs a,
 html[data-theme="06-galactic-guide"] .breadcrumbs span,
 html[data-theme="06-galactic-guide"] .breadcrumbs span[aria-current="page"] {
-  color: #94a3b8;
+  color: var(--p42-text-muted);
 }
 
 html[data-theme="06-galactic-guide"] .module-state,
@@ -309,55 +309,55 @@ html[data-theme="06-galactic-guide"] .lesson-rail a span,
 html[data-theme="06-galactic-guide"] .sources li span,
 html[data-theme="06-galactic-guide"] .site-footer .footer-bottom,
 html[data-theme="06-galactic-guide"] .site-footer > .shell:last-child {
-  color: #94a3b8 !important;
+  color: var(--p42-text-muted) !important;
 }
 
 html[data-theme="06-galactic-guide"] .prerequisite-note {
-  background: #151a23;
-  border-color: rgba(245, 158, 11, 0.35);
-  color: #e2e8f0;
+  background: var(--p42-surface-elevated);
+  border-color: color-mix(in srgb, var(--p42-primary) 35%, transparent);
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] .prerequisite-note h2 {
-  color: #fef3c7;
+  color: var(--p42-text-title);
 }
 
 html[data-theme="06-galactic-guide"] .prerequisite-note .eyebrow,
 html[data-theme="06-galactic-guide"] .prerequisite-note a {
-  color: #f59e0b;
+  color: var(--p42-primary);
 }
 
 html[data-theme="06-galactic-guide"] .lesson-block p,
 html[data-theme="06-galactic-guide"] .learning-activity ol,
 html[data-theme="06-galactic-guide"] .learning-activity ul,
 html[data-theme="06-galactic-guide"] .activity-reflection p {
-  color: #cbd5e1;
+  color: color-mix(in srgb, var(--p42-text-body) 72%, var(--p42-text-muted));
 }
 
 html[data-theme="06-galactic-guide"] .capstone-exemplars > h3 {
-  color: #1e293b !important;
+  color: var(--p42-text-title) !important;
 }
 
 html[data-theme="06-galactic-guide"] .comparison-table td,
 html[data-theme="06-galactic-guide"] .comparison-table tbody th {
-  background: #151a23;
-  color: #e2e8f0;
+  background: var(--p42-surface-elevated);
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] .comparison-table td p,
 html[data-theme="06-galactic-guide"] .comparison-table tbody th span {
-  color: #cbd5e1;
+  color: color-mix(in srgb, var(--p42-text-body) 72%, var(--p42-text-muted));
 }
 
 html[data-theme="06-galactic-guide"] .cta {
-  background: #10b981;
-  color: #090d16;
+  background: var(--p42-accent);
+  color: var(--p42-accent-fg);
 }
 
 html[data-theme="06-galactic-guide"] .cta h2,
 html[data-theme="06-galactic-guide"] .cta > .eyebrow,
 html[data-theme="06-galactic-guide"] .cta > p:not(.eyebrow) {
-  color: #090d16 !important;
+  color: var(--p42-accent-fg) !important;
 }
 
 html[data-theme="06-galactic-guide"] .open-source-banner,
@@ -395,7 +395,7 @@ html[data-theme="06-galactic-guide"] .criterion-evidence-map label {
 html[data-theme="06-galactic-guide"] .learning-activity {
   background: linear-gradient(
     145deg,
-    rgba(245, 158, 11, 0.1),
+    var(--p42-interactive-muted),
     var(--p42-surface-elevated)
   );
 }
@@ -432,7 +432,7 @@ html[data-theme="06-galactic-guide"] .capstone-exemplar summary span {
 }
 
 html[data-theme="06-galactic-guide"] .lesson-callout {
-  background: rgba(16, 185, 129, 0.1);
+  background: color-mix(in srgb, var(--p42-accent) 10%, transparent);
   border-left-color: var(--p42-accent);
   color: var(--p42-text-body);
   font-family: Inter, ui-sans-serif, system-ui, sans-serif;
@@ -446,7 +446,7 @@ html[data-theme="06-galactic-guide"] .attempt-not-passed,
 html[data-theme="06-galactic-guide"] .legal-caution,
 html[data-theme="06-galactic-guide"] .migration-disposition.conflict,
 html[data-theme="06-galactic-guide"] .account-state-pending {
-  background: rgba(245, 158, 11, 0.1);
+  background: var(--p42-interactive-muted);
   border-color: var(--p42-card-border);
   color: var(--p42-text-body);
 }
@@ -457,8 +457,8 @@ html[data-theme="06-galactic-guide"] .attempt-passed,
 html[data-theme="06-galactic-guide"] .migration-disposition.will-add,
 html[data-theme="06-galactic-guide"] .migration-disposition.will-merge,
 html[data-theme="06-galactic-guide"] .account-state-approved {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: rgba(16, 185, 129, 0.45);
+  background: color-mix(in srgb, var(--p42-accent) 10%, transparent);
+  border-color: color-mix(in srgb, var(--p42-accent) 45%, transparent);
   color: var(--p42-text-body);
 }
 
@@ -468,9 +468,9 @@ html[data-theme="06-galactic-guide"] .import-status-error,
 html[data-theme="06-galactic-guide"] .account-state-rejected,
 html[data-theme="06-galactic-guide"] .account-state-suspended,
 html[data-theme="06-galactic-guide"] .account-state-revoked {
-  background: rgba(239, 68, 68, 0.1);
-  border-color: rgba(239, 68, 68, 0.45);
-  color: #fecaca;
+  background: var(--p42-danger-bg);
+  border-color: var(--p42-danger-border);
+  color: var(--p42-danger-fg);
 }
 
 html[data-theme="06-galactic-guide"] .provider-pill-anthropic,
@@ -507,8 +507,8 @@ html[data-theme="06-galactic-guide"] .diagram-viewer-controls output {
 }
 
 html[data-theme="06-galactic-guide"] .site-footer {
-  background: #080c14 !important;
-  border-top-color: rgba(245, 158, 11, 0.2) !important;
+  background: var(--p42-bg) !important;
+  border-top-color: color-mix(in srgb, var(--p42-primary) 20%, transparent) !important;
 }
 
 html[data-theme="06-galactic-guide"] .footer-grid > div:not(:first-child) {
