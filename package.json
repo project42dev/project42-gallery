@@ -2,8 +2,9 @@
   "name": "project42-gallery",
   "private": true,
   "scripts": {
-    "test": "node scripts/validate-theme-bundles.mjs && node scripts/validate-layout-bundles.mjs && node scripts/validate-matrix.mjs",
+    "test": "node --test scripts/lib/contrast.test.mjs && node scripts/validate-theme-bundles.mjs && node scripts/validate-layout-bundles.mjs && node scripts/validate-matrix.mjs && node scripts/validate-theme-correctness.mjs",
     "build:layouts": "node scripts/build-layouts.mjs",
-    "build:matrix": "node scripts/build-matrix-index.mjs"
+    "build:matrix": "node scripts/build-matrix-index.mjs",
+    "report:contrast": "node scripts/validate-theme-correctness.mjs --report"
   }
 }

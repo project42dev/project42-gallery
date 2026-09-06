@@ -5,6 +5,7 @@
   "description": "A memorable expression of 42: open inquiry, many possible paths, and evidence guiding learners toward useful answers.",
   "author": "Project 42 Core Team",
   "version": "1.0.0",
+  "polarity": "dark",
   "font": "Outfit, sans-serif",
   "assets": {
     "tokens": "tokens.css",

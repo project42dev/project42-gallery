@@ -5,6 +5,7 @@
   "description": "A provider-neutral network where models, tools, agents, sources, and fact checks connect into durable learner evidence.",
   "author": "Project 42 Core Team",
   "version": "1.0.0",
+  "polarity": "dark",
   "font": "Space Grotesk, sans-serif",
   "assets": {
     "tokens": "tokens.css",
