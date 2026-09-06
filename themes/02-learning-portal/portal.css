@@ -138,3 +138,93 @@ html[data-theme="02-learning-portal"] .specimen-code {
   border-inline-start: var(--p42-space-2xs) solid var(--p42-accent);
   padding: var(--p42-space-md) var(--p42-space-lg);
 }
+
+
+/* ---------------------------------------------------------------------------
+ * Experience pass 2026-09-06 (docs/EXPERIENCE-WALK-2026-09-06.md).
+ * ------------------------------------------------------------------------ */
+
+/* Tracking belongs to the ramp step, not to the component. The portal sets a
+   display-grade em value on every heading regardless of the size it renders
+   at, so a section heading at ~29px on a phone carries the tracking of a hero
+   at ~100px on a desktop -- that is the general case of the h2 collision, not
+   one bad rule. Bind each heading family to the layout's track token for its
+   step, so tracking now tightens as the step grows and a layout switch moves
+   the whole ramp. The specimen's ramp element is named in the same rule so
+   the matrix previews the change. */
+
+html[data-theme="02-learning-portal"] .hero h1,
+html[data-theme="02-learning-portal"] .page-hero h1,
+html[data-theme="02-learning-portal"] .path-hero h1,
+html[data-theme="02-learning-portal"] .lesson-hero h1,
+html[data-theme="02-learning-portal"] .resource-detail-hero h1,
+html[data-theme="02-learning-portal"] .diagram-detail-hero h1,
+html[data-theme="02-learning-portal"] .not-found h1,
+html[data-theme="02-learning-portal"] .ramp-5 {
+  letter-spacing: var(--p42-track-5);
+}
+
+html[data-theme="02-learning-portal"] .provider-section h2,
+html[data-theme="02-learning-portal"] .policy-section-heading h2,
+html[data-theme="02-learning-portal"] .future-platform-banner h2,
+html[data-theme="02-learning-portal"] .open-source-banner h2,
+html[data-theme="02-learning-portal"] .check-heading h2,
+html[data-theme="02-learning-portal"] .ramp-4 {
+  letter-spacing: var(--p42-track-4);
+}
+
+html[data-theme="02-learning-portal"] .lesson-block h2,
+html[data-theme="02-learning-portal"] .comparison-heading h2,
+html[data-theme="02-learning-portal"] .capstone-heading h2,
+html[data-theme="02-learning-portal"] .legal-review-notice h2,
+html[data-theme="02-learning-portal"] .policy-status h2,
+html[data-theme="02-learning-portal"] .policy-machine-readable h2,
+html[data-theme="02-learning-portal"] .diagram-explanation-grid h2,
+html[data-theme="02-learning-portal"] .profile-identity h2,
+html[data-theme="02-learning-portal"] .focus-area-header h2,
+html[data-theme="02-learning-portal"] .pillar-card h3,
+html[data-theme="02-learning-portal"] .ramp-3 {
+  letter-spacing: var(--p42-track-3);
+}
+
+html[data-theme="02-learning-portal"] .learning-path-row h2,
+html[data-theme="02-learning-portal"] .resource-card h2,
+html[data-theme="02-learning-portal"] .about-grid h2,
+html[data-theme="02-learning-portal"] .sources h2,
+html[data-theme="02-learning-portal"] .diagram-card h2,
+html[data-theme="02-learning-portal"] .release-entry-head h2,
+html[data-theme="02-learning-portal"] .path-card h3,
+html[data-theme="02-learning-portal"] .ramp-2 {
+  letter-spacing: var(--p42-track-2);
+}
+
+/* On the paths index and the on-demand index, the heading that names a focus
+   area renders smaller than every path heading nested inside it. The child
+   outranks its parent, so the page stops telling you where you are. Restate
+   both against the layout's ramp, group above item. */
+
+html[data-theme="02-learning-portal"] .focus-area-header h2 {
+  font-size: var(--p42-step-3);
+}
+
+html[data-theme="02-learning-portal"] .learning-path-row h2 {
+  font-size: var(--p42-step-2);
+}
+
+/* The forward step is the quietest thing on the page. "Begin ->" on a module
+   row is --p42-text-muted, and "Open ->" on a resource card inherits body
+   colour because the portal sets a { color: inherit }. Both are the one
+   control that moves a reader onward. Give them the strongest text emphasis
+   the contract guarantees on these surfaces, and let the resource link carry
+   a rule so it reads as a link rather than as bold copy. A completed module
+   keeps its success colour. */
+
+html[data-theme="02-learning-portal"] .module-list li:not(.module-complete) .module-state,
+html[data-theme="02-learning-portal"] .resource-foot a {
+  color: var(--p42-text-title);
+}
+
+html[data-theme="02-learning-portal"] .resource-foot a {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}

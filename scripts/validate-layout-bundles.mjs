@@ -46,6 +46,10 @@ const requiredTokens = [
   "--p42-step-3",
   "--p42-step-4",
   "--p42-step-5",
+  "--p42-track-5",
+  "--p42-track-4",
+  "--p42-track-3",
+  "--p42-track-2",
   "--p42-grid-cards",
 ];
 

@@ -375,6 +375,95 @@ ${s} .specimen-overlay,
 ${s} .specimen-code {
   border-radius: ${rSmall};
 }
+
+/* ---------------------------------------------------------------------------
+ * Experience pass 2026-09-06 (docs/EXPERIENCE-WALK-2026-09-06.md).
+ * ------------------------------------------------------------------------ */
+
+/* Tracking belongs to the ramp step, not to the component. The portal sets a
+   display-grade em value on every heading regardless of the size it renders
+   at, so a section heading at ~29px on a phone carries the tracking of a hero
+   at ~100px on a desktop -- that is the general case of the h2 collision, not
+   one bad rule. Bind each heading family to the layout's track token for its
+   step, so tracking now tightens as the step grows and a layout switch moves
+   the whole ramp. The specimen's ramp element is named in the same rule so
+   the matrix previews the change. */
+
+${s} .hero h1,
+${s} .page-hero h1,
+${s} .path-hero h1,
+${s} .lesson-hero h1,
+${s} .resource-detail-hero h1,
+${s} .diagram-detail-hero h1,
+${s} .not-found h1,
+${s} .ramp-5 {
+  letter-spacing: var(--p42-track-5);
+}
+
+${s} .provider-section h2,
+${s} .policy-section-heading h2,
+${s} .future-platform-banner h2,
+${s} .open-source-banner h2,
+${s} .check-heading h2,
+${s} .ramp-4 {
+  letter-spacing: var(--p42-track-4);
+}
+
+${s} .lesson-block h2,
+${s} .comparison-heading h2,
+${s} .capstone-heading h2,
+${s} .legal-review-notice h2,
+${s} .policy-status h2,
+${s} .policy-machine-readable h2,
+${s} .diagram-explanation-grid h2,
+${s} .profile-identity h2,
+${s} .focus-area-header h2,
+${s} .pillar-card h3,
+${s} .ramp-3 {
+  letter-spacing: var(--p42-track-3);
+}
+
+${s} .learning-path-row h2,
+${s} .resource-card h2,
+${s} .about-grid h2,
+${s} .sources h2,
+${s} .diagram-card h2,
+${s} .release-entry-head h2,
+${s} .path-card h3,
+${s} .ramp-2 {
+  letter-spacing: var(--p42-track-2);
+}
+
+/* On the paths index and the on-demand index, the heading that names a focus
+   area renders smaller than every path heading nested inside it. The child
+   outranks its parent, so the page stops telling you where you are. Restate
+   both against the layout's ramp, group above item. */
+
+${s} .focus-area-header h2 {
+  font-size: var(--p42-step-3);
+}
+
+${s} .learning-path-row h2 {
+  font-size: var(--p42-step-2);
+}
+
+/* The forward step is the quietest thing on the page. "Begin ->" on a module
+   row is --p42-text-muted, and "Open ->" on a resource card inherits body
+   colour because the portal sets a { color: inherit }. Both are the one
+   control that moves a reader onward. Give them the strongest text emphasis
+   the contract guarantees on these surfaces, and let the resource link carry
+   a rule so it reads as a link rather than as bold copy. A completed module
+   keeps its success colour. */
+
+${s} .module-list li:not(.module-complete) .module-state,
+${s} .resource-foot a {
+  color: var(--p42-text-title);
+}
+
+${s} .resource-foot a {
+  text-decoration: underline;
+  text-underline-offset: 0.25em;
+}
 `;
 }
 

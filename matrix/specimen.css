@@ -241,10 +241,10 @@ h1, h2, h3, .specimen-eyebrow, .specimen-btn {
 .specimen-ramp .ramp--1 { font-size: var(--p42-step--1); }
 .specimen-ramp .ramp-0  { font-size: var(--p42-step-0); }
 .specimen-ramp .ramp-1  { font-size: var(--p42-step-1); }
-.specimen-ramp .ramp-2  { font-size: var(--p42-step-2); }
-.specimen-ramp .ramp-3  { font-size: var(--p42-step-3); }
-.specimen-ramp .ramp-4  { font-size: var(--p42-step-4); }
-.specimen-ramp .ramp-5  { font-size: var(--p42-step-5); }
+.specimen-ramp .ramp-2  { font-size: var(--p42-step-2); letter-spacing: var(--p42-track-2); }
+.specimen-ramp .ramp-3  { font-size: var(--p42-step-3); letter-spacing: var(--p42-track-3); }
+.specimen-ramp .ramp-4  { font-size: var(--p42-step-4); letter-spacing: var(--p42-track-4); }
+.specimen-ramp .ramp-5  { font-size: var(--p42-step-5); letter-spacing: var(--p42-track-5); }
 
 /* ---- Spacing rhythm, shown as itself ---- */
 

@@ -35,6 +35,10 @@
     "--p42-step-3": "clamp(1.8rem, 3vw, 2.3rem)",
     "--p42-step-4": "clamp(2.3rem, 5vw, 4.5rem)",
     "--p42-step-5": "clamp(3.4rem, 7vw, 7.3rem)",
+    "--p42-track-5": "-0.055em",
+    "--p42-track-4": "-0.035em",
+    "--p42-track-3": "-0.02em",
+    "--p42-track-2": "-0.005em",
     "--p42-grid-cards": "repeat(auto-fit, minmax(280px, 1fr))"
   }
 }
