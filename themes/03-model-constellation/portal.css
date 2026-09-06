@@ -1,1 +1,166 @@
-/* Optional public-portal component treatments for Model Constellation. */
+/* Project 42 component treatment -- Model Constellation.
+ *
+ * Character: a schematic. Providers, models and tools are nodes on a board,
+ * so the treatment is instrument-panel dense: small corners, hairline grid
+ * rules, monospaced labels, and a node terminal drawn on every card.
+ *
+ * Structural signature
+ *   density   tightest of the six -- padding below the layout default
+ *   corners   near square, radius clamped to a few pixels
+ *   borders   1px grid hairlines plus a connective rule across the card top
+ *   emphasis  terminals and rules; no shadow, no glow
+ *   eyebrow   monospaced, bracketed, tight tracking -- a net address
+ *
+ * Selectors name the portal's stable component classes first and the Gallery
+ * specimen's equivalent second. Colour arrives only through var(--p42-*).
+ */
+
+html[data-theme="03-model-constellation"] .path-card,
+html[data-theme="03-model-constellation"] .pillar-card,
+html[data-theme="03-model-constellation"] .catalog-card,
+html[data-theme="03-model-constellation"] .guide-card,
+html[data-theme="03-model-constellation"] .resource-card,
+html[data-theme="03-model-constellation"] .specimen-card,
+html[data-theme="03-model-constellation"] .specimen-hero-card {
+  position: relative;
+  border-radius: min(var(--p42-radius-small), 4px);
+  border: 1px solid color-mix(in srgb, var(--p42-primary) 34%, transparent);
+  padding: calc(var(--p42-card-padding) * 0.7);
+  box-shadow: none;
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--p42-primary) 8%, transparent) 0,
+    transparent calc(var(--p42-space-2xs) * 1.5)
+  );
+}
+
+/* The node terminal: every card is a point on the network, marked in its
+   trailing top corner where a wire would arrive. */
+html[data-theme="03-model-constellation"] .path-card::after,
+html[data-theme="03-model-constellation"] .pillar-card::after,
+html[data-theme="03-model-constellation"] .specimen-card::after,
+html[data-theme="03-model-constellation"] .specimen-hero-card::after {
+  content: "";
+  position: absolute;
+  inset-block-start: var(--p42-space-sm);
+  inset-inline-end: var(--p42-space-sm);
+  width: var(--p42-space-xs);
+  height: var(--p42-space-xs);
+  border-radius: var(--p42-radius-pill);
+  border: 1px solid var(--p42-primary);
+  background: var(--p42-bg);
+}
+
+html[data-theme="03-model-constellation"] .diagram-card,
+html[data-theme="03-model-constellation"] .specimen-card-raised {
+  border-color: color-mix(in srgb, var(--p42-accent) 55%, transparent);
+  background-image: linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--p42-accent) 12%, transparent) 0,
+    transparent calc(var(--p42-space-2xs) * 1.5)
+  );
+}
+
+html[data-theme="03-model-constellation"] .specimen-card-raised::after {
+  border-color: var(--p42-accent);
+}
+
+html[data-theme="03-model-constellation"] .eyebrow,
+html[data-theme="03-model-constellation"] .specimen-eyebrow {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  letter-spacing: 0.02em;
+  text-transform: lowercase;
+  font-weight: 700;
+}
+
+html[data-theme="03-model-constellation"] .eyebrow::before,
+html[data-theme="03-model-constellation"] .specimen-eyebrow::before {
+  content: "[ ";
+}
+
+html[data-theme="03-model-constellation"] .eyebrow::after,
+html[data-theme="03-model-constellation"] .specimen-eyebrow::after {
+  content: " ]";
+}
+
+html[data-theme="03-model-constellation"] .card-index,
+html[data-theme="03-model-constellation"] .specimen-badge {
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--p42-eyebrow) 40%, transparent);
+  padding: 0 var(--p42-space-xs);
+  letter-spacing: 0;
+  text-transform: lowercase;
+}
+
+html[data-theme="03-model-constellation"] .portal-actions a,
+html[data-theme="03-model-constellation"] .header-action,
+html[data-theme="03-model-constellation"] .button-secondary,
+html[data-theme="03-model-constellation"] .specimen-btn {
+  border-radius: min(var(--p42-radius-small), 3px);
+  min-height: calc(var(--p42-control-height) * 0.82);
+  padding-inline: calc(var(--p42-control-height) * 0.5);
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: var(--p42-step--1);
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  box-shadow: none;
+}
+
+html[data-theme="03-model-constellation"] .button-secondary,
+html[data-theme="03-model-constellation"] .specimen-btn-quiet {
+  border-color: color-mix(in srgb, var(--p42-primary) 45%, transparent);
+}
+
+html[data-theme="03-model-constellation"] .provider-section,
+html[data-theme="03-model-constellation"] .self-host-section,
+html[data-theme="03-model-constellation"] .lesson-main,
+html[data-theme="03-model-constellation"] .specimen-panel {
+  border-radius: min(var(--p42-radius-small), 4px);
+  border: 1px solid color-mix(in srgb, var(--p42-primary) 22%, transparent);
+  padding: var(--p42-space-lg);
+}
+
+html[data-theme="03-model-constellation"] .lesson-callout,
+html[data-theme="03-model-constellation"] .specimen-callout {
+  border-radius: min(var(--p42-radius-small), 3px);
+  padding: var(--p42-space-sm) var(--p42-space-md);
+  font-size: var(--p42-step--1);
+}
+
+html[data-theme="03-model-constellation"] .specimen-hero {
+  border-radius: min(var(--p42-radius), 6px);
+  border-color: color-mix(in srgb, var(--p42-primary) 25%, transparent);
+  box-shadow: none;
+  padding: var(--p42-space-2xl) var(--p42-space-lg);
+}
+
+html[data-theme="03-model-constellation"] .specimen-hero h1,
+html[data-theme="03-model-constellation"] .specimen-section h2 {
+  letter-spacing: -0.03em;
+  font-weight: 700;
+  line-height: 1;
+  text-transform: none;
+}
+
+/* A dense board reads in narrow columns, not wide ones. */
+html[data-theme="03-model-constellation"] .specimen-grid {
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--p42-space-sm);
+}
+
+html[data-theme="03-model-constellation"] .specimen-overlay {
+  border-radius: min(var(--p42-radius), 6px);
+  box-shadow: none;
+  border: 1px solid var(--p42-overlay-border);
+}
+
+html[data-theme="03-model-constellation"] .specimen-code {
+  border-radius: 0;
+  border: 1px solid color-mix(in srgb, var(--p42-primary) 25%, transparent);
+  padding: var(--p42-space-sm) var(--p42-space-md);
+}
+
+html[data-theme="03-model-constellation"] .specimen-rhythm i {
+  border-radius: 0;
+}

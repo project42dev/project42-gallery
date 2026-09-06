@@ -1,1 +1,207 @@
-/* Optional public-portal component treatments for Open Orbit. */
+/* Project 42 component treatment -- Open Orbit.
+ *
+ * Character: an open journal. The review loop is public, so the treatment is
+ * editorial: no boxes, no fills, no shadows. Structure comes from whitespace
+ * and horizontal rules, the way a printed page separates sections without
+ * drawing a single frame.
+ *
+ * Structural signature
+ *   density   the airiest of the six -- padding well above the layout default
+ *   corners   effectively absent; cards are not boxes here
+ *   borders   one hairline rule per element, on a single edge
+ *   emphasis  measure, leading and rule position; no elevation anywhere
+ *   eyebrow   small capitals preceded by an orbit ring
+ *
+ * Selectors name the portal's stable component classes first and the Gallery
+ * specimen's equivalent second. Colour arrives only through var(--p42-*).
+ */
+
+html[data-theme="05-open-orbit"] .path-card,
+html[data-theme="05-open-orbit"] .pillar-card,
+html[data-theme="05-open-orbit"] .catalog-card,
+html[data-theme="05-open-orbit"] .guide-card,
+html[data-theme="05-open-orbit"] .resource-card,
+html[data-theme="05-open-orbit"] .specimen-card {
+  background: transparent;
+  border: 0;
+  border-block-start: 1px solid color-mix(in srgb, var(--p42-text-title) 22%, transparent);
+  border-radius: 0;
+  padding: calc(var(--p42-card-padding) * 1.1) 0 calc(var(--p42-card-padding) * 1.4) 0;
+  box-shadow: none;
+}
+
+html[data-theme="05-open-orbit"] .diagram-card,
+html[data-theme="05-open-orbit"] .specimen-card-raised {
+  background: transparent;
+  border-block-start-width: 3px;
+  border-block-start-color: var(--p42-primary);
+}
+
+html[data-theme="05-open-orbit"] .specimen-hero-card {
+  background: var(--p42-surface-card);
+  border: 0;
+  border-radius: 0;
+  border-inline-start: 3px solid var(--p42-primary);
+  padding: calc(var(--p42-card-padding) * 1.2) calc(var(--p42-card-padding) * 1.5);
+  box-shadow: none;
+  max-width: 54ch;
+}
+
+html[data-theme="05-open-orbit"] .path-card h3,
+html[data-theme="05-open-orbit"] .pillar-card h3,
+html[data-theme="05-open-orbit"] .specimen-card h3 {
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  font-size: var(--p42-step-2);
+  max-width: 22ch;
+}
+
+html[data-theme="05-open-orbit"] .specimen-card p {
+  max-width: 46ch;
+  line-height: 1.75;
+}
+
+html[data-theme="05-open-orbit"] .eyebrow,
+html[data-theme="05-open-orbit"] .specimen-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--p42-space-xs);
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.16em;
+  text-transform: none;
+  font-weight: 600;
+}
+
+/* The orbit: a ring rather than a dot, because nothing here is filled in. */
+html[data-theme="05-open-orbit"] .eyebrow::before,
+html[data-theme="05-open-orbit"] .specimen-eyebrow::before {
+  content: "";
+  width: var(--p42-space-sm);
+  height: var(--p42-space-sm);
+  border: 1px solid var(--p42-eyebrow);
+  border-radius: var(--p42-radius-pill);
+  flex: 0 0 auto;
+}
+
+html[data-theme="05-open-orbit"] .card-index,
+html[data-theme="05-open-orbit"] .specimen-badge {
+  background: transparent;
+  border: 0;
+  border-block-end: 2px solid var(--p42-accent);
+  border-radius: 0;
+  padding: 0 0 var(--p42-space-2xs) 0;
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.14em;
+  font-weight: 600;
+}
+
+/* Controls are set as links with a rule under them; only the primary action
+   is allowed a filled shape, so the page has exactly one loud element. */
+html[data-theme="05-open-orbit"] .button-secondary,
+html[data-theme="05-open-orbit"] .specimen-btn-secondary,
+html[data-theme="05-open-orbit"] .specimen-btn-quiet {
+  background: transparent;
+  border: 0;
+  border-block-end: 2px solid var(--p42-primary);
+  border-radius: 0;
+  color: var(--p42-primary);
+  min-height: auto;
+  padding: 0 0 var(--p42-space-2xs) 0;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+}
+
+html[data-theme="05-open-orbit"] .specimen-btn-accent {
+  background: transparent;
+  border-block-end: 2px solid var(--p42-accent);
+  border-radius: 0;
+  color: var(--p42-text-title);
+  min-height: auto;
+  padding: 0 0 var(--p42-space-2xs) 0;
+}
+
+html[data-theme="05-open-orbit"] .portal-actions a,
+html[data-theme="05-open-orbit"] .header-action,
+html[data-theme="05-open-orbit"] .specimen-btn-primary {
+  border-radius: var(--p42-radius-pill);
+  padding-inline: calc(var(--p42-control-height) * 0.95);
+  box-shadow: none;
+  font-weight: 600;
+}
+
+html[data-theme="05-open-orbit"] .specimen-controls {
+  align-items: baseline;
+  gap: calc(var(--p42-space-lg) * 1.4);
+}
+
+html[data-theme="05-open-orbit"] .provider-section,
+html[data-theme="05-open-orbit"] .self-host-section,
+html[data-theme="05-open-orbit"] .lesson-main,
+html[data-theme="05-open-orbit"] .specimen-panel {
+  background: transparent;
+  border: 0;
+  border-block-start: 1px solid color-mix(in srgb, var(--p42-text-title) 22%, transparent);
+  border-radius: 0;
+  padding: calc(var(--p42-space-xl) * 1.4) 0 0 0;
+}
+
+html[data-theme="05-open-orbit"] .lesson-callout,
+html[data-theme="05-open-orbit"] .specimen-callout {
+  border-radius: 0;
+  border-width: 0 0 0 2px;
+  background: transparent;
+  padding: var(--p42-space-2xs) var(--p42-space-lg);
+  line-height: 1.75;
+}
+
+html[data-theme="05-open-orbit"] .specimen-callouts {
+  gap: var(--p42-space-xl);
+}
+
+html[data-theme="05-open-orbit"] .specimen-hero {
+  border: 0;
+  border-radius: 0;
+  box-shadow: none;
+  padding: calc(var(--p42-space-3xl) * 1.5) 0;
+  background-size: contain;
+  background-position: right center;
+  background-repeat: no-repeat;
+}
+
+html[data-theme="05-open-orbit"] .specimen-hero h1,
+html[data-theme="05-open-orbit"] .specimen-section h2 {
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.06;
+  max-width: 18ch;
+}
+
+/* One wide column and one narrow: an editorial spread, not a card deck. */
+html[data-theme="05-open-orbit"] .specimen-grid {
+  grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+  gap: 0 calc(var(--p42-space-3xl) * 1.2);
+}
+
+html[data-theme="05-open-orbit"] .specimen-overlay {
+  border-radius: 0;
+  box-shadow: none;
+  padding: calc(var(--p42-space-xl) * 1.3);
+}
+
+html[data-theme="05-open-orbit"] .specimen-overlay-chip {
+  border-radius: 0;
+  border-width: 0 0 1px 0;
+  padding-inline: 0;
+}
+
+html[data-theme="05-open-orbit"] .specimen-code {
+  border-radius: 0;
+  border-block-start: 1px solid color-mix(in srgb, var(--p42-text-title) 22%, transparent);
+  background: transparent;
+  padding: var(--p42-space-md) 0;
+}
+
+html[data-theme="05-open-orbit"] .specimen-rhythm i {
+  border-radius: 0;
+  width: var(--p42-space-2xs);
+}

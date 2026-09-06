@@ -1,1 +1,162 @@
-/* Optional public-portal component treatments for Field Signal. */
+/* Project 42 component treatment -- Field Signal.
+ *
+ * Character: a field manual. Printed to be used outdoors, in a hurry, by
+ * someone who needs the bearing and not the atmosphere. Everything is square,
+ * ruled and stencilled; nothing is soft.
+ *
+ * Structural signature
+ *   density   tight and regular -- a manual page, not a magazine spread
+ *   corners   zero radius everywhere, including controls and callouts
+ *   borders   heavy 2px rules, with a header band across each card
+ *   emphasis  uppercase stencil labels and a leading signal bar
+ *   eyebrow   a bar, a gap, and tracked capitals -- a stencilled tag
+ *
+ * Selectors name the portal's stable component classes first and the Gallery
+ * specimen's equivalent second. Colour arrives only through var(--p42-*).
+ */
+
+html[data-theme="04-field-signal"] .path-card,
+html[data-theme="04-field-signal"] .pillar-card,
+html[data-theme="04-field-signal"] .catalog-card,
+html[data-theme="04-field-signal"] .guide-card,
+html[data-theme="04-field-signal"] .resource-card,
+html[data-theme="04-field-signal"] .specimen-card,
+html[data-theme="04-field-signal"] .specimen-hero-card {
+  border-radius: 0;
+  border: 2px solid color-mix(in srgb, var(--p42-primary) 55%, transparent);
+  border-block-start-width: var(--p42-space-xs);
+  padding: calc(var(--p42-card-padding) * 0.8);
+  box-shadow: none;
+}
+
+html[data-theme="04-field-signal"] .diagram-card,
+html[data-theme="04-field-signal"] .specimen-card-raised {
+  border-color: color-mix(in srgb, var(--p42-accent) 60%, transparent);
+}
+
+html[data-theme="04-field-signal"] .path-card h3,
+html[data-theme="04-field-signal"] .pillar-card h3,
+html[data-theme="04-field-signal"] .specimen-card h3 {
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+  font-size: var(--p42-step-1);
+}
+
+/* The stencil tag: a solid signal bar, then tracked capitals. */
+html[data-theme="04-field-signal"] .eyebrow,
+html[data-theme="04-field-signal"] .specimen-eyebrow {
+  display: flex;
+  align-items: center;
+  gap: var(--p42-space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  font-weight: 700;
+}
+
+html[data-theme="04-field-signal"] .eyebrow::before,
+html[data-theme="04-field-signal"] .specimen-eyebrow::before {
+  content: "";
+  width: var(--p42-space-lg);
+  height: var(--p42-space-2xs);
+  background: var(--p42-eyebrow);
+  flex: 0 0 auto;
+}
+
+html[data-theme="04-field-signal"] .card-index,
+html[data-theme="04-field-signal"] .specimen-badge {
+  border-radius: 0;
+  border: 2px solid var(--p42-eyebrow);
+  background: transparent;
+  padding: 0 var(--p42-space-xs);
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+  font-weight: 700;
+}
+
+html[data-theme="04-field-signal"] .portal-actions a,
+html[data-theme="04-field-signal"] .header-action,
+html[data-theme="04-field-signal"] .button-secondary,
+html[data-theme="04-field-signal"] .specimen-btn {
+  border-radius: 0;
+  min-height: calc(var(--p42-control-height) * 0.9);
+  padding-inline: calc(var(--p42-control-height) * 0.6);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  font-size: var(--p42-step--1);
+  font-weight: 700;
+  box-shadow: none;
+}
+
+html[data-theme="04-field-signal"] .button-secondary,
+html[data-theme="04-field-signal"] .specimen-btn-quiet {
+  border: 2px solid var(--p42-primary);
+  background: transparent;
+}
+
+html[data-theme="04-field-signal"] .provider-section,
+html[data-theme="04-field-signal"] .self-host-section,
+html[data-theme="04-field-signal"] .lesson-main,
+html[data-theme="04-field-signal"] .specimen-panel {
+  border-radius: 0;
+  border: 2px solid color-mix(in srgb, var(--p42-primary) 40%, transparent);
+  padding: var(--p42-space-lg);
+}
+
+/* Callouts are manual margin notes: no fill radius, a solid leading rule and
+   a route-marker glyph so the class is legible in monochrome print. */
+html[data-theme="04-field-signal"] .lesson-callout,
+html[data-theme="04-field-signal"] .specimen-callout {
+  border-radius: 0;
+  border-width: 0 0 0 var(--p42-space-sm);
+  padding: var(--p42-space-sm) var(--p42-space-lg);
+  font-size: var(--p42-step--1);
+  letter-spacing: 0.01em;
+}
+
+html[data-theme="04-field-signal"] .specimen-callout::before {
+  content: "\203A\00a0";
+  font-weight: 700;
+}
+
+html[data-theme="04-field-signal"] .specimen-hero {
+  border-radius: 0;
+  border: 2px solid color-mix(in srgb, var(--p42-primary) 45%, transparent);
+  box-shadow: none;
+  padding: var(--p42-space-2xl) var(--p42-space-lg);
+}
+
+html[data-theme="04-field-signal"] .specimen-hero h1,
+html[data-theme="04-field-signal"] .specimen-section h2 {
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  font-weight: 700;
+  line-height: 0.98;
+}
+
+html[data-theme="04-field-signal"] .specimen-grid {
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: calc(var(--p42-space-xs) * -1 + var(--p42-space-md));
+}
+
+html[data-theme="04-field-signal"] .specimen-overlay {
+  border-radius: 0;
+  box-shadow: none;
+  border: 2px solid var(--p42-overlay-border);
+}
+
+html[data-theme="04-field-signal"] .specimen-overlay-chip {
+  border-radius: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.14em;
+}
+
+html[data-theme="04-field-signal"] .specimen-code {
+  border-radius: 0;
+  border: 2px solid color-mix(in srgb, var(--p42-primary) 35%, transparent);
+  padding: var(--p42-space-sm) var(--p42-space-md);
+}
+
+html[data-theme="04-field-signal"] .specimen-rhythm i {
+  border-radius: 0;
+}
