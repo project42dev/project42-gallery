@@ -360,22 +360,38 @@ html[data-theme="06-galactic-guide"] .cta > p:not(.eyebrow) {
   color: var(--p42-accent-fg) !important;
 }
 
+/* The banner used to be painted with --p42-accent at full strength, so this
+   block forced --p42-primary-fg over it. The portal has since
+   diluted that background to accent at 18% over --p42-surface, and
+   the forced foreground was left behind: near-black text on a near-black
+   panel at 1.04:1, held there by !important. The banner's copy is invisible.
+
+   A theme must not force a foreground for a background it does not paint.
+   Name the emphases the portal already uses, measured on the surface it
+   actually paints -- on --p42-surface: title 16.79:1, body 15.17:1, eyebrow 8.71:1;
+   at the gradient's hottest point 12.69 / 11.47 / 6.58:1. */
+html[data-theme="06-galactic-guide"] .open-source-banner h2 {
+  color: var(--p42-text-title);
+}
+
+html[data-theme="06-galactic-guide"] .open-source-banner .eyebrow {
+  color: var(--p42-eyebrow);
+}
+
 html[data-theme="06-galactic-guide"] .open-source-banner,
-html[data-theme="06-galactic-guide"] .open-source-banner h2,
-html[data-theme="06-galactic-guide"] .open-source-banner .eyebrow,
 html[data-theme="06-galactic-guide"] .open-source-banner > div > p {
-  color: var(--p42-primary-fg) !important;
+  color: var(--p42-text-body);
 }
 
 html[data-theme="06-galactic-guide"] .open-source-banner .button-secondary {
-  border-color: var(--p42-primary-fg);
-  color: var(--p42-primary-fg);
+  border-color: var(--p42-primary);
+  color: var(--p42-primary);
 }
 
 html[data-theme="06-galactic-guide"] .open-source-banner .button-secondary:hover {
-  background: var(--p42-primary-fg);
-  border-color: var(--p42-primary-fg);
-  color: var(--p42-text-title);
+  background: var(--p42-primary);
+  border-color: var(--p42-primary);
+  color: var(--p42-primary-fg);
 }
 
 /* Components inherited from the multi-theme portal used literal light-theme
