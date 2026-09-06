@@ -95,3 +95,30 @@ the specimen classes never reaches the site.
 `06-galactic-guide` predates this convention: its treatment names portal
 classes only, so it is the one theme the matrix still renders from tokens
 alone.
+
+## Generating a theme
+
+```
+npm run generate:theme -- \
+  --id 07-quiet-signal --name "Quiet Signal" \
+  --character editorial --font Inter \
+  --paper "#0b1220" --primary "#7dd3fc" --accent "#f0abfc" \
+  --tagline "..." --description "..."
+```
+
+`--character` picks one of five structural recipes — `observatory`,
+`staircase`, `schematic`, `manual`, `editorial` — which is what makes a
+generated theme a design rather than a palette. `--paper`, `--primary` and
+`--accent` are the only colours it takes; every text colour, every `*-fg`, and
+the whole status family are **derived** from the surface they land on.
+
+The run either writes a bundle that already conforms to
+`THEME_CORRECTNESS_SPEC.md`, or writes nothing and says why. `--dry-run` builds
+and checks without writing. `--token NAME=VALUE` forces a token; forcing one
+that other tokens derive from re-seeds the derivation, and forcing a foreground
+below 4.5:1 is refused.
+
+Writing a bundle also regenerates `matrix/index.json`, so the new theme appears
+in the preview matrix immediately. Nothing in `matrix.html`, `specimen.html` or
+any validator needs editing — they all read that index, or the themes directory
+itself.

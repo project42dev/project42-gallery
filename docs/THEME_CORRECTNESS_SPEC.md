@@ -229,6 +229,47 @@ npm run report:contrast   # all 96 contrast measurements, pass and fail alike
 `report:contrast` prints the full measurement table and still exits non-zero on
 violation — it is a reporting flag on the gate, not a way around it.
 
+---
+
+## Where the rules live, and who else runs them
+
+Rules T1-T5 are per-bundle and live in `scripts/lib/theme-contract.mjs` as a
+pure `checkBundle({id, manifest, tokensCss, portalCss})`. It touches no
+filesystem and sets no exit code, so it can be run against a bundle that exists
+only in memory.
+
+Two callers run it:
+
+- `scripts/validate-theme-correctness.mjs` -- the CI gate. Reads every bundle
+  off disk, runs `checkBundle` over each, adds the cross-bundle rule T6, and
+  reports.
+- `scripts/lib/theme-generator.mjs` -- the theme generator. Builds a bundle in
+  memory and runs the same `checkBundle` **before anything is written**. A
+  violation is a refusal, not a warning: nothing reaches disk.
+
+Sharing one function is the point. If the generator carried its own copy of the
+rules, the two could disagree about what "correct" means, and the disagreement
+would show up as a bundle that generated cleanly and then failed CI.
+
+## The generator, and what it cannot do
+
+`node scripts/generate-theme.mjs` produces a complete bundle. Its contract is
+that **it cannot emit a bundle that fails this specification** -- proven by
+`scripts/generate-theme.test.mjs`, which drives it with inputs that would
+produce each class of violation.
+
+| Rule | How the generator handles it |
+|---|---|
+| T1 | Impossible. `tokens.css` is emitted by iterating `TOKEN_CONTRACT`, so a token cannot be absent. An override naming a token outside the contract is refused. |
+| T2 | Impossible from the recipe: the component sheet is built from a structural vocabulary with no colour input. Caller-supplied CSS is scanned with this document's own literal pattern and refused. |
+| T3 | Impossible. Asset URLs are built from the bundle id. A caller-supplied relative `url()` is refused. |
+| T4 | Impossible. Polarity is measured from the resulting background luminance and written into `theme.json`; a `polarity` field in the spec is ignored. |
+| T5 | Satisfied by construction. Every foreground is derived from the background it will be painted on -- walked along the ramp toward whichever pole gives more contrast until the **rounded hex** clears 4.6:1 -- rather than accepted and complained about. Overriding a token that other tokens derive from re-seeds the derivation instead of pasting over its result. A foreground forced back below the threshold is refused. |
+
+The distinction that matters: a generator which merely runs the validator
+afterwards and reports failure would emit nothing useful from a low-contrast
+input. This one returns a working bundle and a list of the corrections it made.
+
 ## Current conformance
 
 All six themes conform. `npm test` is green: 41 contract tokens per theme, 96
