@@ -211,6 +211,17 @@ Desktop = 1440px, mobile = 390px. Route status codes are from `curl`.
   the trailing-slash form (P-01). Note that resources live under `/resources/`
   while the index that lists them lives at `/guide/` — the URL a reader lands on
   does not match the section they came from. → **portal (P-07)**
+- Good structure: breadcrumbs, hero, a verification card carrying a freshness
+  badge and a "Next review due" date, resource facts, a content-use notice, the
+  body as indexed `.lesson-block` sections, and a sticky `.source-panel`. The
+  freshness and review machinery is the best part of the site's editorial
+  posture.
+- **There is no exit.** The whole `<main>` contains three anchors, of which two
+  are internal: the `/guide` breadcrumb and a `/legal-transparency` link. No
+  next resource, no related resource, no "back to the field guide" beyond the
+  breadcrumb. The reader who finishes a glossary has nowhere to go — the same
+  shape of gap as P-04, on the guide track instead of the learn track.
+  → **portal (P-09)**
 
 ### Diagrams `/guide/diagrams/` and `/diagrams/`
 
@@ -218,13 +229,60 @@ Desktop = 1440px, mobile = 390px. Route status codes are from `curl`.
   `/guide/diagrams/` (38,640 bytes) both return `200` with the identical
   13-heading outline and the identical 11 diagram links, all of which point at
   `/guide/diagrams/<id>`. One of the two should redirect. → **portal (P-08)**
+
+### A diagram `/guide/diagrams/learning-evidence-loop/`
+
+- Breadcrumbs, hero, a `.diagram-source-card`, a `.diagram-figure` with a
+  `.diagram-canvas` and a loading state, then a `.diagram-explanation-grid`
+  under "What this shows" and "Key takeaways". Clear and complete.
 - `.diagram-detail-hero h1` is `-0.07em` at `clamp(3.2rem,7vw,6.8rem)`: 51.2px
   at 390px, −3.58px per gap. → **fixed here (W-02)**
+- **`.diagram-next` is a back link wearing a forward name.** The element is
+  `<nav class="diagram-next" aria-label="More visual guides">` and it contains
+  exactly one anchor: `← Browse every visual guide`. On a set of 11 sequential
+  diagrams there is no way to reach the next one without returning to the index,
+  and the accessible name promises plural guides while the content is a single
+  link back. → **portal (P-10)**
+- `.diagram-next` is `font-size:.8rem; font-weight:820` with no colour, so that
+  one link inherits body colour like every other bare anchor. → **fixed here
+  (W-05)**
 
 ### On demand `/ondemand/`
 
-- Same focus-area grouping and the same inverted hierarchy as `/learn/paths/`.
-  → **fixed here (W-03)**
+- Same focus-area grouping and the same inverted hierarchy as `/learn/paths/`;
+  confirmed by class, not by heading text — `pages/ondemand.html` contains 8
+  `focus-area-header` and 16 `learning-path-row`. → **fixed here (W-03)**
+- **The page is honest about its own emptiness, and that is a credit.** The
+  `.ondemand-status` panel says: "1 lesson filmed so far out of 40 written for
+  the classroom, across 3 of 14 paths." Counted from the markup, the index
+  carries **1** `/ondemand/<path>/<lesson>` link and **40** `/learn/` links, so
+  the claim is exactly true. Positive.
+
+### A filmed lesson `/ondemand/ai-foundations/agents-and-guardrails/`
+
+- A real `<video class="lesson-preview-video">` at `aspect-ratio:16/9` with a
+  captions/transcript note, then "How the class runs, and every word of it" — a
+  `.class-outline` of `.class-segment` blocks, each carrying its kind, length,
+  speech and visual. Sources and a knowledge check follow, identical to the
+  written module. This is the most complete single page on the site.
+- **The lesson rail is genuinely mode-aware**, and this is the site's best piece
+  of interaction design: each of the 16 sidebar entries links to `/ondemand/…`
+  if it is filmed and `/learn/…` if it is not, with the note "Lessons without a
+  film open as the written module. Your progress is the same either way." Only
+  index 15 links to `/ondemand/`, matching the 1-of-40 figure above. Positive.
+- **No next-lesson step**, exactly as on the written module. → **portal (P-04)**
+- I checked `.lesson-video-note{background:var(--surface-2,#f6f8fb)}` and
+  `.lesson-video-meta{color:var(--muted,#5b6470)}` because a light literal
+  sitting in a dark theme is what an unthemed leak looks like. It is not one:
+  the core sheet declares `--surface-2: var(--p42-surface)` and
+  `--muted: var(--p42-text-body)`, nothing redeclares them, so the literals
+  never fire. There are 16 such `var(--alias, #literal)` fallbacks in the core
+  sheet and all six distinct aliases resolve to `--p42-*`. Dead code, not a
+  leak. Positive — recorded because it looked like a bug and is not.
+- `.ondemand-status` (`border-radius:10px`), `.lesson-video-note` (`8px`) and
+  `.lesson-preview-video` (`8px`) hardcode radii instead of reading
+  `--p42-radius-small`, so a layout switch does not move them. Small, but it is
+  the layout axis leaking. → **portal (P-11)**
 
 ### Support `/support/`
 
@@ -263,7 +321,7 @@ the page body was found at 390px.**
 | **W-02** | Tracking given a home on the ramp | `layouts/*/layout.json` + `layout.css`, `matrix/specimen.css`, all 7 `themes/*/portal.css`, `scripts/lib/theme-generator.mjs`, `scripts/validate-layout-bundles.mjs` | see the table below |
 | **W-03** | Focus-area/path hierarchy un-inverted | all 7 `themes/*/portal.css` | group 1.75rem → `var(--p42-step-3)`; item 2rem → `var(--p42-step-2)` |
 | **W-04** | "Begin →" promoted from muted to title | all 7 `themes/*/portal.css`; the `!important` released in 06 | `--p42-text-muted` → `--p42-text-title`; completed modules keep `--p42-success-fg` |
-| **W-05** | "Open →" reads as a link | all 7 `themes/*/portal.css` | inherited body colour → `--p42-text-title` + `text-decoration: underline` |
+| **W-05** | "Open →" and the diagram nav read as links | all 7 `themes/*/portal.css` | inherited body colour → `--p42-text-title` + `text-decoration: underline`, on `.resource-foot a` and `.diagram-next a` |
 | **W-06** | Homepage lists all 7 themes, and cannot fall behind again | `index.html`, `scripts/validate-homepage.mjs`, `package.json` | see below |
 
 ### W-02, measured — standard layout, px per letter gap
@@ -300,6 +358,33 @@ composited backdrop:
 - W-04 and W-05 both move text to `--p42-text-title`, which the contract already
   measures on `--p42-bg` and `--p42-surface-card` for all seven themes, and
   which passes for all seven.
+
+**Two things W-02 and W-03 change that are worth seeing before they ship**, since
+both are visible brand-level moves rather than only small-size corrections:
+
+- **Hero display type loosens.** `--p42-track-5` is −0.055em against the −0.075em
+  the core hardcodes, so every `h1` on the site relaxes by about 2px per letter
+  gap at desktop. This is the price of a monotonic ramp; it is deliberate, but it
+  is a change to the site's display voice, not a bug fix.
+- **Path headings shrink.** `.learning-path-row h2` goes from 2rem to
+  `var(--p42-step-2)`, which is 1.5rem in the standard layout — a drop from 32px
+  to 24px on `/learn/paths/` and `/ondemand/`. That is what un-inverts the
+  hierarchy against a 1.75rem → `--p42-step-3` (36.8px desktop / 28.8px mobile)
+  group heading, but the rows do become quieter.
+
+**One selector that was verified rather than assumed.** W-04 guards with
+`.module-list li:not(.module-complete) .module-state`. If `.module-complete`
+landed on the `<a>` rather than the `<li>`, that guard would never match and the
+rule would beat the core's `.module-complete .module-state` on specificity,
+turning every finished module's green marker back to title colour.
+`project42-platform/web/app/components/PathModuleList.tsx:28` puts it on the
+`<li>`:
+
+```tsx
+<li className={complete ? "module-complete" : ""} key={module.id}>
+```
+
+so the guard is correct and completed modules keep `--p42-success-fg`.
 
 ### Two fixes that were measured and not shipped
 
@@ -399,6 +484,9 @@ move; nothing in it can be fixed in a theme.**
 | **P-06** | 3 of 91 resource cards print the same word twice | `/guide/` | `<span>Reference</span><span>Reference</span>`; `<span>Checklist</span><span>Checklist</span>` ×2 | content/markup; the fix is to suppress the second when equal |
 | **P-07** | Resources live at `/resources/<id>` but are indexed at `/guide/` | `/guide/` → `/resources/…` | the section a reader came from is not the section they land in | routing |
 | **P-08** | `/diagrams/` and `/guide/diagrams/` both `200` with the same page | both | identical outline, identical 11 links, all pointing at `/guide/diagrams/<id>` | routing; one should redirect |
+| **P-09** | A resource page has no exit | `/resources/<id>/` | 3 anchors in `<main>`, 2 internal: the `/guide` breadcrumb and `/legal-transparency` | no next/related control exists |
+| **P-10** | `.diagram-next` is a back link named as a forward one | `/guide/diagrams/<id>/` | `<nav class="diagram-next" aria-label="More visual guides">` containing one anchor, `← Browse every visual guide` | the next-diagram control does not exist; the a11y name also needs correcting |
+| **P-11** | Three components hardcode radii instead of reading the layout | `/ondemand/`, filmed lessons | `.ondemand-status` `10px`, `.lesson-video-note` `8px`, `.lesson-preview-video` `8px` — none read `--p42-radius-small` | a layout switch cannot move them; the values live in core CSS |
 
 ## Owner questions
 

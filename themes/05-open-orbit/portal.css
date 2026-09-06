@@ -292,6 +292,7 @@ html[data-theme="05-open-orbit"] .learning-path-row h2 {
    keeps its success colour. */
 
 html[data-theme="05-open-orbit"] .module-list li:not(.module-complete) .module-state,
+html[data-theme="05-open-orbit"] .diagram-next a,
 html[data-theme="05-open-orbit"] .resource-foot a {
   color: var(--p42-text-title);
 }

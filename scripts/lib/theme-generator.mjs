@@ -456,6 +456,7 @@ ${s} .learning-path-row h2 {
    keeps its success colour. */
 
 ${s} .module-list li:not(.module-complete) .module-state,
+${s} .diagram-next a,
 ${s} .resource-foot a {
   color: var(--p42-text-title);
 }

@@ -220,6 +220,7 @@ html[data-theme="02-learning-portal"] .learning-path-row h2 {
    keeps its success colour. */
 
 html[data-theme="02-learning-portal"] .module-list li:not(.module-complete) .module-state,
+html[data-theme="02-learning-portal"] .diagram-next a,
 html[data-theme="02-learning-portal"] .resource-foot a {
   color: var(--p42-text-title);
 }

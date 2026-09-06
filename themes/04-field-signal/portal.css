@@ -242,6 +242,7 @@ html[data-theme="04-field-signal"] .learning-path-row h2 {
    keeps its success colour. */
 
 html[data-theme="04-field-signal"] .module-list li:not(.module-complete) .module-state,
+html[data-theme="04-field-signal"] .diagram-next a,
 html[data-theme="04-field-signal"] .resource-foot a {
   color: var(--p42-text-title);
 }

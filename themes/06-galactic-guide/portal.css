@@ -665,6 +665,7 @@ html[data-theme="06-galactic-guide"] .learning-path-row h2 {
    keeps its success colour. */
 
 html[data-theme="06-galactic-guide"] .module-list li:not(.module-complete) .module-state,
+html[data-theme="06-galactic-guide"] .diagram-next a,
 html[data-theme="06-galactic-guide"] .resource-foot a {
   color: var(--p42-text-title);
 }

@@ -246,6 +246,7 @@ html[data-theme="03-model-constellation"] .learning-path-row h2 {
    keeps its success colour. */
 
 html[data-theme="03-model-constellation"] .module-list li:not(.module-complete) .module-state,
+html[data-theme="03-model-constellation"] .diagram-next a,
 html[data-theme="03-model-constellation"] .resource-foot a {
   color: var(--p42-text-title);
 }
