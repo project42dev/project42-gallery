@@ -51,6 +51,7 @@
     "--p42-overlay-fg": "#ffffff",
     "--p42-overlay-surface": "rgba(255, 255, 255, 0.1)",
     "--p42-overlay-border": "rgba(255, 255, 255, 0.2)",
+    "--p42-shadow-color": "#0b1225",
     "--p42-shadow-card": "0 8px 24px rgba(11, 18, 37, 0.12)",
     "--p42-shadow-raised": "0 12px 30px rgba(11, 18, 37, 0.18)"
   },

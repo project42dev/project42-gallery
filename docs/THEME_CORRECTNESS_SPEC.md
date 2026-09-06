@@ -30,7 +30,7 @@ before publishing to Pages. A violation blocks the deploy.
 
 ## T1 — The token contract
 
-Every theme declares **exactly** the 40 tokens listed in `TOKEN_CONTRACT` in
+Every theme declares **exactly** the 41 tokens listed in `TOKEN_CONTRACT` in
 `scripts/validate-theme-correctness.mjs`. That array is the contract; this
 document does not restate it, because a second copy would drift.
 
@@ -47,7 +47,7 @@ add the token to `TOKEN_CONTRACT`, add it to all six bundles, and add a `var()`
 read for it in `matrix/specimen.css` (T7 will fail until you do).
 
 > **Known gap, not enforced:** `theme.json` carries its own `tokens` object,
-> which currently holds 33 of the 40 tokens and is not checked against
+> which currently holds 34 of the 41 tokens and is not checked against
 > `tokens.css`. Nothing reads it at runtime, but it is a drift vector. Either
 > check it or delete it — until then it is not a source of truth.
 
@@ -61,6 +61,11 @@ of a `--p42-*` declaration in `tokens.css`.
 tokens to component classes; a literal there is appearance that the token
 contract cannot reach. Switching themes leaves it behind, T5 cannot measure it,
 and the preview matrix cannot show it changing.
+
+A component that needs a token at a different opacity than the token publishes
+writes `color-mix(in srgb, var(--p42-token) NN%, transparent)` rather than
+re-typing the colour as an `rgba()`. The mix stays anchored to the token, so it
+still moves when the theme changes; an `rgba()` would not.
 
 `portal.css` must also declare **no `--p42-*` properties**. It loads after
 `tokens.css`, so a redeclaration there would silently override the value T5
@@ -226,8 +231,23 @@ violation — it is a reporting flag on the gate, not a way around it.
 
 ## Current conformance
 
-As of the introduction of this specification, the six shipped themes do **not**
-all conform. The violations are recorded by `npm test` with measured ratios. They
-have been left failing rather than resolved by weakening the thresholds or by
-restyling the owner's themes: the choice between adjusting a theme's colours and
-adjusting a threshold belongs to the theme owner, not to the validator.
+All six themes conform. `npm test` is green: 41 contract tokens per theme, 96
+contrast pairs all at or above 4.5:1, and no colour literal in any bundle
+outside a `--p42-*` declaration.
+
+The eleven violations this specification was introduced to record have been
+resolved in the **themes**, on the theme owner's instruction. No threshold was
+relaxed, no large-text allowance was added, and no pair was skipped.
+
+Ten were contrast failures. Four of those were one mistake repeated:
+`--p42-accent-fg` was set to `#ffffff` regardless of how bright the accent behind
+it is. The rule the conforming themes already followed -- accent-fg takes the
+theme's darkest ink when the accent is bright -- now holds everywhere it can.
+`02-learning-portal` is the single exception: no ink in its palette clears its
+teal accent, so that accent deepened one step and kept white.
+
+The eleventh was `06-galactic-guide/portal.css`, which carried 69 colour
+literals. It is now entirely token-driven, which is what made `--p42-shadow-color`
+necessary: three of its shadows compose at depths and opacities that
+`--p42-shadow-card` and `--p42-shadow-raised` do not publish, and a component
+cannot take a colour out of a composite shadow value.

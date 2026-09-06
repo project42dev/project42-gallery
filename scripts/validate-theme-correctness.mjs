@@ -42,7 +42,7 @@ export const TOKEN_CONTRACT = [
   "--p42-info-bg", "--p42-info-border", "--p42-info-fg",
   "--p42-overlay-scrim", "--p42-overlay-fg", "--p42-overlay-surface",
   "--p42-overlay-border",
-  "--p42-shadow-card", "--p42-shadow-raised",
+  "--p42-shadow-color", "--p42-shadow-card", "--p42-shadow-raised",
 ];
 
 // ---- The contrast pairs -----------------------------------------------------
