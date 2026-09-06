@@ -43,11 +43,11 @@ Both directions are enforced:
   next theme switch silently drops it.
 
 The contract is deliberately closed. Growing the vocabulary is a deliberate act:
-add the token to `TOKEN_CONTRACT`, add it to all six bundles, and add a `var()`
+add the token to `TOKEN_CONTRACT`, add it to every bundle, and add a `var()`
 read for it in `matrix/specimen.css` (T7 will fail until you do).
 
 > **Known gap, not enforced:** `theme.json` carries its own `tokens` object,
-> which currently holds 34 of the 41 tokens and is not checked against
+> which the six hand-written bundles hold 34 of the 41 tokens in and which is not checked against
 > `tokens.css`. Nothing reads it at runtime, but it is a drift vector. Either
 > check it or delete it — until then it is not a source of truth.
 
@@ -150,7 +150,7 @@ measuring its raw value instead of its painted value gives a different verdict.
 
 ### The enforced pairs
 
-Sixteen pairs, measured for all six themes (96 measurements per run):
+Sixteen pairs, measured for every theme (112 measurements across the seven published today):
 
 | Foreground | Background | Why |
 |---|---|---|
@@ -190,7 +190,7 @@ exempting the pair.
 
 ## T6 — All themes declare an identical token set
 
-T1 pins each theme to the closed contract, which already makes the six sets
+T1 pins each theme to the closed contract, which already makes the published sets
 identical. T6 states it directly so that if two themes ever drift *together* —
 both gaining the same off-contract token, say — the failure message names the
 real problem instead of reporting two unrelated contract violations.
@@ -223,7 +223,7 @@ above it becomes unreliable.
 
 ```
 npm test                  # every gate, in order; this is what CI runs
-npm run report:contrast   # all 96 contrast measurements, pass and fail alike
+npm run report:contrast   # all 112 contrast measurements, pass and fail alike
 ```
 
 `report:contrast` prints the full measurement table and still exits non-zero on
@@ -272,7 +272,7 @@ input. This one returns a working bundle and a list of the corrections it made.
 
 ## Current conformance
 
-All six themes conform. `npm test` is green: 41 contract tokens per theme, 96
+All seven themes conform. `npm test` is green: 41 contract tokens per theme, 112
 contrast pairs all at or above 4.5:1, and no colour literal in any bundle
 outside a `--p42-*` declaration.
 

@@ -570,6 +570,11 @@ export function buildBundle(spec) {
     polarity,
     font: `${spec.font}, sans-serif`,
     character: spec.character,
+    // THEME_SCHEMA.md shows theme.json carrying a `tokens` object, and the
+    // hand-written bundles each hold a partial copy of it. A partial copy is a
+    // drift vector, so this one is emitted from the SAME object that produced
+    // tokens.css and carries all 41 -- it cannot disagree with the stylesheet.
+    tokens: Object.fromEntries(TOKEN_CONTRACT.map((name) => [name, tokens[name]])),
     assets: {
       tokens: "tokens.css",
       components: "portal.css",

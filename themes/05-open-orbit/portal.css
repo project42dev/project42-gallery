@@ -96,7 +96,12 @@ html[data-theme="05-open-orbit"] .specimen-badge {
 }
 
 /* Controls are set as links with a rule under them; only the primary action
-   is allowed a filled shape, so the page has exactly one loud element. */
+   is allowed a filled shape, so the page has exactly one loud element.
+
+   The label reads --p42-eyebrow rather than --p42-primary deliberately: an
+   unfilled control puts its label straight onto the page, and eyebrow-on-bg
+   is a pair rule T5 measures. Primary-on-bg is not, so reading primary here
+   would be text the contrast gate does not protect. */
 html[data-theme="05-open-orbit"] .button-secondary,
 html[data-theme="05-open-orbit"] .specimen-btn-secondary,
 html[data-theme="05-open-orbit"] .specimen-btn-quiet {
@@ -104,7 +109,7 @@ html[data-theme="05-open-orbit"] .specimen-btn-quiet {
   border: 0;
   border-block-end: 2px solid var(--p42-primary);
   border-radius: 0;
-  color: var(--p42-primary);
+  color: var(--p42-eyebrow);
   min-height: auto;
   padding: 0 0 var(--p42-space-2xs) 0;
   font-weight: 600;
