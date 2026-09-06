@@ -60,6 +60,16 @@
       "tokens": "themes/06-galactic-guide/tokens.css",
       "components": "themes/06-galactic-guide/portal.css",
       "mark": "themes/06-galactic-guide/mark.svg"
+    },
+    {
+      "id": "07-quiet-lantern",
+      "name": "Quiet Lantern",
+      "tagline": "A field manual you can read in daylight.",
+      "description": "The first bundle produced by the Gallery generator: a light-polarity field manual -- square corners, heavy rules, stencilled capitals -- with every foreground derived from the surface it is printed on.",
+      "font": "Space Grotesk, sans-serif",
+      "tokens": "themes/07-quiet-lantern/tokens.css",
+      "components": "themes/07-quiet-lantern/portal.css",
+      "mark": "themes/07-quiet-lantern/mark.svg"
     }
   ],
   "layouts": [

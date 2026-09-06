@@ -1,0 +1,27 @@
+{
+  "id": "07-quiet-lantern",
+  "name": "Quiet Lantern",
+  "tagline": "A field manual you can read in daylight.",
+  "description": "The first bundle produced by the Gallery generator: a light-polarity field manual -- square corners, heavy rules, stencilled capitals -- with every foreground derived from the surface it is printed on.",
+  "author": "scripts/generate-theme.mjs",
+  "version": "1.0.0",
+  "polarity": "light",
+  "font": "Space Grotesk, sans-serif",
+  "character": "manual",
+  "assets": {
+    "tokens": "tokens.css",
+    "components": "portal.css",
+    "mark": "mark.svg",
+    "hero": "hero.png",
+    "badges": {
+      "foundations": "badges/badge-foundations.svg",
+      "practitioner": "badges/badge-practitioner.svg",
+      "agentic": "badges/badge-agentic.svg",
+      "evidence": "badges/badge-evidence.svg"
+    }
+  },
+  "subbrands": {
+    "learn": "Quiet Lantern / Learn",
+    "guide": "Quiet Lantern / Field Guide"
+  }
+}
