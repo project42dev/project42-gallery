@@ -27,7 +27,7 @@
     "--p42-primary": "#58e4c2",
     "--p42-primary-fg": "#080c14",
     "--p42-accent": "#8d64ff",
-    "--p42-accent-fg": "#ffffff",
+    "--p42-accent-fg": "#080c14",
     "--p42-secondary-btn-bg": "#58e4c2",
     "--p42-secondary-btn-fg": "#080c14",
     "--p42-secondary-btn-border": "transparent",
