@@ -370,9 +370,17 @@ sixteen-pair list to the product surfaced them across three themes:
 | `05-open-orbit` | `--p42-text-muted` | `#616f85` | `#5e6c81` | on `--p42-surface` 4.41:1 → 4.61:1 |
 | `02-learning-portal` | `--p42-text-muted` | `#616f85` | `#5e6c81` | on `--p42-surface` 4.41:1 → 4.62:1 |
 | `02-learning-portal` | `--p42-primary` (and `--p42-eyebrow`, `--p42-secondary-btn-bg`) | `#c2410c` | `#be400c` | on `--p42-surface` 4.48:1 → 4.63:1 |
-| `07-quiet-lantern` | `--p42-text-muted` | `#656462` | `#5e5e5c` | on `--p42-surface-elevated` 4.19:1 → 4.87:1 |
-| `07-quiet-lantern` | `--p42-primary` | `#b45309` | `#994608` | on `--p42-surface-elevated` 3.56:1 → 4.63:1 |
-| `07-quiet-lantern` | `--p42-eyebrow` | `#b35209` | `#994608` | on `--p42-surface-elevated` 3.61:1 → 4.63:1 |
+| `07-quiet-lantern` | `--p42-text-muted` | `#656462` | `#5e5e5c` | on `--p42-surface-elevated` 4.19:1 → 4.61:1 |
+| `07-quiet-lantern` | `--p42-primary` | `#b45309` | `#994608` | on `--p42-surface-elevated` 3.56:1 → 4.61:1 |
+| `07-quiet-lantern` | `--p42-eyebrow` | `#b35209` | `#994608` | on `--p42-surface-elevated` 3.61:1 → 4.61:1 |
+
+Regenerating `07-quiet-lantern` moved everything derived from its primary as
+well: `--p42-card-border` `#dcb493` → `#d1ae93`, `--p42-secondary-btn-border`
+`#e2c4aa` → `#dac0aa`, `--p42-border-soft` `#e6cdb8` → `#e0cab8`, and
+`--p42-primary-hover` `#944407` → `#7d3907`. Its `mark.svg`, `hero.png` and two
+badge SVGs are drawn from those values, so they were re-rendered too. That is
+the recipe working: a seed correction re-seeds everything downstream of it
+rather than being pasted over one token.
 
 `07-quiet-lantern`'s were fixed by regenerating it from the corrected recipe,
 not by editing its output.
