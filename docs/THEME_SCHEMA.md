@@ -2,6 +2,8 @@
 
 Every Gallery theme is a complete, deployable presentation bundle. `theme.json` identifies its assets; all paths are relative to the bundle directory and may not escape it.
 
+The artwork filenames are **not** free: `assets.hero` must be `hero.png` and `assets.mark` must be `mark.svg`. The consuming portal requests `/themes/<id>/hero.png` and `/themes/<id>/mark.svg` directly and never reads the manifest, so a differently named file is one the consumer will never ask for. Every artwork file must also be over 100 bytes -- an empty placeholder satisfies an existence check and fails on the consumer's side. Both are enforced by `scripts/validate-theme-bundles.mjs`.
+
 ```json
 {
   "id": "my-theme",

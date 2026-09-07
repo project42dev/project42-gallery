@@ -319,6 +319,12 @@ only position cue and fails that assertion.
 A bundle may **restyle** the indicator -- a different colour, width or offset
 is fine. It may not switch it off.
 
+**Known limit.** The rule matches `outline: none` anywhere in `portal.css`, so
+it would also reject `:focus:not(:focus-visible) { outline: none }` -- a
+legitimate pattern for suppressing the mouse-click ring while keeping the
+keyboard one. No published bundle uses it. If one needs to, narrow the rule to
+selectors that are not `:not(:focus-visible)`; do not relax it wholesale.
+
 ## T13 — The banner is tinted, not flooded
 
 Core paints `.open-source-banner` with `--p42-surface` under an 18% accent
@@ -334,6 +340,12 @@ free to leave the header to core. If it does override the background, it must
 derive it from one of those two tokens: reaching for `--p42-surface-card` or
 `--p42-surface-elevated` passes every check here and fails on the consumer's
 side, on every route.
+
+**Known limit.** This rule checks which token the background is *derived from*,
+not the alpha it resolves to. `color-mix(in srgb, var(--p42-bg) 50%, transparent)`
+names an accepted token and still composites below the consumer's 0.9 alpha
+floor. Measuring that needs the `color-mix()` evaluation the contrast maths does
+not yet do.
 
 ## T7 — The preview matrix stays honest
 
