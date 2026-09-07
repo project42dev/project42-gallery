@@ -277,6 +277,19 @@ function buildTokens(spec) {
     "--p42-shadow-color": toHex(shadow),
     "--p42-shadow-card": `0 8px 24px rgba(${shadowRgb}, 0.45)`,
     "--p42-shadow-raised": `0 12px 30px rgba(${shadowRgb}, 0.55)`,
+    // The brand colours where they are read as TEXT. Derived against the
+    // surfaces they land on rather than aliased to the fill, because a colour
+    // legible as a block is not always legible as body-sized type.
+    "--p42-text-accent": deriveForeground(accent, textBackdrops).hex,
+    "--p42-text-emphasis": eyebrow.hex,
+    // The faces beside the heading face. The consuming product used to name
+    // these in its own stylesheet, so no theme could change them.
+    "--p42-font-body": `"${spec.font}", ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif`,
+    "--p42-font-serif": 'Georgia, "Times New Roman", serif',
+    "--p42-font-mono": "ui-monospace, SFMono-Regular, Menlo, monospace",
+    "--p42-font-mono-display": '"JetBrains Mono", ui-monospace, monospace',
+    // The ground an inverted surface paints, in this theme's terms.
+    "--p42-surface-inverse": polarity === "light" ? toHex(page) : "#ffffff",
   };
 
   return { values, polarity, corrections, page, primary: primaryReadable, accent };

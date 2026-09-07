@@ -34,6 +34,13 @@ export const TOKEN_CONTRACT = [
   "--p42-overlay-scrim", "--p42-overlay-fg", "--p42-overlay-surface",
   "--p42-overlay-border",
   "--p42-shadow-color", "--p42-shadow-card", "--p42-shadow-raised",
+  // Values the consuming product used to hardcode in its own stylesheet. They
+  // are appearance, so a theme owns them: the brand colours used as *text*,
+  // the typefaces beside the heading face, and the ink-on-light surface.
+  "--p42-text-accent", "--p42-text-emphasis",
+  "--p42-font-body", "--p42-font-serif",
+  "--p42-font-mono", "--p42-font-mono-display",
+  "--p42-surface-inverse",
 ];
 
 // ---- The contrast pairs -----------------------------------------------------
