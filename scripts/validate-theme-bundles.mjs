@@ -1,4 +1,4 @@
-import { access, readFile, readdir } from "node:fs/promises";
+import { access, readFile, readdir, stat } from "node:fs/promises";
 import path from "node:path";
 
 const root = path.resolve(import.meta.dirname, "..");
@@ -34,6 +34,37 @@ for (const entry of entries) {
   }
   for (const key of ["foundations", "practitioner", "agentic", "evidence"]) {
     await access(resolveBundleFile(bundleRoot, manifest.assets?.badges?.[key]));
+  }
+
+  // The consumer hardcodes the artwork FILENAMES -- it requests
+  // /themes/<id>/hero.png and /themes/<id>/mark.svg directly and never reads
+  // theme.json.assets. So a manifest free to name its hero "cover.jpg" is
+  // free to name a file the consumer will never ask for: every gate here
+  // passes and the site ships a missing hero and a broken brand mark.
+  for (const [key, expected] of [["hero", "hero.png"], ["mark", "mark.svg"]]) {
+    if (manifest.assets?.[key] !== expected) {
+      throw new Error(
+        `${entry.name}: assets.${key} must be "${expected}" -- the consumer requests that exact path ` +
+          `and never reads the manifest -- got ${JSON.stringify(manifest.assets?.[key])}`,
+      );
+    }
+  }
+
+  // ... and it asserts each artwork file is real, over 100 bytes, and that the
+  // brand mark decodes as an image. An empty placeholder satisfies access()
+  // here and fails on the consumer's side.
+  const artwork = [
+    manifest.assets.mark,
+    manifest.assets.hero,
+    ...Object.values(manifest.assets.badges),
+  ];
+  for (const relative of artwork) {
+    const { size } = await stat(resolveBundleFile(bundleRoot, relative));
+    if (size <= 100) {
+      throw new Error(
+        `${entry.name}: ${relative} is ${size} bytes; the consumer requires every bundle asset to be a real file over 100 bytes`,
+      );
+    }
   }
   const tokens = await readFile(resolveBundleFile(bundleRoot, manifest.assets.tokens), "utf8");
   for (const token of requiredTokens) {

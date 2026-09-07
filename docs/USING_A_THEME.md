@@ -113,10 +113,61 @@ For the platform team, precisely:
 | 2 | Hash lock has no entry for a hand-copied bundle | `config/theme-bundles.lock.json`, `web/scripts/sync-gallery-themes.mjs` | Let the lock be regenerated **from the installed directory** (`--from-installed`), not only from a Gallery checkout. The lock's job is tamper-evidence after install; it should not require the upstream source to exist. |
 | 3 | `themeBundles.generated.ts` needs regeneration, with a static import per theme | `bin/project42-portal.mjs` (`themeBundleModule`) | Generate the index by globbing `public/themes/*/theme.json` rather than from `availableThemes`, so copying a folder is sufficient. |
 
-None of the three is a theme defect. A Gallery theme folder is already
-self-contained: its assets are its own, its URLs are site-absolute, and it
-declares the full token contract. The remaining friction is entirely in the
-product's install machinery.
+Those three are install machinery. There is a second, larger problem, and it is
+not about installing a theme but about what a theme is currently able to say.
+
+### The completeness ceiling
+
+A Gallery bundle is self-contained in the ways it can be: its assets are its
+own, its URLs are site-absolute, and it declares the full 41-token contract.
+It is **not** yet true that a theme fully wears the site.
+
+Measured against the product's core stylesheet at platform `v0.104.4`
+(`web/app/globals.css`, the only stylesheet in the front end -- there are no
+Tailwind appearance utilities and no inline colour styles anywhere in its 73
+components, so this file is the entire appearance surface):
+
+| | Core appearance selectors covered | Declarations covered |
+| --- | --- | --- |
+| Core carries (excluding the admin console) | 736 | 1746 |
+| `06-galactic-guide` (the default) | 150 | 207 |
+| Each of the other six themes | 46 | 54-66 |
+
+So the default states about four times as much as any alternative, and still
+leaves seven-eighths of the product's appearance to core. That gap is the
+mechanism behind the symptom the owner saw: a bundle that says nothing about a
+component ships the product's pre-theme look on top of its own palette, so
+re-syncing bundles changes the site's appearance in ways no theme asked for.
+It is also why the adopter scaffolder hard-defaults to `06-galactic-guide`.
+
+### Why the Gallery cannot close it alone
+
+Most of the remainder is not a theme's to fix today:
+
+| Blocker | Size | Why a theme cannot fix it |
+| --- | --- | --- |
+| Appearance with no token to read -- `font-size` (314), `font-weight` (132), `letter-spacing` (82), `border-radius` (69), `text-transform` (51), `min-height` (47), `font-family` (32) | ~730 declarations | There is no token for these. A theme could only hardcode them, which would override the **layout** bundle -- the axis that owns the type ramp, radii and density -- and break independent selection. |
+| Body and monospace typeface | `globals.css:79` | The contract has `--p42-font-heading` only. `body` hardcodes `Inter`, and the consumer's suite asserts it. There is no `--p42-font-body` or `--p42-font-mono`, so a theme controls headings and nothing else. |
+| Two private colour systems -- `.diagram*` (88 selectors) and `.orchard*` (40) | 128 selectors | Each ships its own palette of hex literals, reachable by no token. |
+| Undefined aliases -- `--cyan-deep`, `--accent`, `--paper-deep`, `--line-strong` | 12 declarations | Read but declared nowhere, so they are invalid at computed-value time. A live defect independent of theming. |
+| Alias collapse (`globals.css:43-60`) | -- | The legacy alias layer is many-to-one onto the contract: `--lime` and `--cyan` both resolve to `--p42-accent`, `--orange` and `--violet` both to `--p42-primary`. A theme can recolour them but cannot make them differ from each other. |
+| Fonts fetched by core | `globals.css:2` | An unconditional Google Fonts `@import`. A theme naming a face core does not fetch gets a fallback, so a bundle is not typographically self-contained. |
+
+**What the platform side needs to do**, in the order that buys the most:
+
+1. Add `--p42-font-body` and `--p42-font-mono` to the contract, and let the
+   bundle declare the faces it needs rather than core importing three.
+2. Decide where the type and density scale lives. Every `font-size`,
+   `letter-spacing`, `border-radius` and `min-height` in core should read a
+   **layout** token, not a literal -- that is the axis that owns them.
+3. Give `.diagram*` and `.orchard*` real tokens instead of private palettes.
+4. Declare or delete the four undefined aliases.
+5. Retire the alias layer once core reads the contract directly.
+
+Until 1 and 2 land, "the site fully wears the theme" is not something a Gallery
+bundle can deliver, and no gate here can honestly claim otherwise. What the
+Gallery's gate *can* do -- and now does -- is refuse a bundle that fails the
+consumer's own conformance suite for a reason the bundle controls.
 
 ## Verifying the result
 

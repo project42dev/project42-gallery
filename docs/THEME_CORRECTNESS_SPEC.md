@@ -27,6 +27,10 @@ before publishing to Pages. A violation blocks the deploy.
 | **T8** | The colour maths behind T4 and T5 is itself correct | `scripts/lib/contrast.test.mjs` (`node --test`) |
 | **T9** | The bundle carries the component treatments a consuming portal requires of a theme | `scripts/validate-theme-correctness.mjs` (Rule T9) |
 | **T10** | `theme.json`'s `tokens` block is exactly what `tokens.css` declares | `scripts/validate-theme-correctness.mjs` (Rule T10) |
+| **T11** | Every token is declared exactly once, and at `:root` | `scripts/validate-theme-correctness.mjs` (Rule T11) |
+| **T12** | The bundle does not remove core's focus outline | `scripts/validate-theme-correctness.mjs` (Rule T12) |
+| **T13** | `.open-source-banner` is not filled with the raw accent | `scripts/validate-theme-correctness.mjs` (Rule T13) |
+| **T14** | A `.site-header` override stays on a page-level surface | `scripts/validate-theme-correctness.mjs` (Rule T14) |
 
 ---
 
@@ -104,6 +108,21 @@ correct in the portal, in the Gallery, and in the matrix alike.
 `validate-theme-bundles.mjs` has checked `tokens.css` since that incident. Rule
 T3 in `validate-theme-correctness.mjs` extends the same check to `portal.css`,
 which can declare custom properties too.
+
+### The hero names its own bundle
+
+Site-absolute is necessary but not sufficient. The consumer waits for a 200 on
+the literal path `/themes/<selected theme>/hero.png` and paints both
+`.hero-map` and core's `.portal-poster-hero` from it, so
+`--p42-hero-image` must be exactly `url("/themes/<id>/hero.png")`. A bundle
+that borrows another theme's hero, or renames the file, is absolute,
+resolvable, and still wrong.
+
+For the same reason `theme.json` must name its artwork `hero.png` and
+`mark.svg`: the consumer requests those paths directly and never reads the
+manifest. `validate-theme-bundles.mjs` also requires every artwork file to be
+over 100 bytes, because an empty placeholder satisfies an existence check here
+and fails the consumer's.
 
 ## T4 — Polarity is declared, not inferred
 
@@ -272,6 +291,49 @@ equal it, so a manifest that disagrees with `tokens.css` passes every gate here
 and fails on the consumer's side. Changing a token value in one file and not the
 other is the whole failure mode, and it is exactly what happened to
 `05-open-orbit` and `02-learning-portal` while their contrast was being fixed.
+
+## T11 — Declared once, and at the root
+
+Two rules, one failure mode: the consumer and this repository disagree about
+which declaration wins.
+
+`readTokens()` here lets the **last** declaration win. The consuming portal
+resolves a token with a first-match regex over `tokens.css`, so it reads the
+**first**. A bundle that declares a token twice is therefore measured against
+one value here and asserted against the other there, and neither side can see
+the drift. So a contract token may be declared exactly once.
+
+The consumer also reads the tokens off the root element, with
+`getComputedStyle(document.documentElement)`. A declaration block scoped to
+`body` -- or to anything below the root -- satisfies every regex-based check,
+including this repository's own, and delivers nothing. So the block that
+declares the contract must be scoped to `:root` (or `html`).
+
+## T12 — The focus outline is not removed
+
+Core draws `:focus-visible` as a 3px outline, and the consumer asserts the
+primary action has a focus indicator. The outline belongs to core, so a bundle
+that sets `outline: none` or `outline: 0` anywhere removes a keyboard user's
+only position cue and fails that assertion.
+
+A bundle may **restyle** the indicator -- a different colour, width or offset
+is fine. It may not switch it off.
+
+## T13 — The banner is tinted, not flooded
+
+Core paints `.open-source-banner` with `--p42-surface` under an 18% accent
+tint. Filling it with the raw `--p42-accent` puts a fully saturated block
+behind body copy; that shipped once and read as a clash rather than a banner,
+and the consumer now asserts the banner is not the accent literal.
+
+## T14 — A header override stays on a page-level surface
+
+The consumer composites the rendered `.site-header` and requires the result to
+match `--p42-bg` or `--p42-surface`, at an alpha of at least 0.9. A bundle is
+free to leave the header to core. If it does override the background, it must
+derive it from one of those two tokens: reaching for `--p42-surface-card` or
+`--p42-surface-elevated` passes every check here and fails on the consumer's
+side, on every route.
 
 ## T7 — The preview matrix stays honest
 

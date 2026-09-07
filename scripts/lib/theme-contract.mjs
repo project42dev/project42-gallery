@@ -305,6 +305,113 @@ export function checkBundle({ id, manifest, tokensCss, portalCss }) {
     }
   }
 
+  // Site-absolute is necessary but not sufficient: the URL has to point at THIS
+  // bundle's own artwork. The consumer's browser suite waits for a 200 on the
+  // literal path /themes/<selected theme>/hero.png and asserts both .hero-map
+  // and core's .portal-poster-hero are painted from it, so a bundle that
+  // borrows another theme's hero -- or renames the file -- is absolute,
+  // resolvable, and still fails on the consumer's side. A folder is only
+  // drop-in if its own directory name is the only thing its URLs depend on.
+
+  const heroDeclaration = tokensCss.match(/--p42-hero-image\s*:\s*([^;]+);/)?.[1] ?? "";
+  const heroTarget = heroDeclaration.match(/url\(\s*["']?([^"')]+)/)?.[1] ?? "";
+  check(
+    heroTarget === `/themes/${id}/hero.png`,
+    `${id}: --p42-hero-image must be url("/themes/${id}/hero.png") -- the consumer waits for a 200 on that exact path -- got "${heroTarget}"`,
+  );
+
+  // ---- Rule T11: every token is declared exactly once, at :root ------------
+  //
+  // Two reasons, and they disagree with each other, which is the danger.
+  // readTokens() here lets the LAST declaration win. The consumer resolves a
+  // token with a first-match regex over tokens.css, so it reads the FIRST. A
+  // bundle that declares a token twice measures green here against one value
+  // and is asserted on the consumer's side against the other -- drift that
+  // neither side can see.
+
+  const declarationCounts = new Map();
+  for (const [, name] of tokensCss
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .matchAll(/^\s*(--p42-[a-z0-9-]+)\s*:/gm)) {
+    declarationCounts.set(name, (declarationCounts.get(name) ?? 0) + 1);
+  }
+  const duplicated = [...declarationCounts].filter(([, n]) => n > 1).map(([name]) => name);
+  check(
+    duplicated.length === 0,
+    `${id}/tokens.css declares ${duplicated.length} token(s) more than once: ${duplicated.join(", ")}. ` +
+      "This gate reads the last declaration and the consumer reads the first, so a duplicate measures one value and ships another.",
+  );
+
+  // The consumer reads the tokens off the html element, with
+  // getComputedStyle(document.documentElement). A block scoped to body -- or
+  // to anything below the root -- satisfies every regex-based check here,
+  // including this file's own, and delivers nothing to the consumer.
+
+  const tokenScopes = [...tokensCss
+    .replace(/\/\*[\s\S]*?\*\//g, "")
+    .matchAll(/([^{}]+)\{[^{}]*--p42-/g)]
+    .map((match) => match[1].trim().replace(/\s+/g, " "))
+    .filter((selector) => selector && !selector.startsWith("@"));
+  for (const selector of tokenScopes) {
+    check(
+      selector.split(",").some((part) => /^\s*(:root|html)\b/.test(part.trim())),
+      `${id}/tokens.css declares tokens under "${selector}", which getComputedStyle(document.documentElement) never sees; contract tokens must be declared at :root (or html).`,
+    );
+  }
+
+  // ---- Rule T12: the bundle may not remove the focus indicator -------------
+  //
+  // Core draws :focus-visible as a 3px outline and the consumer asserts the
+  // primary action has one. The outline is core's, so a bundle that sets
+  // `outline: none` anywhere silently removes a keyboard user's only position
+  // cue and fails the consumer's accessibility assertion.
+
+  const outlineKills = [];
+  for (const rule of parseRules(portalCss)) {
+    if (/outline\s*:\s*(none|0)\b/.test(rule.body)) outlineKills.push(rule.selector);
+  }
+  check(
+    outlineKills.length === 0,
+    `${id}/portal.css removes the focus outline on ${outlineKills.length} selector(s): ${outlineKills.slice(0, 3).join(", ")}. ` +
+      "Core's :focus-visible outline is a keyboard user's only position cue; a bundle may restyle it but may not remove it.",
+  );
+
+  // ---- Rule T13: the open-source banner is not filled with the accent ------
+  //
+  // Core paints .open-source-banner with --p42-surface plus an 18% accent
+  // tint. Filling it with the raw accent puts a saturated block behind body
+  // copy, which is what shipped once and read as a clash rather than a
+  // banner; the consumer asserts the banner is not the emerald literal.
+
+  const bannerFilled = parseRules(portalCss).filter(
+    (rule) =>
+      /\.open-source-banner(?![\w-])/.test(rule.selector) &&
+      /background(?:-color)?\s*:\s*var\(\s*--p42-accent\s*\)/.test(rule.body),
+  );
+  check(
+    bannerFilled.length === 0,
+    `${id}/portal.css fills .open-source-banner with the raw --p42-accent; core tints it at 18% over --p42-surface, and a saturated fill behind body copy is what the consumer rejects.`,
+  );
+
+  // ---- Rule T14: a header override stays on a page-level surface -----------
+  //
+  // The consumer composites the rendered header and requires it to match
+  // --p42-bg or --p42-surface, at an alpha of at least 0.9. A bundle that
+  // reaches for --p42-surface-card or --p42-surface-elevated passes every
+  // check here and fails there, on every route.
+
+  for (const rule of parseRules(portalCss)) {
+    if (!/\.site-header(?![\w-])/.test(rule.selector)) continue;
+    const background = rule.body.match(/background(?:-color)?\s*:([^;]+);/)?.[1];
+    if (!background) continue;
+    const surfaces = [...background.matchAll(/var\(\s*(--p42-[a-z0-9-]+)/g)].map((m) => m[1]);
+    if (surfaces.length === 0) continue;
+    check(
+      surfaces.every((token) => token === "--p42-bg" || token === "--p42-surface"),
+      `${id}/portal.css paints .site-header from ${surfaces.join(", ")}; the consumer composites the header and accepts only --p42-bg or --p42-surface.`,
+    );
+  }
+
   // ---- Rule T4: polarity is declared, and matches the background -----------
 
   const polarity = manifest.polarity;
