@@ -5,6 +5,7 @@
     "test": "node --test scripts/lib/contrast.test.mjs scripts/generate-theme.test.mjs && node scripts/validate-theme-bundles.mjs && node scripts/validate-layout-bundles.mjs && node scripts/validate-matrix.mjs && node scripts/validate-theme-correctness.mjs && node scripts/validate-homepage.mjs",
     "build:layouts": "node scripts/build-layouts.mjs",
     "build:matrix": "node scripts/build-matrix-index.mjs",
+    "sync:platform-theme": "node scripts/sync-platform-theme.mjs",
     "report:contrast": "node scripts/validate-theme-correctness.mjs --report",
     "generate:theme": "node scripts/generate-theme.mjs"
   }

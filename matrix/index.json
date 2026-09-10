@@ -2,7 +2,20 @@
   "schemaVersion": 1,
   "themes": [
     {
+      "id": "portal-default",
+      "origin": "platform",
+      "shipsWith": "project42dev/project42-platform@v0.110.0",
+      "name": "Portal Default",
+      "tagline": "The theme a fresh install renders with.",
+      "description": "The product’s own stock theme: a white page, hairline rules, one slate-blue action colour, system type and no ornament. Not a Gallery theme and not a brand — the neutral ground a new deployment renders completely on before anyone chooses anything.",
+      "font": "ui-sans-serif, system-ui, sans-serif",
+      "tokens": "platform/themes/portal-default/tokens.css",
+      "components": "platform/themes/portal-default/portal.css",
+      "mark": "platform/themes/portal-default/mark.svg"
+    },
+    {
       "id": "01-cosmic-answer",
+      "origin": "gallery",
       "name": "Cosmic Answer",
       "tagline": "Learn to ask better questions of an expanding universe.",
       "description": "A memorable expression of 42: open inquiry, many possible paths, and evidence guiding learners toward useful answers.",
@@ -13,6 +26,7 @@
     },
     {
       "id": "02-learning-portal",
+      "origin": "gallery",
       "name": "Learning Portal",
       "tagline": "From curious beginner to capable AI practitioner.",
       "description": "A warm, human education brand built around an open doorway, visible steps, and progress that never feels mysterious.",
@@ -23,6 +37,7 @@
     },
     {
       "id": "03-model-constellation",
+      "origin": "gallery",
       "name": "Model Constellation",
       "tagline": "Understand the whole AI landscape—not one vendor.",
       "description": "A provider-neutral network where models, tools, agents, sources, and fact checks connect into durable learner evidence.",
@@ -33,6 +48,7 @@
     },
     {
       "id": "04-field-signal",
+      "origin": "gallery",
       "name": "Field Signal",
       "tagline": "Practical bearings for a fast-changing field.",
       "description": "A durable operational identity combining a field manual, a navigational beacon, and evidence-marked routes.",
@@ -43,6 +59,7 @@
     },
     {
       "id": "05-open-orbit",
+      "origin": "gallery",
       "name": "Open Orbit",
       "tagline": "Learning that stays open, current, and in motion.",
       "description": "A visibly open review loop connecting research, teaching, practice, fact-checking, and community contribution.",
@@ -53,6 +70,7 @@
     },
     {
       "id": "06-galactic-guide",
+      "origin": "gallery",
       "name": "The Galactic Guide (Don't Panic)",
       "tagline": "The Answer to AI, Agents, and Everything.",
       "description": "A friendly, provider-neutral survival guide from your very first prompt to production multi-agent swarms. 13 paths, 92 modules, and always knowing where your context is.",
@@ -63,6 +81,7 @@
     },
     {
       "id": "07-quiet-lantern",
+      "origin": "gallery",
       "name": "Quiet Lantern",
       "tagline": "A field manual you can read in daylight.",
       "description": "The first bundle produced by the Gallery generator: a light-polarity field manual -- square corners, heavy rules, stencilled capitals -- with every foreground derived from the surface it is printed on.",

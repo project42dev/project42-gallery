@@ -122,6 +122,33 @@
     .cell-title { font-size: 13px; font-weight: 700; color: #ffffff; }
     .cell-sub { font-size: 11px; color: #64748b; font-family: 'JetBrains Mono', monospace; }
 
+    /* A theme in this matrix is not necessarily a theme you download. The one
+       the product ships with is previewed here too, and it has to say so --
+       otherwise the matrix reads as "eight Gallery themes", which is wrong by
+       one and misattributes the product's own default. */
+    .origin {
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      font-family: 'JetBrains Mono', monospace;
+      padding: 2px 7px;
+      border-radius: 999px;
+      white-space: nowrap;
+      background: rgba(148, 163, 184, 0.14);
+      color: #cbd5e1;
+      border: 1px solid rgba(148, 163, 184, 0.34);
+    }
+
+    .origin-platform {
+      background: rgba(45, 212, 191, 0.14);
+      color: #5eead4;
+      border-color: rgba(45, 212, 191, 0.36);
+    }
+
+    .cell-head-titles { display: flex; flex-direction: column; gap: 3px; min-width: 0; }
+    .focus-origin { margin-bottom: 8px; display: inline-block; }
+
     /* A full-width desktop render, scaled down to fit the cell. Scaling rather
        than narrowing the frame is deliberate: a narrow iframe would trip the
        layout's own responsive behaviour and show you a phone, not the desktop
@@ -223,8 +250,15 @@
       <p>
         <strong>Themes own colour, typeface and imagery. Layouts own measure, spacing rhythm, density, radii and the type ramp.</strong>
         They are independent, so the two together are what you actually ship — this page renders all
-        <span id="comboCount">—</span> combinations from the real published bundles, no copies.
+        <span id="comboCount">—</span> combinations from the real published bundles.
         Pick one, then paste the snippet it gives you into <code>project42.config.json</code>. That is the whole change.
+      </p>
+      <p style="margin-top:10px">
+        One theme here is <strong>not</strong> a Gallery theme. <code>portal-default</code>
+        <span class="origin origin-platform">Ships with the platform</span> — it is the stock theme a fresh
+        install renders with, owned by <code>project42-platform</code>, and it stays there. It is previewed
+        from a vendored, hash-locked copy of the platform release so you can see what you already have next to
+        what you could choose. Everything else on this page is published by this Gallery and downloadable from it.
       </p>
       <p style="margin-top:10px">
         This is the Gallery&rsquo;s own specimen surface, in the way a Hugo theme ships an example site: it exercises the
@@ -238,6 +272,7 @@
     <section class="focus" id="focus">
       <div class="focus-head">
         <div>
+          <div class="focus-origin" id="focusOrigin"></div>
           <h2 id="focusTitle">—</h2>
           <p id="focusDescription">—</p>
         </div>
@@ -270,6 +305,24 @@
           "&layout=" + encodeURIComponent(layout);
       }
 
+      // Says where a theme comes from, because the two answers mean different
+      // things to whoever is choosing. A Gallery theme is something you install;
+      // the platform default is what your deployment already renders with and
+      // what it falls back to. It is NOT downloadable from here -- it ships in
+      // project42-platform and is previewed from a vendored, hash-locked copy.
+      function originChip(theme) {
+        var chip = document.createElement("span");
+        var platform = theme.origin === "platform";
+        chip.className = "origin" + (platform ? " origin-platform" : "");
+        chip.textContent = platform ? "Ships with the platform" : "Gallery theme";
+        chip.title = platform
+          ? "The default a fresh install renders with. Owned by " +
+            (theme.shipsWith || "project42-platform") +
+            " — previewed here, not downloaded from here."
+          : "Published by this Gallery. Install it by dropping the folder into your site.";
+        return chip;
+      }
+
       function configSnippet(theme, layout) {
         return '{\n  "theme": "' + theme + '",\n  "layout": {\n    "defaultPreset": "' +
           layout + '"\n  }\n}';
@@ -292,6 +345,8 @@
 
         document.getElementById("focusTitle").textContent =
           themeEntry.name + " · " + layoutEntry.name + " layout";
+        var focusOrigin = document.getElementById("focusOrigin");
+        focusOrigin.replaceChildren(originChip(themeEntry));
         document.getElementById("focusDescription").textContent =
           themeEntry.tagline + " " + layoutEntry.description;
         document.getElementById("focusFrame").src = specimenUrl(theme, layout);
@@ -326,8 +381,10 @@
                 cell.className = "cell";
                 cell.innerHTML =
                   '<div class="cell-head">' +
-                    '<span class="cell-title"></span>' +
-                    '<span class="cell-sub"></span>' +
+                    '<div class="cell-head-titles">' +
+                      '<span class="cell-title"></span>' +
+                      '<span class="cell-sub"></span>' +
+                    '</div>' +
                   '</div>' +
                   '<div class="viewport"><iframe loading="lazy" title="" scrolling="no"></iframe></div>' +
                   '<div class="cell-foot">' +
@@ -338,6 +395,7 @@
                 var label = theme.name + " · " + layout.name;
                 cell.querySelector(".cell-title").textContent = label;
                 cell.querySelector(".cell-sub").textContent = theme.id + " / " + layout.id;
+                cell.querySelector(".cell-head").appendChild(originChip(theme));
                 var frame = cell.querySelector("iframe");
                 frame.title = label;
                 frame.src = specimenUrl(theme.id, layout.id);
@@ -366,7 +424,11 @@
           document.getElementById("comboCount").textContent =
             index.themes.length + " × " + index.layouts.length + " = " +
             (index.themes.length * index.layouts.length);
-          index.themes.forEach(function (t) { themeFilter.appendChild(option(t.id, t.name)); });
+          index.themes.forEach(function (t) {
+            themeFilter.appendChild(
+              option(t.id, t.origin === "platform" ? t.name + " (platform default)" : t.name),
+            );
+          });
           index.layouts.forEach(function (l) { layoutFilter.appendChild(option(l.id, l.name)); });
 
           var requested = decodeURIComponent(location.hash.replace(/^#/, "")).split("+");
