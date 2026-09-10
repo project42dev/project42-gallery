@@ -6,8 +6,9 @@
   "commit": "c74a6268d0fefde119aa6284c234b4f1fd0e3806",
   "committedAt": "2026-09-10T03:33:20Z",
   "rewrite": {
-    "rule": "site-absolute url() targets under /themes/<id>/ become /platform/themes/<id>/",
-    "reason": "the Gallery serves its own bundles at /themes/, so a vendored platform bundle must name where the Gallery actually serves it"
+    "rule": "site-absolute url() targets under /themes/<id>/ become /platform/themes/<id>/, in .css files only",
+    "reason": "the Gallery serves its own bundles at /themes/, so a vendored platform bundle must name where the Gallery actually serves it",
+    "notRewritten": "theme.json is vendored verbatim, so its tokens block still reads url(\"/themes/<id>/hero.png\") and disagrees with the vendored tokens.css on purpose: nothing loads appearance from the manifest -- the stylesheets are what a browser fetches -- and rewriting the manifest would put the Gallery's serving path inside a file the platform owns"
   },
   "themes": [
     {

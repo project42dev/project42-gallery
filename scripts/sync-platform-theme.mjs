@@ -150,9 +150,11 @@ export async function sync({ ref, log = console.log } = {}) {
     commit: commit.sha,
     committedAt: commit.commit?.committer?.date ?? null,
     rewrite: {
-      rule: "site-absolute url() targets under /themes/<id>/ become /platform/themes/<id>/",
+      rule: "site-absolute url() targets under /themes/<id>/ become /platform/themes/<id>/, in .css files only",
       reason:
         "the Gallery serves its own bundles at /themes/, so a vendored platform bundle must name where the Gallery actually serves it",
+      notRewritten:
+        "theme.json is vendored verbatim, so its tokens block still reads url(\"/themes/<id>/hero.png\") and disagrees with the vendored tokens.css on purpose: nothing loads appearance from the manifest -- the stylesheets are what a browser fetches -- and rewriting the manifest would put the Gallery's serving path inside a file the platform owns",
     },
     themes,
   };
