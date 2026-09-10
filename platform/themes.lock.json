@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "owner": "project42-platform",
+  "repository": "project42dev/project42-platform",
+  "ref": "v0.110.0",
+  "commit": "c74a6268d0fefde119aa6284c234b4f1fd0e3806",
+  "committedAt": "2026-09-10T03:33:20Z",
+  "rewrite": {
+    "rule": "site-absolute url() targets under /themes/<id>/ become /platform/themes/<id>/, in .css files only",
+    "reason": "the Gallery serves its own bundles at /themes/, so a vendored platform bundle must name where the Gallery actually serves it",
+    "notRewritten": "theme.json is vendored verbatim, so its tokens block still reads url(\"/themes/<id>/hero.png\") and disagrees with the vendored tokens.css on purpose: nothing loads appearance from the manifest -- the stylesheets are what a browser fetches -- and rewriting the manifest would put the Gallery's serving path inside a file the platform owns"
+  },
+  "themes": [
+    {
+      "id": "portal-default",
+      "source": "web/themes/portal-default",
+      "name": "Portal Default",
+      "tagline": "The theme a fresh install renders with.",
+      "description": "The product’s own stock theme: a white page, hairline rules, one slate-blue action colour, system type and no ornament. Not a Gallery theme and not a brand — the neutral ground a new deployment renders completely on before anyone chooses anything.",
+      "font": "ui-sans-serif, system-ui, sans-serif",
+      "assets": {
+        "tokens": "tokens.css",
+        "components": "portal.css",
+        "mark": "mark.svg",
+        "hero": "hero.png",
+        "badges": {
+          "foundations": "badges/badge-foundations.svg",
+          "practitioner": "badges/badge-practitioner.svg",
+          "agentic": "badges/badge-agentic.svg",
+          "evidence": "badges/badge-evidence.svg"
+        }
+      },
+      "files": [
+        {
+          "path": "platform/themes/portal-default/badges/badge-agentic.svg",
+          "upstream": "sha256:ec9d64921378d16acee8587bb98671955bfd2317a48e826f170c9f7e3650ad84",
+          "vendored": "sha256:ec9d64921378d16acee8587bb98671955bfd2317a48e826f170c9f7e3650ad84",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/badges/badge-evidence.svg",
+          "upstream": "sha256:0cfae403d38241d55c942efd74d497721b0e224c0576dea28e160a31293507dd",
+          "vendored": "sha256:0cfae403d38241d55c942efd74d497721b0e224c0576dea28e160a31293507dd",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/badges/badge-foundations.svg",
+          "upstream": "sha256:9209fc1f938f1a0a5dd6f8795c74f58d045b8ff4e8ded9f8d752754c67bce41d",
+          "vendored": "sha256:9209fc1f938f1a0a5dd6f8795c74f58d045b8ff4e8ded9f8d752754c67bce41d",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/badges/badge-practitioner.svg",
+          "upstream": "sha256:132e16c4663e29019f6ae156c35445dec503eb205f68d0cd75105dda7ca4e05f",
+          "vendored": "sha256:132e16c4663e29019f6ae156c35445dec503eb205f68d0cd75105dda7ca4e05f",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/hero.png",
+          "upstream": "sha256:e6496764627fb72b796edcdd2de797ea170c920fa2a786d85e650104acaaf0b6",
+          "vendored": "sha256:e6496764627fb72b796edcdd2de797ea170c920fa2a786d85e650104acaaf0b6",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/mark.svg",
+          "upstream": "sha256:771e1576ba4557535bdcfa65844a03dc1f61f21272b7b25e045f678ae1d580f6",
+          "vendored": "sha256:771e1576ba4557535bdcfa65844a03dc1f61f21272b7b25e045f678ae1d580f6",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/portal.css",
+          "upstream": "sha256:9349b2061c33f0c2526618d57be9619a4a7b458d806f6bde5ff9bea5c407f3fd",
+          "vendored": "sha256:9349b2061c33f0c2526618d57be9619a4a7b458d806f6bde5ff9bea5c407f3fd",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/theme.json",
+          "upstream": "sha256:32ceada1e6a5719bd708fe3d17293be4344e54a1683cb45d2d7ef1c9ecc1e345",
+          "vendored": "sha256:32ceada1e6a5719bd708fe3d17293be4344e54a1683cb45d2d7ef1c9ecc1e345",
+          "rewritten": false
+        },
+        {
+          "path": "platform/themes/portal-default/tokens.css",
+          "upstream": "sha256:a107b7ea458af6a03e6c7d8d8c407f51a2ffd5a72c4f5ce09f5a402b398e12e5",
+          "vendored": "sha256:8a5d392518bc6c745030f69b0aef8e2aca99260480f3dc7c5bc4f5f56b479d56",
+          "rewritten": true
+        }
+      ]
+    }
+  ]
+}

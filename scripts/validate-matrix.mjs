@@ -8,12 +8,15 @@
 //      invisible in the preview and lands unseen in production.
 //   3. The specimen starts declaring its own colours or sizes, at which point
 //      the preview stops being a preview of the bundles.
+//   4. The vendored copy of a theme the PLATFORM owns is edited here, so the
+//      matrix previews something no release ever shipped.
 //
 // Run by `npm test`, which the Pages deploy runs before publishing.
 
 import { readdir, readFile } from "node:fs/promises";
 import path from "node:path";
-import { buildIndex } from "./build-matrix-index.mjs";
+import { buildIndex, readPlatformLock } from "./build-matrix-index.mjs";
+import { digest, PLATFORM_THEME_IDS, VENDOR_DIR } from "./sync-platform-theme.mjs";
 
 const root = path.resolve(import.meta.dirname, "..");
 const failures = [];
@@ -43,12 +46,16 @@ check(layoutIds.length > 0, "No layout bundles found");
 
 // ---- 2. The specimen reads the entire published token vocabulary ------------
 
+// Read from the path the index publishes, not an assumed themes/<id>/ -- the
+// platform's own default is vendored under platform/ and its tokens must be in
+// the vocabulary too, or a token only IT declares would be invisible in the
+// preview and the gate would still pass.
 const vocabulary = new Set();
 
-for (const id of themeIds) {
-  const tokens = await read(`themes/${id}/tokens.css`);
+for (const theme of index.themes) {
+  const tokens = await read(theme.tokens);
   const declared = [...tokens.matchAll(/(--p42-[a-z0-9-]+)\s*:/g)].map((match) => match[1]);
-  check(declared.length > 0, `${id}: tokens.css declares no --p42-* tokens`);
+  check(declared.length > 0, `${theme.id}: ${theme.tokens} declares no --p42-* tokens`);
   for (const token of declared) vocabulary.add(token);
 }
 
@@ -100,9 +107,26 @@ check(
   specimenHtml.includes('rel="stylesheet" href="matrix/specimen.css"'),
   "specimen.html does not load matrix/specimen.css",
 );
-for (const fragment of ['"themes/" + theme + "/tokens.css"', '"themes/" + theme + "/portal.css"', '"layouts/" + layout + "/layout.css"']) {
-  check(specimenHtml.includes(fragment), `specimen.html does not load ${fragment} from the real bundle path`);
+// The specimen must take its bundle paths FROM the index, not assemble them.
+// Assembling "themes/" + id silently excludes every theme that does not live in
+// themes/ -- which is exactly what hid the platform's own default from this
+// matrix until now.
+check(
+  specimenHtml.includes('fetch("matrix/index.json")'),
+  "specimen.html does not read matrix/index.json for its bundle paths",
+);
+for (const fragment of [
+  "stylesheet(themeEntry.tokens)",
+  "stylesheet(themeEntry.components)",
+  "stylesheet(layoutEntry.styles)",
+  "combination.entry.mark",
+]) {
+  check(specimenHtml.includes(fragment), `specimen.html does not load ${fragment} from the published index path`);
 }
+check(
+  !/["']themes\/["']\s*\+/.test(specimenHtml),
+  "specimen.html assembles a themes/ path itself; it must use the path matrix/index.json publishes",
+);
 check(
   specimenHtml.includes('/^[a-z0-9]+(?:-[a-z0-9]+)*$/'),
   "specimen.html does not validate the theme and layout query parameters",
@@ -111,9 +135,63 @@ check(
 const matrixHtml = await read("matrix.html");
 check(matrixHtml.includes('fetch("matrix/index.json")'), "matrix.html does not read matrix/index.json");
 check(matrixHtml.includes('"specimen.html?theme="'), "matrix.html does not embed specimen.html");
+check(
+  matrixHtml.includes('theme.origin === "platform"'),
+  "matrix.html does not distinguish a platform-owned theme from a Gallery theme, so it misattributes the product's own default",
+);
 
 const indexHtml = await read("index.html");
 check(indexHtml.includes("matrix.html"), "index.html does not link the matrix");
+
+// ---- 4b. The platform's themes are vendored, not adopted --------------------
+//
+// portal-default is layer 1 of the three-layer model: the product ships it, a
+// site folder overrides it, and this Gallery holds the alternatives. The matrix
+// previews it from a hash-locked copy under platform/. Two ways that can rot,
+// both fatal to the claim that this page previews what a real install renders:
+//
+//   * somebody edits the vendored copy here, so the preview shows a theme no
+//     platform release has ever shipped;
+//   * somebody "tidies" it into themes/, which makes the Gallery the owner of
+//     the product's own default and collapses layer 1 into layer 3.
+
+const lock = await readPlatformLock();
+check(typeof lock.ref === "string" && lock.ref.length > 0, "platform/themes.lock.json names no platform ref");
+check(/^[0-9a-f]{40}$/.test(lock.commit ?? ""), "platform/themes.lock.json names no platform commit");
+check(
+  lock.themes.length === PLATFORM_THEME_IDS.length,
+  `platform/themes.lock.json locks ${lock.themes.length} theme(s); the sync vendors ${PLATFORM_THEME_IDS.length}`,
+);
+
+const galleryThemeDirs = new Set(
+  (await readdir(path.join(root, "themes"), { withFileTypes: true }))
+    .filter((entry) => entry.isDirectory())
+    .map((entry) => entry.name),
+);
+
+for (const theme of lock.themes) {
+  check(
+    !galleryThemeDirs.has(theme.id),
+    `themes/${theme.id} exists, but ${theme.id} ships with the platform -- it must stay vendored under ${VENDOR_DIR}/, not owned by the Gallery`,
+  );
+  check(
+    index.themes.some((entry) => entry.id === theme.id && entry.origin === "platform"),
+    `${theme.id} is locked but the matrix index does not publish it as a platform theme`,
+  );
+
+  for (const file of theme.files) {
+    const bytes = await readFile(path.join(root, file.path)).catch(() => null);
+    if (bytes === null) {
+      failures.push(`${file.path} is locked but missing -- run: npm run sync:platform-theme`);
+      continue;
+    }
+    check(
+      digest(bytes) === file.vendored,
+      `${file.path} does not match platform/themes.lock.json -- a platform theme was edited inside the Gallery. ` +
+        "Change it in project42-platform and re-run: npm run sync:platform-theme",
+    );
+  }
+}
 
 // ---- 5. No competing preview surface ---------------------------------------
 //
@@ -139,7 +217,8 @@ if (failures.length > 0) {
   for (const failure of failures) console.error(`FAIL  ${failure}`);
   process.exitCode = 1;
 } else {
+  const platformCount = index.themes.filter((theme) => theme.origin === "platform").length;
   console.log(
-    `Matrix verified: ${themeIds.length} themes x ${layoutIds.length} layouts = ${themeIds.length * layoutIds.length} previewable combinations, all ${vocabulary.size} published tokens rendered.`,
+    `Matrix verified: ${themeIds.length} themes (${themeIds.length - platformCount} Gallery + ${platformCount} shipped with ${lock.repository}@${lock.ref}) x ${layoutIds.length} layouts = ${themeIds.length * layoutIds.length} previewable combinations, all ${vocabulary.size} published tokens rendered.`,
   );
 }

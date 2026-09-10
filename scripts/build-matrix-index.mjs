@@ -6,12 +6,25 @@
 // is actually on disk so the preview matrix can never drift from the bundles
 // the portal installs: add a theme or a layout, run this, and the matrix picks
 // it up. validate-matrix.mjs fails the build if the two disagree.
+//
+// Two origins, one listing
+// ------------------------
+// Not every previewable theme lives in this repository. `portal-default` ships
+// WITH THE PLATFORM -- it is the theme a fresh install renders with before
+// anybody picks anything -- and it deliberately stays owned by
+// project42-platform. It is vendored under platform/ by
+// scripts/sync-platform-theme.mjs and listed here with origin "platform", so
+// the matrix can show the theme you already have next to the ones you could
+// choose. Nothing about that moves it into the Gallery: themes/ still holds
+// only Gallery themes, and the platform copy is hash-locked against the
+// release it came from.
 
 import { readdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
 const root = path.resolve(import.meta.dirname, "..");
 const indexPath = path.join(root, "matrix", "index.json");
+const lockPath = path.join(root, "platform", "themes.lock.json");
 const checkOnly = process.argv.slice(2).includes("--check");
 
 async function bundleIds(directory) {
@@ -26,13 +39,38 @@ async function readManifest(directory, id, file) {
   return JSON.parse(await readFile(path.join(root, directory, id, file), "utf8"));
 }
 
+export async function readPlatformLock() {
+  return JSON.parse(await readFile(lockPath, "utf8"));
+}
+
 export async function buildIndex() {
   const themes = [];
+
+  // The platform's own default comes first: it is what a deployment renders
+  // with today, so it is the baseline every Gallery theme below is an
+  // alternative to.
+  const lock = await readPlatformLock();
+  for (const theme of lock.themes) {
+    themes.push({
+      id: theme.id,
+      origin: "platform",
+      shipsWith: `${lock.repository}@${lock.ref}`,
+      name: theme.name,
+      tagline: theme.tagline ?? "",
+      description: theme.description ?? "",
+      font: theme.font ?? "",
+      tokens: `platform/themes/${theme.id}/${theme.assets.tokens}`,
+      components: `platform/themes/${theme.id}/${theme.assets.components}`,
+      mark: `platform/themes/${theme.id}/${theme.assets.mark}`,
+    });
+  }
+
   for (const id of await bundleIds("themes")) {
     const manifest = await readManifest("themes", id, "theme.json");
     if (manifest.id !== id) throw new Error(`${id}: theme.json id mismatch`);
     themes.push({
       id,
+      origin: "gallery",
       name: manifest.name,
       tagline: manifest.tagline ?? "",
       description: manifest.description ?? "",
@@ -41,6 +79,16 @@ export async function buildIndex() {
       components: `themes/${id}/portal.css`,
       mark: `themes/${id}/${manifest.assets.mark}`,
     });
+  }
+
+  const duplicates = themes
+    .map((theme) => theme.id)
+    .filter((id, position, all) => all.indexOf(id) !== position);
+  if (duplicates.length > 0) {
+    throw new Error(
+      `A Gallery theme shares an id with a platform theme: ${[...new Set(duplicates)].join(", ")}. ` +
+        "The platform's default must not be copied into themes/.",
+    );
   }
 
   const layouts = [];

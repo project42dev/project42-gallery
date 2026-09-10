@@ -1,0 +1,7 @@
+# Everything under platform/ is a VENDORED copy of a bundle project42-platform
+# owns, hash-locked in themes.lock.json. Git must hand it back byte for byte on
+# every checkout, so line-ending normalisation is switched off here: with
+# core.autocrlf=true a Windows clone would rewrite every LF, the sha256 in the
+# lock would stop matching, and validate-matrix.mjs would report a tampered
+# platform theme on a checkout nobody had touched.
+* -text

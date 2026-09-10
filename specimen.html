@@ -23,6 +23,13 @@
      * The three stylesheets below are the REAL published bundles, loaded from
      * their real paths. Nothing is copied, so a bundle that is broken on disk
      * is broken here too -- which is the point.
+     *
+     * Those paths are read from matrix/index.json rather than assembled here,
+     * because a previewable theme does not always live in themes/. The theme a
+     * fresh install renders with, `portal-default`, ships with the platform and
+     * stays owned by it; it is vendored under platform/themes/ and the index is
+     * the single place that knows which origin a given theme came from. Pasting
+     * an id onto a themes/ prefix here would silently exclude it.
      */
     (function () {
       var params = new URLSearchParams(location.search);
@@ -36,18 +43,31 @@
       root.setAttribute("data-theme", theme);
       root.setAttribute("data-layout", layout);
 
-      [
-        "themes/" + theme + "/tokens.css",
-        "themes/" + theme + "/portal.css",
-        "layouts/" + layout + "/layout.css",
-      ].forEach(function (href) {
+      function stylesheet(href) {
         var link = document.createElement("link");
         link.rel = "stylesheet";
         link.href = href;
         document.head.appendChild(link);
-      });
+      }
 
-      window.__p42Specimen = { theme: theme, layout: layout };
+      window.__p42Specimen = { theme: theme, layout: layout, entry: null, layoutEntry: null };
+      window.__p42SpecimenReady = fetch("matrix/index.json")
+        .then(function (response) { return response.json(); })
+        .then(function (index) {
+          var themeEntry = index.themes.filter(function (t) { return t.id === theme; })[0];
+          var layoutEntry = index.layouts.filter(function (l) { return l.id === layout; })[0];
+          if (!themeEntry || !layoutEntry) {
+            throw new Error("matrix/index.json publishes no " + theme + " / " + layout);
+          }
+
+          stylesheet(themeEntry.tokens);
+          stylesheet(themeEntry.components);
+          stylesheet(layoutEntry.styles);
+
+          window.__p42Specimen.entry = themeEntry;
+          window.__p42Specimen.layoutEntry = layoutEntry;
+          return window.__p42Specimen;
+        });
     })();
   </script>
 </head>
@@ -158,14 +178,14 @@
 
   <script>
     (function () {
-      var combination = window.__p42Specimen;
-      document.getElementById("specimenMark").src =
-        "themes/" + combination.theme + "/mark.svg";
-      document.getElementById("configSnippet").textContent =
-        '{\n  "theme": "' + combination.theme + '",\n  "layout": {\n    "defaultPreset": "' +
-        combination.layout + '"\n  }\n}';
-      document.title =
-        "Project 42 — " + combination.theme + " / " + combination.layout;
+      window.__p42SpecimenReady.then(function (combination) {
+        document.getElementById("specimenMark").src = combination.entry.mark;
+        document.getElementById("configSnippet").textContent =
+          '{\n  "theme": "' + combination.theme + '",\n  "layout": {\n    "defaultPreset": "' +
+          combination.layout + '"\n  }\n}';
+        document.title =
+          "Project 42 — " + combination.theme + " / " + combination.layout;
+      });
     })();
   </script>
 </body>
