@@ -27,6 +27,10 @@
     "--p42-radius": "16px",
     "--p42-radius-small": "10px",
     "--p42-radius-large": "22px",
+    "--p42-radius-4xs": "4px",
+    "--p42-radius-3xs": "6px",
+    "--p42-radius-2xs": "7px",
+    "--p42-radius-xs": "8px",
     "--p42-radius-pill": "999px",
     "--p42-step--1": "0.78rem",
     "--p42-step-0": "0.94rem",
@@ -39,6 +43,11 @@
     "--p42-track-4": "-0.04em",
     "--p42-track-3": "-0.025em",
     "--p42-track-2": "-0.01em",
+    "--p42-track-wide-1": "0.015em",
+    "--p42-track-wide-2": "0.035em",
+    "--p42-track-wide-3": "0.055em",
+    "--p42-track-wide-4": "0.075em",
+    "--p42-track-wide-5": "0.115em",
     "--p42-grid-cards": "repeat(auto-fit, minmax(220px, 1fr))"
   }
 }

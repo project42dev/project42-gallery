@@ -27,6 +27,10 @@
   --p42-radius: 30px;
   --p42-radius-small: 18px;
   --p42-radius-large: 40px;
+  --p42-radius-4xs: 8px;
+  --p42-radius-3xs: 10px;
+  --p42-radius-2xs: 13px;
+  --p42-radius-xs: 15px;
   --p42-radius-pill: 999px;
   --p42-step--1: 0.88rem;
   --p42-step-0: 1.06rem;
@@ -39,5 +43,10 @@
   --p42-track-4: -0.03em;
   --p42-track-3: -0.015em;
   --p42-track-2: 0em;
+  --p42-track-wide-1: 0.025em;
+  --p42-track-wide-2: 0.045em;
+  --p42-track-wide-3: 0.065em;
+  --p42-track-wide-4: 0.085em;
+  --p42-track-wide-5: 0.125em;
   --p42-grid-cards: repeat(auto-fit, minmax(330px, 1fr));
 }

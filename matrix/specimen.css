@@ -259,6 +259,22 @@ h1, h2, h3, .specimen-eyebrow, .specimen-btn {
 .specimen-rhythm .bar-2xl { height: var(--p42-space-2xl); }
 .specimen-rhythm .bar-3xl { height: var(--p42-space-3xl); }
 
+/* ---- Small radii and wide label tracking, shown as themselves ---- */
+
+.specimen-radii { display: flex; gap: var(--p42-space-xs); }
+.specimen-radii i { display: block; width: var(--p42-space-2xl); height: var(--p42-space-xl); border: 2px solid var(--p42-primary); }
+.specimen-radii .radius-4xs { border-radius: var(--p42-radius-4xs); }
+.specimen-radii .radius-3xs { border-radius: var(--p42-radius-3xs); }
+.specimen-radii .radius-2xs { border-radius: var(--p42-radius-2xs); }
+.specimen-radii .radius-xs  { border-radius: var(--p42-radius-xs); }
+.specimen-tracking { display: grid; gap: var(--p42-space-2xs); margin-top: var(--p42-space-md); }
+.specimen-tracking span { font-size: var(--p42-step--1); text-transform: uppercase; color: var(--p42-text-body); }
+.specimen-tracking .track-wide-1 { letter-spacing: var(--p42-track-wide-1); }
+.specimen-tracking .track-wide-2 { letter-spacing: var(--p42-track-wide-2); }
+.specimen-tracking .track-wide-3 { letter-spacing: var(--p42-track-wide-3); }
+.specimen-tracking .track-wide-4 { letter-spacing: var(--p42-track-wide-4); }
+.specimen-tracking .track-wide-5 { letter-spacing: var(--p42-track-wide-5); }
+
 /* ---- Values core used to hardcode, now owned by the theme ----
    The preview must read every published token, or a bundle could change one
    and the matrix would look identical. */
