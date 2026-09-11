@@ -31,6 +31,7 @@ before publishing to Pages. A violation blocks the deploy.
 | **T12** | The bundle does not remove core's focus outline | `scripts/validate-theme-correctness.mjs` (Rule T12) |
 | **T13** | `.open-source-banner` is not filled with the raw accent | `scripts/validate-theme-correctness.mjs` (Rule T13) |
 | **T14** | A `.site-header` override stays on a page-level surface | `scripts/validate-theme-correctness.mjs` (Rule T14) |
+| **T15** | Every border meets 3:1 against what it actually borders (SC 1.4.11); a border declared `transparent` is exempt | `scripts/validate-theme-correctness.mjs` (Rule T15) |
 
 ---
 
@@ -153,10 +154,16 @@ heading as readily as a page heading, and a button label is normal-size text at
 any scale. Claiming the allowance per token would be claiming it for renderings
 that do not qualify.
 
-**Non-text contrast (SC 1.4.11 — borders, focus rings, icon strokes) is out of
-scope for this version.** `--p42-card-border`, `--p42-border-soft` and the
-`*-border` status tokens are not measured. That is a stated gap, not an implied
-pass.
+**Non-text contrast (SC 1.4.11 — borders) is enforced as of rule T15,
+2026-09-10.** `--p42-card-border`, `--p42-border-soft`, `--p42-secondary-btn-
+border`, the `*-border` status tokens and `--p42-overlay-border` must each
+clear 3:1 against the surface they actually border — not `--p42-surface`
+uniformly, but each token's real adjacency partner (a card border against the
+card, a status border against its own callout background, the overlay border
+against the overlay surface composited onto the scrim). A border declared
+literally `transparent` is exempt: it draws no stroke to lack contrast with,
+and the element's boundary comes from its fill or text, already required to
+clear 4.5:1 by rule T5. Focus rings and icon strokes remain out of scope.
 
 ### The compositing model
 

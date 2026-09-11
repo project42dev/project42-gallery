@@ -24,6 +24,13 @@
 //                               pole gives more contrast until the rounded hex
 //                               clears the threshold -- rather than accepted
 //                               and complained about.
+//   Rule T15 (3:1 borders)      Satisfied by construction, same mechanism as
+//                               T5 at a 3:1 floor, against each border's real
+//                               adjacency partner (the card, the button fill,
+//                               the status callout) rather than a page-wide
+//                               background. Translucent borders raise alpha
+//                               before touching hue, to keep the soft-overlay
+//                               look the seed alpha was authored for.
 //
 // The last line of defence is the same checkBundle() the CI gate runs, applied
 // to the in-memory bundle. If it reports anything, buildBundle throws and
@@ -95,6 +102,9 @@ const BLACK = [0, 0, 0, 1];
 // rounded to a hex byte afterwards and rounding can cost a hundredth.
 const DERIVE_TARGET = 4.6;
 
+// Same margin, for the 3:1 non-text (border) floor -- rule T15.
+const NON_TEXT_DERIVE_TARGET = 3.1;
+
 // ---- Colour helpers ---------------------------------------------------------
 
 function toHex([r, g, b]) {
@@ -119,6 +129,41 @@ function hsl(h, s, l) {
   const m = l - c / 2;
   const seg = [[c, x, 0], [x, c, 0], [0, c, x], [0, x, c], [x, 0, c], [c, 0, x]][Math.floor(h / 60) % 6];
   return seg.map((v) => (v + m) * 255).concat(1);
+}
+
+/**
+ * Derive a translucent border that meets `target` against one backdrop,
+ * preferring to raise ALPHA before touching hue. A border authored as
+ * `rgba(tint, 0.2)` is a soft overlay stroke by design; forcing it straight
+ * to an opaque hex (as deriveForeground does, correctly, for solid text and
+ * status colours) would erase that intent when a modest opacity increase
+ * clears the same floor. Falls back to blending the RGB toward whichever
+ * pole has more room only if alpha=1 still is not enough.
+ */
+function deriveTranslucentBorder(seedRgba, backdrop, target = NON_TEXT_DERIVE_TARGET) {
+  const [r, g, b, a] = seedRgba;
+  const opaqueBackdrop = backdrop[3] === 1 ? backdrop : composite(backdrop, WHITE);
+  const ratioAt = (alpha, mixT, pole) => {
+    const mixed = [0, 1, 2].map((i) => [r, g, b][i] + (pole[i] - [r, g, b][i]) * mixT);
+    return contrastRatio(composite([...mixed, alpha], opaqueBackdrop), opaqueBackdrop);
+  };
+
+  for (let alpha = a; alpha <= 1.0001; alpha += 1 / 256) {
+    if (ratioAt(Math.min(alpha, 1), 0, [r, g, b]) >= target) {
+      return `rgba(${Math.round(r)}, ${Math.round(g)}, ${Math.round(b)}, ${Math.round(Math.min(alpha, 1) * 1000) / 1000})`;
+    }
+  }
+  const poleRatio = (pole) => ratioAt(1, 1, pole);
+  const pole = poleRatio(WHITE) >= poleRatio(BLACK) ? WHITE : BLACK;
+  for (let step = 0; step <= 256; step += 1) {
+    if (ratioAt(1, step / 256, pole) >= target) {
+      const mixed = [0, 1, 2].map((i) => [r, g, b][i] + (pole[i] - [r, g, b][i]) * (step / 256));
+      return toHex([...mixed, 1]);
+    }
+  }
+  throw new ThemeGeneratorRefusal(
+    `no border on the ramp toward ${toHex(pole)} reaches ${target}:1 on its backdrop`,
+  );
 }
 
 /**
@@ -217,12 +262,17 @@ function buildTokens(spec) {
   }
 
   // Status families are hue-fixed and lightness-set by polarity, then their
-  // foregrounds are derived on the same terms as everything else.
+  // foregrounds are derived on the same terms as everything else. The border
+  // is derived too (rule T15): the fixed lightness-by-polarity seed below
+  // does not reliably clear 3:1 against its own -bg (0.3 lightness on a 0.11
+  // background is close, but "close" is not a gate), so it walks toward
+  // whichever pole has more room, same mechanism as every foreground here.
   const status = (hue, saturation) => {
     const bg = polarity === "dark" ? hsl(hue, saturation, 0.11) : hsl(hue, saturation * 0.55, 0.94);
-    const border = polarity === "dark" ? hsl(hue, saturation, 0.3) : hsl(hue, saturation * 0.5, 0.72);
+    const borderSeed = polarity === "dark" ? hsl(hue, saturation, 0.3) : hsl(hue, saturation * 0.5, 0.72);
+    const border = deriveForeground(borderSeed, [composite(bg, page)], NON_TEXT_DERIVE_TARGET);
     const fg = deriveForeground(hsl(hue, saturation, polarity === "dark" ? 0.75 : 0.28), [composite(bg, page)]);
-    return { bg: toHex(bg), border: toHex(border), fg: fg.hex };
+    return { bg: toHex(bg), border: border.hex, fg: fg.hex };
   };
   const success = status(145, 0.55);
   const warning = status(42, 0.7);
@@ -230,23 +280,44 @@ function buildTokens(spec) {
   const info = status(192, 0.5);
 
   const scrim = mix(page, BLACK, 0.85);
-  const overlayFg = deriveForeground(WHITE, [composite([...scrim.slice(0, 3), 0.96], page)]);
+  const scrimOnPage = composite([...scrim.slice(0, 3), 0.96], page);
+  const overlayFg = deriveForeground(WHITE, [scrimOnPage]);
+  // --p42-overlay-surface is a fixed 10%-white wash over the scrim; the
+  // border is derived against THAT composited result, not the scrim alone,
+  // because that is what SC 1.4.11 actually asks: contrast against what the
+  // border is adjacent to.
+  const overlaySurfaceOnScrim = composite([255, 255, 255, 0.1], scrimOnPage);
+  const overlayBorder = deriveTranslucentBorder([255, 255, 255, 0.2], overlaySurfaceOnScrim);
 
   const shadow = polarity === "dark" ? BLACK : mix(page, BLACK, 0.9);
   const shadowRgb = shadow.slice(0, 3).map((c) => Math.round(c)).join(", ");
+
+  // Rule T15: card-border and border-soft sit on the card surface, not the
+  // page; secondary-btn-border sits on its own button fill. Each seed is the
+  // same recipe as before -- only the derivation, not the intended hue, is new.
+  const surfaceCardOpaque = surfaceCard[3] === 1 ? surfaceCard : composite(surfaceCard, WHITE);
+  const cardBorder = deriveForeground(mix(page, primaryReadable, 0.4), [surfaceCardOpaque], NON_TEXT_DERIVE_TARGET);
+  const borderSoft = deriveForeground(mix(page, primaryReadable, 0.24), [surfaceCardOpaque], NON_TEXT_DERIVE_TARGET);
+  const secondaryBtnBorder = deriveForeground(mix(page, primaryReadable, 0.3), [secondaryBg], NON_TEXT_DERIVE_TARGET);
+  if (cardBorder.moved > 0) {
+    corrections.push(`--p42-card-border: would not clear ${NON_TEXT_DERIVE_TARGET}:1 on the card; derived ${cardBorder.hex} instead`);
+  }
+  if (secondaryBtnBorder.moved > 0) {
+    corrections.push(`--p42-secondary-btn-border: would not clear ${NON_TEXT_DERIVE_TARGET}:1 on the button fill; derived ${secondaryBtnBorder.hex} instead`);
+  }
 
   const values = {
     "--p42-bg": toHex(page),
     "--p42-surface": toHex(surface),
     "--p42-surface-card": `rgba(${surfaceCard.slice(0, 3).map((c) => Math.round(c)).join(", ")}, 0.95)`,
-    "--p42-card-border": toHex(mix(page, primaryReadable, 0.4)),
+    "--p42-card-border": cardBorder.hex,
     "--p42-primary": toHex(primaryReadable),
     "--p42-primary-fg": primaryFg.hex,
     "--p42-accent": toHex(accent),
     "--p42-accent-fg": accentFg.hex,
     "--p42-secondary-btn-bg": toHex(secondaryBg),
     "--p42-secondary-btn-fg": secondaryFg.hex,
-    "--p42-secondary-btn-border": toHex(mix(page, primaryReadable, 0.3)),
+    "--p42-secondary-btn-border": secondaryBtnBorder.hex,
     "--p42-text-title": title.hex,
     "--p42-text-body": body.hex,
     "--p42-text-muted": muted.hex,
@@ -254,7 +325,7 @@ function buildTokens(spec) {
     "--p42-font-heading": `"${spec.font}", sans-serif`,
     "--p42-surface-elevated": toHex(surfaceElevated),
     "--p42-surface-code": toHex(surfaceCode),
-    "--p42-border-soft": toHex(mix(page, primaryReadable, 0.24)),
+    "--p42-border-soft": borderSoft.hex,
     "--p42-primary-hover": toHex(mix(primaryReadable, away, 0.18)),
     "--p42-interactive-muted": "color-mix(in srgb, var(--p42-primary) 10%, transparent)",
     "--p42-hero-image": `url("/themes/${spec.id}/hero.png")`,
@@ -273,7 +344,7 @@ function buildTokens(spec) {
     "--p42-overlay-scrim": `rgba(${scrim.slice(0, 3).map((c) => Math.round(c)).join(", ")}, 0.96)`,
     "--p42-overlay-fg": overlayFg.hex,
     "--p42-overlay-surface": "rgba(255, 255, 255, 0.1)",
-    "--p42-overlay-border": "rgba(255, 255, 255, 0.2)",
+    "--p42-overlay-border": overlayBorder,
     "--p42-shadow-color": toHex(shadow),
     "--p42-shadow-card": `0 8px 24px rgba(${shadowRgb}, 0.45)`,
     "--p42-shadow-raised": `0 12px 30px rgba(${shadowRgb}, 0.55)`,

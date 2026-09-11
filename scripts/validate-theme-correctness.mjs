@@ -21,14 +21,16 @@ import path from "node:path";
 import {
   checkBundle,
   CONTRAST_PAIRS,
+  BORDER_CONTRAST_PAIRS,
   TEXT_CONTRAST_MINIMUM,
+  NON_TEXT_CONTRAST_MINIMUM,
   TOKEN_CONTRACT,
 } from "./lib/theme-contract.mjs";
 
 // Re-exported for callers that already point at this file. The definitions
 // live in lib/theme-contract.mjs so the generator can share them without
 // importing this script's on-disk scan.
-export { CONTRAST_PAIRS, TEXT_CONTRAST_MINIMUM, TOKEN_CONTRACT };
+export { CONTRAST_PAIRS, BORDER_CONTRAST_PAIRS, TEXT_CONTRAST_MINIMUM, NON_TEXT_CONTRAST_MINIMUM, TOKEN_CONTRACT };
 
 const root = path.resolve(import.meta.dirname, "..");
 const themesRoot = path.join(root, "themes");
@@ -83,7 +85,8 @@ if (reference) {
 
 if (reportOnly) {
   for (const m of measurements) {
-    const verdict = m.ratio >= TEXT_CONTRAST_MINIMUM ? "pass" : "FAIL";
+    const minimum = m.kind === "non-text" ? NON_TEXT_CONTRAST_MINIMUM : TEXT_CONTRAST_MINIMUM;
+    const verdict = m.ratio >= minimum ? "pass" : "FAIL";
     console.log(`${verdict}  ${m.id}  ${m.fgToken} on ${m.bgToken}  ${m.ratio.toFixed(2)}:1`);
   }
 }
@@ -93,7 +96,9 @@ if (failures.length > 0) {
   console.error(`\n${failures.length} theme correctness violation(s). See docs/THEME_CORRECTNESS_SPEC.md.`);
   process.exitCode = 1;
 } else {
+  const textCount = measurements.filter((m) => m.kind !== "non-text").length;
+  const borderCount = measurements.filter((m) => m.kind === "non-text").length;
   console.log(
-    `Theme correctness verified: ${themeIds.length} themes, ${TOKEN_CONTRACT.length} contract tokens each, ${measurements.length} contrast pairs all at or above ${TEXT_CONTRAST_MINIMUM}:1.`,
+    `Theme correctness verified: ${themeIds.length} themes, ${TOKEN_CONTRACT.length} contract tokens each, ${textCount} text contrast pairs at or above ${TEXT_CONTRAST_MINIMUM}:1, ${borderCount} border pairs at or above ${NON_TEXT_CONTRAST_MINIMUM}:1.`,
   );
 }

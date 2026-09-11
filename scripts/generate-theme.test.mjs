@@ -207,6 +207,45 @@ test("rule T5 -- a foreground forced back into a violation is refused", () => {
   );
 });
 
+test("rule T15 -- border contrast is corrected by construction, not reported", () => {
+  // A near-white primary against a near-white page: --p42-card-border's old
+  // recipe (a flat mix(page, primary, 0.4)) would land close to invisible on
+  // the card. No override is passed -- this is the generator's own default
+  // derivation, proving it clears 3:1 on its own rather than needing a caller
+  // to notice and correct it.
+  const bundle = buildBundle({
+    ...base,
+    character: "staircase",
+    paper: "#fefefe",
+    primary: "#fdf6e3",
+    accent: "#fef9e7",
+  });
+  assert.deepEqual(verdictOf(bundle).failures, []);
+  assert.ok(
+    bundle.corrections.some((line) => line.startsWith("--p42-card-border:")),
+    `expected the pale card border to be corrected: ${bundle.corrections.join("; ")}`,
+  );
+});
+
+test("rule T15 -- a border forced back into a violation is refused", () => {
+  // base's --p42-warning-bg derives to #302408 on this dark paper; this
+  // override sits close enough to it to fail 3:1 without being an alias.
+  assert.throws(
+    () => buildBundle({ ...base, tokens: { "--p42-warning-border": "#3c2c0a" } }),
+    (error) =>
+      error instanceof ThemeGeneratorRefusal &&
+      error.detail.some((line) => line.includes("below the 3:1 minimum")),
+  );
+});
+
+test("rule T15 -- a transparent border is exempt, not a failure", () => {
+  // Some themes leave a button borderless by design (transparent), relying
+  // on its own fill for the visual boundary. That has no colour to fail a
+  // contrast check against, and it must not be reported as unmeasurable.
+  const bundle = buildBundle({ ...base, tokens: { "--p42-secondary-btn-border": "transparent" } });
+  assert.deepEqual(verdictOf(bundle).failures, []);
+});
+
 test("the spec envelope is checked before anything else runs", () => {
   for (const [field, spec] of [
     ["id", { ...base, id: "Not An Id" }],

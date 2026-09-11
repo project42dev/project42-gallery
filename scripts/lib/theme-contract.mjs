@@ -104,6 +104,30 @@ export const CONTRAST_PAIRS = [
   ...FOREGROUND_PAIRS,
 ];
 
+// ---- Non-text contrast (rule T15) -------------------------------------------
+//
+// SC 1.4.11 covers borders, focus rings and icon strokes at a 3:1 floor --
+// looser than text's 4.5:1 because a border only has to be findable, not
+// readable. This was a stated, documented gap through 2026-09-10 ("out of
+// scope for this version" in THEME_CORRECTNESS_SPEC.md): no theme's border
+// tokens were measured, and none reached 3:1. Each pair names the border's
+// real adjacency partner, not a single page-wide background -- a card border
+// is measured against the card, a status border against its own callout
+// background, not against --p42-surface. --p42-overlay-border is excluded
+// from this list and checked separately below: its adjacency partner is
+// --p42-overlay-surface composited onto --p42-overlay-scrim, not a single
+// token this pair shape can express.
+export const NON_TEXT_CONTRAST_MINIMUM = 3.0;
+export const BORDER_CONTRAST_PAIRS = [
+  ["--p42-card-border", "--p42-surface-card"],
+  ["--p42-border-soft", "--p42-surface-card"],
+  ["--p42-secondary-btn-border", "--p42-secondary-btn-bg"],
+  ["--p42-success-border", "--p42-success-bg"],
+  ["--p42-warning-border", "--p42-warning-bg"],
+  ["--p42-danger-border", "--p42-danger-bg"],
+  ["--p42-info-border", "--p42-info-bg"],
+];
+
 // Same literal shapes validate-matrix.mjs polices in the specimen. It does not
 // catch CSS named colours (`red`, `tomato`); the token-identity rule keeps the
 // declaration block honest and this keeps component rules honest.
@@ -465,6 +489,62 @@ export function checkBundle({ id, manifest, tokensCss, portalCss }) {
       ratio >= TEXT_CONTRAST_MINIMUM,
       `${id}: ${fgToken} on ${bgToken} is ${ratio.toFixed(2)}:1, below the ${TEXT_CONTRAST_MINIMUM}:1 minimum for normal text (WCAG 2.2 SC 1.4.3 AA)`,
     );
+  }
+
+  // ---- Rule T15: every border meets 3:1 against what it actually borders ---
+
+  for (const [borderToken, bgToken] of BORDER_CONTRAST_PAIRS) {
+    // A border declared literally `transparent` draws no stroke at all -- it
+    // has no colour to lack contrast with, and the element's boundary (if it
+    // needs one) comes from its fill or text, which T5 and FOREGROUND_PAIRS
+    // already require to clear 4.5:1. SC 1.4.11 constrains a visible
+    // indicator's contrast; it does not require a border to exist.
+    if (tokens.get(borderToken)?.trim().toLowerCase() === "transparent") continue;
+
+    const border = resolveTokenColor(tokens, borderToken);
+    const bg = resolveTokenColor(tokens, bgToken);
+    if (border.error || bg.error) {
+      failures.push(`${id}: ${borderToken} on ${bgToken} cannot be measured -- ${border.error ?? bg.error}`);
+      continue;
+    }
+    const backdrop = composite(bg.color, pageColor);
+    const stroke = composite(border.color, backdrop);
+    const ratio = contrastRatio(stroke, backdrop);
+    measurements.push({ id, fgToken: borderToken, bgToken, ratio, kind: "non-text" });
+    check(
+      ratio >= NON_TEXT_CONTRAST_MINIMUM,
+      `${id}: ${borderToken} on ${bgToken} is ${ratio.toFixed(2)}:1, below the ${NON_TEXT_CONTRAST_MINIMUM}:1 minimum for a UI component border (WCAG 2.2 SC 1.4.11)`,
+    );
+  }
+
+  // --p42-overlay-border's real adjacency partner is the overlay surface
+  // composited onto the scrim, not a single token -- BORDER_CONTRAST_PAIRS
+  // cannot express that, so it is checked here instead.
+  {
+    const border = resolveTokenColor(tokens, "--p42-overlay-border");
+    const scrim = resolveTokenColor(tokens, "--p42-overlay-scrim");
+    const overlaySurface = resolveTokenColor(tokens, "--p42-overlay-surface");
+    if (border.error || scrim.error || overlaySurface.error) {
+      failures.push(
+        `${id}: --p42-overlay-border cannot be measured -- ${border.error ?? scrim.error ?? overlaySurface.error}`,
+      );
+    } else {
+      const scrimOnPage = composite(scrim.color, pageColor);
+      const backdrop = composite(overlaySurface.color, scrimOnPage);
+      const stroke = composite(border.color, backdrop);
+      const ratio = contrastRatio(stroke, backdrop);
+      measurements.push({
+        id,
+        fgToken: "--p42-overlay-border",
+        bgToken: "--p42-overlay-surface",
+        ratio,
+        kind: "non-text",
+      });
+      check(
+        ratio >= NON_TEXT_CONTRAST_MINIMUM,
+        `${id}: --p42-overlay-border on --p42-overlay-surface is ${ratio.toFixed(2)}:1, below the ${NON_TEXT_CONTRAST_MINIMUM}:1 minimum for a UI component border (WCAG 2.2 SC 1.4.11)`,
+      );
+    }
   }
 
   // ---- Rule T9: the bundle carries the consumer's component treatments -----
