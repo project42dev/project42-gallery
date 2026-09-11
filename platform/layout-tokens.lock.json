@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "owner": "project42-platform",
   "repository": "project42dev/project42-platform",
-  "ref": "local",
-  "commit": "8bc47984e03c258f170683bf560eda4347b7f042",
-  "committedAt": "2026-09-11T12:50:19-04:00",
+  "ref": "v0.112.0",
+  "commit": "0ba1b310b852e7b04525469b4d37feb4ef951459",
+  "committedAt": "2026-09-11T17:37:48Z",
   "tokens": [
     "--p42-block-gap",
     "--p42-card-padding",
@@ -55,7 +55,7 @@
     },
     {
       "path": "layouts/compact/layout.json",
-      "vendored": "sha256:1c8ac2a47d4145760825b40705ff934607aa4262784f28684baeef4b514590cf"
+      "vendored": "sha256:4d96adeac3ee4c933d06c9113da7e0ea9a528556e44dc66d2bb99eb6c0886164"
     },
     {
       "path": "layouts/standard/layout.css",
@@ -63,7 +63,7 @@
     },
     {
       "path": "layouts/standard/layout.json",
-      "vendored": "sha256:cf9725390671ed4515de5d7957ef2aa0b3f23f12f147532b8f17d995cd57b577"
+      "vendored": "sha256:ad69ae95b5e8d94381c8bf98efe6b09a38b659370a154cf6ef888c98cc84f751"
     },
     {
       "path": "layouts/wide/layout.css",
@@ -71,7 +71,7 @@
     },
     {
       "path": "layouts/wide/layout.json",
-      "vendored": "sha256:40456ce25883e1ce58ea4748fa96cae49a175755062a8282c605e295e4320e2c"
+      "vendored": "sha256:e0ffbd07e03a47a4097b414308a92f251ad6e1385a047237f6179833ba67a9cd"
     }
   ]
 }
