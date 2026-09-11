@@ -6,6 +6,7 @@
     "build:layouts": "node scripts/build-layouts.mjs",
     "build:matrix": "node scripts/build-matrix-index.mjs",
     "sync:platform-theme": "node scripts/sync-platform-theme.mjs",
+    "sync:platform-layouts": "node scripts/sync-platform-layouts.mjs",
     "report:contrast": "node scripts/validate-theme-correctness.mjs --report",
     "generate:theme": "node scripts/generate-theme.mjs"
   }

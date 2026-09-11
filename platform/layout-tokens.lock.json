@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "owner": "project42-platform",
+  "repository": "project42dev/project42-platform",
+  "ref": "local",
+  "commit": "8bc47984e03c258f170683bf560eda4347b7f042",
+  "committedAt": "2026-09-11T12:50:19-04:00",
+  "tokens": [
+    "--p42-block-gap",
+    "--p42-card-padding",
+    "--p42-control-height",
+    "--p42-control-padding",
+    "--p42-grid-cards",
+    "--p42-gutter",
+    "--p42-radius",
+    "--p42-radius-2xs",
+    "--p42-radius-3xs",
+    "--p42-radius-4xs",
+    "--p42-radius-large",
+    "--p42-radius-pill",
+    "--p42-radius-small",
+    "--p42-radius-xs",
+    "--p42-section-gap",
+    "--p42-shell",
+    "--p42-space-2xl",
+    "--p42-space-2xs",
+    "--p42-space-3xl",
+    "--p42-space-lg",
+    "--p42-space-md",
+    "--p42-space-sm",
+    "--p42-space-xl",
+    "--p42-space-xs",
+    "--p42-stack-gap",
+    "--p42-step--1",
+    "--p42-step-0",
+    "--p42-step-1",
+    "--p42-step-2",
+    "--p42-step-3",
+    "--p42-step-4",
+    "--p42-step-5",
+    "--p42-track-2",
+    "--p42-track-3",
+    "--p42-track-4",
+    "--p42-track-5",
+    "--p42-track-wide-1",
+    "--p42-track-wide-2",
+    "--p42-track-wide-3",
+    "--p42-track-wide-4",
+    "--p42-track-wide-5"
+  ],
+  "files": [
+    {
+      "path": "layouts/compact/layout.css",
+      "vendored": "sha256:8755dbfa0d782fc6e488f129a61e53ec1827fdc716d8411113843eda55f126af"
+    },
+    {
+      "path": "layouts/compact/layout.json",
+      "vendored": "sha256:1c8ac2a47d4145760825b40705ff934607aa4262784f28684baeef4b514590cf"
+    },
+    {
+      "path": "layouts/standard/layout.css",
+      "vendored": "sha256:fde57d6a1d56af98b41b2be0e1e5c740041cb0f2c28d72f76c2c1912bc0d38ed"
+    },
+    {
+      "path": "layouts/standard/layout.json",
+      "vendored": "sha256:cf9725390671ed4515de5d7957ef2aa0b3f23f12f147532b8f17d995cd57b577"
+    },
+    {
+      "path": "layouts/wide/layout.css",
+      "vendored": "sha256:bba6b3fda3948141672ba3728557a100439ed8d3c327f6f82e36053d6ebbb4cb"
+    },
+    {
+      "path": "layouts/wide/layout.json",
+      "vendored": "sha256:40456ce25883e1ce58ea4748fa96cae49a175755062a8282c605e295e4320e2c"
+    }
+  ]
+}
