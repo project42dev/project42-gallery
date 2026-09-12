@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "owner": "project42-platform",
   "repository": "project42dev/project42-platform",
-  "ref": "v0.112.0",
-  "commit": "0ba1b310b852e7b04525469b4d37feb4ef951459",
-  "committedAt": "2026-09-11T17:37:48Z",
+  "ref": "v0.112.2",
+  "commit": "2a378decf4c965dec28fae5ec464988b265324fa",
+  "committedAt": "2026-09-11T23:55:21Z",
   "tokens": [
     "--p42-block-gap",
     "--p42-card-padding",

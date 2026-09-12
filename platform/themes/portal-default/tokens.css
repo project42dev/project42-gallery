@@ -7,20 +7,31 @@
  * either lives with or replaces by naming a Gallery theme in
  * project42.config.json.
  *
- * Every foreground/background pair below is at or above 4.5:1.
+ * Every foreground/background pair below is at or above 4.5:1 (WCAG 2.2
+ * SC 1.4.3), and every border is at or above 3:1 against what it actually
+ * borders (SC 1.4.11). Both claims are enforced by
+ * web/scripts/theme-correctness-check.mjs, which runs project42-gallery's own
+ * checkBundle() over this bundle in `npm run check`. They were not enforced
+ * before 2026-09-11, and eight borders here shipped below 3:1 — the softest
+ * hairline at 1.23:1 — because no gate in either repository was looking at the
+ * theme a fresh install actually renders with.
+ *
+ * The 3:1 floor makes --p42-border-soft and --p42-card-border the same value:
+ * both are the same ink on the same white card, so both bottom out at the same
+ * alpha. The Gallery's own themes collapsed the same way when they were raised.
  */
 :root[data-theme="portal-default"], .theme-portal-default-card {
   --p42-bg: #ffffff;
   --p42-surface: #f4f6f8;
   --p42-surface-card: #ffffff;
-  --p42-card-border: rgba(15, 23, 42, 0.14);
+  --p42-card-border: rgba(15, 23, 42, 0.46);
   --p42-primary: #1f3a5f;
   --p42-primary-fg: #ffffff;
   --p42-accent: #0f6f68;
   --p42-accent-fg: #ffffff;
   --p42-secondary-btn-bg: #ffffff;
   --p42-secondary-btn-fg: #1f3a5f;
-  --p42-secondary-btn-border: rgba(31, 58, 95, 0.35);
+  --p42-secondary-btn-border: rgba(31, 58, 95, 0.54);
   --p42-text-title: #0f172a;
   --p42-text-body: #33415c;
   --p42-text-muted: #5a6779;
@@ -28,30 +39,30 @@
   --p42-font-heading: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   --p42-surface-elevated: #ffffff;
   --p42-surface-code: #f1f5f9;
-  --p42-border-soft: rgba(15, 23, 42, 0.1);
+  --p42-border-soft: rgba(15, 23, 42, 0.46);
   --p42-primary-hover: #2b5183;
   --p42-interactive-muted: color-mix(in srgb, var(--p42-primary) 8%, transparent);
   --p42-hero-image: url("/platform/themes/portal-default/hero.png");
 
   /* Status family: success, warning, danger. */
   --p42-success-bg: #e8f6ec;
-  --p42-success-border: #9ac7a8;
+  --p42-success-border: #559a6b;
   --p42-success-fg: #15602c;
   --p42-warning-bg: #fdf3da;
-  --p42-warning-border: #d5b168;
+  --p42-warning-border: #b08631;
   --p42-warning-fg: #6b4708;
   --p42-danger-bg: #fdeeed;
-  --p42-danger-border: #dda6a2;
+  --p42-danger-border: #ca736d;
   --p42-danger-fg: #8a1c1c;
 
   /* Info callouts, fullscreen overlay, elevation. */
   --p42-info-bg: #e9f2fa;
-  --p42-info-border: #9dbfd9;
+  --p42-info-border: #5691bd;
   --p42-info-fg: #1c4c72;
   --p42-overlay-scrim: rgba(11, 18, 32, 0.96);
   --p42-overlay-fg: #ffffff;
   --p42-overlay-surface: rgba(255, 255, 255, 0.12);
-  --p42-overlay-border: rgba(255, 255, 255, 0.24);
+  --p42-overlay-border: rgba(255, 255, 255, 0.37);
   --p42-shadow-color: #0f172a;
   --p42-shadow-card: 0 1px 2px rgba(15, 23, 42, 0.06);
   --p42-shadow-raised: 0 4px 12px rgba(15, 23, 42, 0.1);

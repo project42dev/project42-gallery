@@ -4,7 +4,7 @@
     {
       "id": "portal-default",
       "origin": "platform",
-      "shipsWith": "project42dev/project42-platform@v0.110.0",
+      "shipsWith": "project42dev/project42-platform@v0.112.2",
       "name": "Portal Default",
       "tagline": "The theme a fresh install renders with.",
       "description": "The product’s own stock theme: a white page, hairline rules, one slate-blue action colour, system type and no ornament. Not a Gallery theme and not a brand — the neutral ground a new deployment renders completely on before anyone chooses anything.",
