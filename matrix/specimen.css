@@ -274,6 +274,7 @@ h1, h2, h3, .specimen-eyebrow, .specimen-btn {
 .specimen-tracking .track-wide-3 { letter-spacing: var(--p42-track-wide-3); }
 .specimen-tracking .track-wide-4 { letter-spacing: var(--p42-track-wide-4); }
 .specimen-tracking .track-wide-5 { letter-spacing: var(--p42-track-wide-5); }
+.specimen-tracking .track-6 { font-size: var(--p42-step-5); text-transform: none; letter-spacing: var(--p42-track-6); }
 
 /* ---- Values core used to hardcode, now owned by the theme ----
    The preview must read every published token, or a bundle could change one

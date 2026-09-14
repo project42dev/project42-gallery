@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "owner": "project42-platform",
   "repository": "project42dev/project42-platform",
-  "ref": "v0.112.2",
-  "commit": "2a378decf4c965dec28fae5ec464988b265324fa",
-  "committedAt": "2026-09-11T23:55:21Z",
+  "ref": "v0.116.0",
+  "commit": "86a1f5010be0c8e62fc88f5aeb82dc178c94b4f9",
+  "committedAt": "2026-09-14T00:33:28Z",
   "tokens": [
     "--p42-block-gap",
     "--p42-card-padding",
@@ -42,6 +42,7 @@
     "--p42-track-3",
     "--p42-track-4",
     "--p42-track-5",
+    "--p42-track-6",
     "--p42-track-wide-1",
     "--p42-track-wide-2",
     "--p42-track-wide-3",
@@ -51,27 +52,27 @@
   "files": [
     {
       "path": "layouts/compact/layout.css",
-      "vendored": "sha256:8755dbfa0d782fc6e488f129a61e53ec1827fdc716d8411113843eda55f126af"
+      "vendored": "sha256:5fd4fed871720532425a952dfc74effbf568177949bb93033e1dc4200b4e908a"
     },
     {
       "path": "layouts/compact/layout.json",
-      "vendored": "sha256:4d96adeac3ee4c933d06c9113da7e0ea9a528556e44dc66d2bb99eb6c0886164"
+      "vendored": "sha256:ec3a834277008773112bd0bce002f81910b504661d94f671bbbf4641025a54c2"
     },
     {
       "path": "layouts/standard/layout.css",
-      "vendored": "sha256:fde57d6a1d56af98b41b2be0e1e5c740041cb0f2c28d72f76c2c1912bc0d38ed"
+      "vendored": "sha256:0d031bef924b53959bc9616c39a306958ef577bdb9a4a20e985e1a9ccdb36f0d"
     },
     {
       "path": "layouts/standard/layout.json",
-      "vendored": "sha256:ad69ae95b5e8d94381c8bf98efe6b09a38b659370a154cf6ef888c98cc84f751"
+      "vendored": "sha256:4c062589ded5592b38e5ecdbe677b9e35eca6ee795a87a168b492a38e6b0fc20"
     },
     {
       "path": "layouts/wide/layout.css",
-      "vendored": "sha256:bba6b3fda3948141672ba3728557a100439ed8d3c327f6f82e36053d6ebbb4cb"
+      "vendored": "sha256:02b2961e8772d1c4debbe27db3eedc2c4999b2fdbda3791aceb5cdba4d9e0178"
     },
     {
       "path": "layouts/wide/layout.json",
-      "vendored": "sha256:e0ffbd07e03a47a4097b414308a92f251ad6e1385a047237f6179833ba67a9cd"
+      "vendored": "sha256:18fa7544d04f2a53a9fa10fa80cc1817aa058fbb091a6288c84c3bad99775a36"
     }
   ]
 }
