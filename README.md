@@ -8,7 +8,7 @@ Each folder under `themes/` is a complete, deployable presentation bundle. The G
 
 ---
 
-## Built-In Permanent Themes
+## Optional Gallery themes
 
 | Theme ID | Name | Accent | Atmosphere |
 | :--- | :--- | :--- | :--- |
@@ -61,7 +61,7 @@ copy points at `/platform/themes/<id>/` instead.
 ## Documentation & Theme Authoring
 
 - [Using a Gallery theme on your site](docs/USING_A_THEME.md) -- download a folder,
-  install it, and what still stops that being a pure drop-in
+  install it in the adopting site and select it independently of layout
 - [Theme Authoring Guide](docs/THEME_AUTHORING_GUIDE.md)
 - [Theme JSON Schema](docs/THEME_SCHEMA.md)
 - [Theme Correctness Spec](docs/THEME_CORRECTNESS_SPEC.md) -- the rules `npm test` enforces

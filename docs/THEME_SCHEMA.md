@@ -33,7 +33,7 @@ The artwork filenames are **not** free: `assets.hero` must be `hero.png` and `as
 
 The bundle must include `theme.json`, `tokens.css`, `portal.css`, `mark.svg`, `hero.png`, and all four badge files. Its ID must match `^[a-z0-9]+(?:-[a-z0-9]+)*$` and the directory name. Run `npm test` to validate every bundle and asset reference.
 
-The portal loads `tokens.css` and `portal.css` for the configured theme. It derives the favicon, brand mark, hero, and badges from the same bundle. Theme code may style stable component classes, but it may not replace content, behavior, routing, authentication, or data contracts.
+The portal loads `tokens.css` and `portal.css` for the configured theme. It derives the favicon, brand mark, hero, and badges from the same bundle. Theme code may change appearance, but must not change content, layout, spacing, density, behavior, routing, authentication, or data contracts. Layout bundles own composition independently.
 
 Every bundle must also declare a top-level `"polarity"` of `"light"` or `"dark"`.
 

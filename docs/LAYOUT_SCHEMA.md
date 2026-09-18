@@ -65,7 +65,8 @@ silently stops being read.
 
 ## The composition vocabulary
 
-All 32 tokens are required. A missing token is not a soft default -- it means
+All 42 tokens in `platform/layout-tokens.lock.json` are required. That file is
+the executable vocabulary; the groups below describe it. A missing token means
 that surface silently inherits whatever the previously selected layout left
 behind, which is a cross-layout bug that only appears when a user switches.
 
