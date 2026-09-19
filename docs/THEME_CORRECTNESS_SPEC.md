@@ -37,7 +37,7 @@ before publishing to Pages. A violation blocks the deploy.
 
 ## T1 — The token contract
 
-Every theme declares **exactly** the 41 tokens listed in `TOKEN_CONTRACT` in
+Every theme declares **exactly** the 48 tokens listed in `TOKEN_CONTRACT` in
 `scripts/validate-theme-correctness.mjs`. That array is the contract; this
 document does not restate it, because a second copy would drift.
 
@@ -45,7 +45,8 @@ Both directions are enforced:
 
 - **Missing** a token leaves a portal surface unstyled the moment a deployment
   selects this theme. The portal reads token names, not theme names — it has no
-  fallback and no way to know one is absent.
+  reliable substitute for a complete bundle. Core fallback values do not prove
+  that the selected theme is complete or accessible.
 - **Inventing** a token ships appearance that no other theme can express. The
   next theme switch silently drops it.
 
